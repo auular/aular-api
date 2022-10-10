@@ -4,16 +4,19 @@ import org.hibernate.annotations.*;
 
 import javax.persistence.*;
 import javax.persistence.Entity;
+import javax.persistence.Table;
 import java.time.Instant;
 import java.util.UUID;
 
+
 @Entity
+@Table(name = "tab_partner")
 public class Partner {
     @Id
     @GeneratedValue
     private int id;
 
-    private UUID uuid;
+    private String uuid;
 
     private String name;
     private String email;
@@ -30,29 +33,8 @@ public class Partner {
 
     private Instant deleted_at;
 
-    public Partner(
-            UUID uuid,
-            String name,
-            String email,
-            String password,
-            String document_id,
-            boolean fidelity,
-            String phone_number
-    ) {
-        this.uuid = UUID.randomUUID();
-        this.name = name;
-        this.email = email;
-        this.password = password;
-        this.document_id = document_id;
-        this.fidelity = fidelity;
-        this.phone_number = phone_number;
-        this.created_at = Instant.now();
-        this.updated_at = Instant.now();
-        this.deleted_at = null;
-    }
-
     protected Partner() {
-        this.uuid = UUID.randomUUID();
+        this.uuid = UUID.randomUUID().toString();
     }
 
     public int getId() {
@@ -63,11 +45,11 @@ public class Partner {
         this.id = id;
     }
 
-    public UUID getUuid() {
+    public String getUuid() {
         return uuid;
     }
 
-    public void setUuid(UUID uuid) {
+    public void setUuid(String uuid) {
         this.uuid = uuid;
     }
 
