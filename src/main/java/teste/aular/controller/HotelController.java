@@ -12,22 +12,22 @@ import java.util.List;
 @RequestMapping("/hotels")
 public class HotelController {
     @Autowired
-    private HotelRepository repository;
+    private HotelRepository hotelRepository;
 
 
 
     @PostMapping
     public ResponseEntity<Hotel> postHotel(@RequestBody Hotel hotel){
-        if (repository.findByDocumentId(hotel.getHotelDocumentId())){
+        if (hotelRepository.findByHotelDocumentId(hotel.getHotelDocumentId())){
             return ResponseEntity.status(400).build();
         }
-        repository.save(hotel);
+        hotelRepository.save(hotel);
         return ResponseEntity.status(200).body(hotel);
     }
 
     @GetMapping
     public ResponseEntity<List<Hotel>> getHotels() {
-        List hotels = repository.findAll();
+        List hotels = hotelRepository.findAll();
         return hotels.isEmpty()
                 ? ResponseEntity.status(204).build()
                 : ResponseEntity.status(200).body(hotels);
@@ -36,9 +36,9 @@ public class HotelController {
     @PutMapping
     public ResponseEntity<Hotel> putHotel(@PathVariable Integer id,
                                           @RequestBody Hotel hotel) {
-        if (repository.existsById(id)){
+        if (hotelRepository.existsById(id)){
             hotel.setHotelId(id);
-            repository.save(hotel);
+            hotelRepository.save(hotel);
             return  ResponseEntity.status(200).body(hotel);
         }
         return ResponseEntity.status(404).build();
@@ -46,8 +46,8 @@ public class HotelController {
 
     @DeleteMapping
     public ResponseEntity<Void> deleteHotel(@PathVariable Integer id) {
-        if (repository.existsById(id)) {
-            repository.deleteById(id);
+        if (hotelRepository.existsById(id)) {
+            hotelRepository.deleteById(id);
             ResponseEntity.status(200).build();
         }
         return ResponseEntity.status(404).build();
