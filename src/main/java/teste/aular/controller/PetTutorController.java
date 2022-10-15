@@ -39,8 +39,6 @@ public class PetTutorController {
 
     @PostMapping
     public ResponseEntity<PetTutor> addPetTutor(@RequestBody PetTutor petTutor) {
-        petTutor.setCreatedAt(LocalDateTime.now());
-        petTutor.setUpdatedAt(LocalDateTime.now());
         petTutorRepository.save(petTutor);
         return ResponseEntity.status(201).body(petTutor);
     }
@@ -51,12 +49,8 @@ public class PetTutorController {
             @PathVariable String documentId,
             @RequestBody PetTutor petTutor) {
         if (petTutorRepository.existsByDocumentId(documentId)) {
-
             PetTutor pe = petTutorRepository.findById(findId(documentId)).get();
-
             petTutor.setPetTutorId(findId(documentId));
-            petTutor.setCreatedAt(pe.getCreatedAt());
-            petTutor.setUpdatedAt(LocalDateTime.now());
             petTutorRepository.save(petTutor);
             return ResponseEntity.status(200).body(petTutor);
         }
@@ -72,6 +66,7 @@ public class PetTutorController {
         if (petTutorRepository.existsByDocumentId(documentId)) {
             PetTutor pe = petTutorRepository.findById(findId(documentId)).get();
             pe.setActive(false);
+            pe.setDeactivatedAt(LocalDateTime.now());
             return ResponseEntity.status(200).build();
         }
         return ResponseEntity.status(404).build();

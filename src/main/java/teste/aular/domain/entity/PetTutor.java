@@ -1,5 +1,8 @@
 package teste.aular.domain.entity;
 
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
+
 import javax.persistence.*;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
@@ -21,14 +24,16 @@ public class PetTutor {
     @Email
     private String email;
     private String password;
+    @Column(updatable = false)
     private String documentId;
     private String phoneNumber;
 
 
-    //@CreationTimestamp
+    @CreationTimestamp
+    @Column(updatable = false)
     private LocalDateTime createdAt;
 
-    //@UpdateTimestamp
+    @UpdateTimestamp
     private LocalDateTime updatedAt;
 
     private LocalDateTime deactivatedAt;
@@ -37,11 +42,11 @@ public class PetTutor {
 
 
     public PetTutor() {
+        this.petTutorUuid = UUID.randomUUID().toString();
         this.active = true;
     }
 
     //GETTERS SETTERS
-
     public Integer getPetTutorId() {
         return petTutorId;
     }
