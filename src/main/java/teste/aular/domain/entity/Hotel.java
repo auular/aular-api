@@ -13,11 +13,9 @@ import java.time.LocalDate;
 import java.util.UUID;
 
 @Entity
+@Table(name = "tab_hotel")
 public class Hotel {
 
-
-    @OneToOne
-    private Plan plan;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer hotelId;
@@ -26,37 +24,39 @@ public class Hotel {
 
     @NotBlank
     @Size(min=6)
-    private String hotelName;
+    private String name;
 
     @Email
-    private String hotemEmail;
+    private String email;
 
     @NotBlank
     @Size(min=8)
-    private String hotelPassword;
+    private String password;
 
     @NotBlank
-    private String hotelDocumentId;
+    private String documentId;
+
+    private Boolean fidelity;
+
+    @NotBlank
+    private String planType;
 
     @NotNull
-    private Double hotelRates;
+    private Double rates;
 
     @NotBlank
-    private String hotelPlanType;
-
-
-    private Boolean hotelLoyalty;
-
-    @NotBlank
-    private String hotelPhoneNumber;
+    private String phoneNumber;
 
     @CreationTimestamp
-    private LocalDate hotelCreatedAt;
+    private LocalDate createdAt;
 
     @UpdateTimestamp
-    private LocalDate hotelEditedAt;
+    private LocalDate updatedAt;
 
-    private LocalDate hotelDeletedAt;
+    private LocalDate deletedAt;
+
+//    @OneToOne
+//    private Plan plan;
 
     public Integer getHotelId() {
         return hotelId;
@@ -74,93 +74,89 @@ public class Hotel {
         this.hotelUuid = hotelUuid;
     }
 
-    public String getHotelName() {
-        return hotelName;
+    public String getName() {
+        return name;
     }
 
-    public void setHotelName(String hotelName) {
-        this.hotelName = hotelName;
+    public void setName(String name) {
+        this.name = name;
     }
 
-    public String getHotemEmail() {
-        return hotemEmail;
+    public String getEmail() {
+        return email;
     }
 
-    public void setHotemEmail(String hotemEmail) {
-        this.hotemEmail = hotemEmail;
+    public void setEmail(String email) {
+        this.email = email;
     }
 
-    public String seePassword(){
-        return hotelPassword;
+    public void setPassword(String password) {
+        this.password = password;
     }
 
-    public void setHotelPassword(String hotelPassword) {
-        this.hotelPassword = hotelPassword;
+    public String getDocumentId() {
+        return documentId;
     }
 
-    public String getHotelDocumentId() {
-        return hotelDocumentId;
+    public void setDocumentId(String documentId) {
+        this.documentId = documentId;
     }
 
-    public void setHotelDocumentId(String hotelDocumentId) {
-        this.hotelDocumentId = hotelDocumentId;
+    public Boolean getFidelity() {
+        return fidelity;
     }
 
-    public Double getHotelRates() {
-        return hotelRates;
+    public void setFidelity(Boolean fidelity) {
+        this.fidelity = fidelity;
     }
 
-    public void setHotelRates(Double hotelRates) {
-        this.hotelRates = hotelRates;
+    public String getPlanType() {
+        return planType;
     }
 
-    public String getHotelPlanType() {
-        return hotelPlanType;
+    public void setPlanType(String planType) {
+        this.planType = planType;
     }
 
-    public void setHotelPlanType(String hotelPlanType) {
-        this.hotelPlanType = hotelPlanType;
+    public Double getRates() {
+        return rates;
     }
 
-    public Boolean getHotelLoyalty() {
-        return hotelLoyalty;
+    public void setRates(Double rates) {
+        this.rates = rates;
     }
 
-    public void setHotelLoyalty(Boolean hotelLoyalty) {
-        this.hotelLoyalty = hotelLoyalty;
+    public String getPhoneNumber() {
+        return phoneNumber;
     }
 
-    public String getHotelPhoneNumber() {
-        return hotelPhoneNumber;
+    public void setPhoneNumber(String phoneNumber) {
+        this.phoneNumber = phoneNumber;
     }
 
-    public void setHotelPhoneNumber(String hotelPhoneNumber) {
-        this.hotelPhoneNumber = hotelPhoneNumber;
+    public LocalDate getCreatedAt() {
+        return createdAt;
     }
 
-    public LocalDate getHotelCreatedAt() {
-        return hotelCreatedAt;
+    public void setCreatedAt(LocalDate createdAt) {
+        this.createdAt = createdAt;
     }
 
-    public void setHotelCreatedAt(LocalDate hotelCreatedAt) {
-        this.hotelCreatedAt = hotelCreatedAt;
+    public LocalDate getUpdatedAt() {
+        return updatedAt;
     }
 
-    public LocalDate getHotelEditedAt() {
-        return hotelEditedAt;
+    public void setUpdatedAt(LocalDate updatedAt) {
+        this.updatedAt = updatedAt;
     }
 
-    public void setHotelEditedAt(LocalDate hotelEditedAt) {
-        this.hotelEditedAt = hotelEditedAt;
+    public LocalDate getDeletedAt() {
+        return deletedAt;
     }
 
-    public LocalDate getHotelDeletedAt() {
-        return hotelDeletedAt;
+    public void setDeletedAt(LocalDate deletedAt) {
+        this.deletedAt = deletedAt;
     }
-
-    public void setHotelDeletedAt(LocalDate hotelDeletedAt) {
-        this.hotelDeletedAt = hotelDeletedAt;
-    }
-
-
 }
+
+

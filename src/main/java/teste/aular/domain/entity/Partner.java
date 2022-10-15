@@ -14,43 +14,39 @@ import java.util.UUID;
 public class Partner {
     @Id
     @GeneratedValue
-    private int id;
+    private int partnerId;
 
-    private String uuid;
-
+    private String partnerUuid;
     private String name;
     private String email;
     private String password;
-    private String document_id;
+    private String documentId;
     private boolean fidelity;
-    private String phone_number;
-
+    private String phoneNumber;
     @CreationTimestamp
-    private Instant created_at;
-
+    private Instant createdAt;
     @UpdateTimestamp
-    private Instant updated_at;
-
-    private Instant deleted_at;
+    private Instant updatedAt;
+    private Instant deletedAt;
 
     protected Partner() {
-        this.uuid = UUID.randomUUID().toString();
+        this.partnerUuid = UUID.randomUUID().toString();
     }
 
-    public int getId() {
-        return id;
+    public int getPartnerId() {
+        return partnerId;
     }
 
-    public void setId(int id) {
-        this.id = id;
+    public void setPartnerId(int partnerId) {
+        this.partnerId = partnerId;
     }
 
-    public String getUuid() {
-        return uuid;
+    public String getPartnerUuid() {
+        return partnerUuid;
     }
 
-    public void setUuid(String uuid) {
-        this.uuid = uuid;
+    public void setPartnerUuid(String partnerUuid) {
+        this.partnerUuid = partnerUuid;
     }
 
     public String getName() {
@@ -69,16 +65,16 @@ public class Partner {
         this.email = email;
     }
 
+    public String getPassword() {
+        return password;
+    }
+
     public void setPassword(String password) {
         this.password = password;
     }
 
-    public String getDocument_id() {
-        return document_id;
-    }
-
-    public void setDocument_id(String document_id) {
-        this.document_id = document_id;
+    public void setDocumentId(String documentId) {
+        this.documentId = documentId;
     }
 
     public boolean isFidelity() {
@@ -89,35 +85,35 @@ public class Partner {
         this.fidelity = fidelity;
     }
 
-    public String getPhone_number() {
-        return phone_number;
+    public String getPhoneNumber() {
+        return phoneNumber;
     }
 
-    public void setPhone_number(String phone_number) {
-        this.phone_number = phone_number;
+    public void setPhoneNumber(String phoneNumber) {
+        this.phoneNumber = phoneNumber;
     }
 
-    public Instant getCreated_at() {
-        return created_at;
+    public Instant getCreatedAt() {
+        return createdAt;
     }
 
-    public void setCreated_at(Instant created_at) {
-        this.created_at = created_at;
+    public void setCreatedAt(Instant createdAt) {
+        this.createdAt = createdAt;
     }
 
-    public Instant getUpdated_at() {
-        return updated_at;
+    public Instant getUpdatedAt() {
+        return updatedAt;
     }
 
-    public void setUpdated_at(Instant updated_at) {
-        this.updated_at = updated_at;
+    public void setUpdatedAt(Instant updatedAt) {
+        this.updatedAt = updatedAt;
     }
 
-    public Instant getDeleted_at() {
-        return deleted_at;
+    public Instant getDeletedAt() {
+        return deletedAt;
     }
 
-    public void setDeleted_at(Instant deleted_at) {
-        this.deleted_at = deleted_at;
+    public void setDeletedAt(Instant deletedAt) {
+        this.deletedAt = deletedAt;
     }
 }

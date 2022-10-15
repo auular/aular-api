@@ -1,9 +1,6 @@
 package teste.aular.domain.entity;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
@@ -11,11 +8,13 @@ import java.time.LocalDateTime;
 import java.util.UUID;
 
 @Entity
+@Table(name = "tab_pet_tutor")
 public class PetTutor {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer idPetTutor;
+    private Integer petTutorId;
 
+    private String petTutorUuid;
     @NotBlank
     @Size(min = 3)
     private String name;
@@ -23,16 +22,16 @@ public class PetTutor {
     private String email;
     private String password;
     private String documentId;
-    private String phone_number;
+    private String phoneNumber;
 
 
     //@CreationTimestamp
-    private LocalDateTime created_at;
+    private LocalDateTime createdAt;
 
     //@UpdateTimestamp
-    private LocalDateTime updated_at;
+    private LocalDateTime updatedAt;
 
-    private LocalDateTime deactivated_at;
+    private LocalDateTime deactivatedAt;
 
     private Boolean active;
 
@@ -42,12 +41,21 @@ public class PetTutor {
     }
 
     //GETTERS SETTERS
-    public Integer getIdPetTutor() {
-        return idPetTutor;
+
+    public Integer getPetTutorId() {
+        return petTutorId;
     }
 
-    public void setIdPetTutor(Integer idPetTutor) {
-        this.idPetTutor = idPetTutor;
+    public void setPetTutorId(Integer petTutorId) {
+        this.petTutorId = petTutorId;
+    }
+
+    public String getPetTutorUuid() {
+        return petTutorUuid;
+    }
+
+    public void setPetTutorUuid(String petTutorUuid) {
+        this.petTutorUuid = petTutorUuid;
     }
 
     public String getName() {
@@ -78,36 +86,36 @@ public class PetTutor {
         this.documentId = documentId;
     }
 
-    public String getPhone_number() {
-        return phone_number;
+    public String getPhoneNumber() {
+        return phoneNumber;
     }
 
-    public void setPhone_number(String phone_number) {
-        this.phone_number = phone_number;
+    public void setPhoneNumber(String phoneNumber) {
+        this.phoneNumber = phoneNumber;
     }
 
-    public LocalDateTime getCreated_at() {
-        return created_at;
+    public LocalDateTime getCreatedAt() {
+        return createdAt;
     }
 
-    public void setCreated_at(LocalDateTime created_at) {
-        this.created_at = created_at;
+    public void setCreatedAt(LocalDateTime createdAt) {
+        this.createdAt = createdAt;
     }
 
-    public LocalDateTime getUpdated_at() {
-        return updated_at;
+    public LocalDateTime getUpdatedAt() {
+        return updatedAt;
     }
 
-    public void setUpdated_at(LocalDateTime updated_at) {
-        this.updated_at = updated_at;
+    public void setUpdatedAt(LocalDateTime updatedAt) {
+        this.updatedAt = updatedAt;
     }
 
-    public LocalDateTime getDeactivated_at() {
-        return deactivated_at;
+    public LocalDateTime getDeactivatedAt() {
+        return deactivatedAt;
     }
 
-    public void setDeactivated_at(LocalDateTime deactivated_at) {
-        this.deactivated_at = deactivated_at;
+    public void setDeactivatedAt(LocalDateTime deactivatedAt) {
+        this.deactivatedAt = deactivatedAt;
     }
 
     public Boolean getActive() {

@@ -12,13 +12,13 @@ import java.util.List;
 @RequestMapping("/hotels")
 public class HotelController {
     @Autowired
-    private HotelRepository hotelRepository;
+        private HotelRepository hotelRepository;
 
 
 
     @PostMapping
     public ResponseEntity<Hotel> postHotel(@RequestBody Hotel hotel){
-        if (hotelRepository.findByHotelDocumentId(hotel.getHotelDocumentId())){
+        if (hotelRepository.findByDocumentId(hotel.getDocumentId())){
             return ResponseEntity.status(400).build();
         }
         hotelRepository.save(hotel);

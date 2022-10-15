@@ -7,6 +7,6 @@ import java.util.List;
 
 public interface HotelRepository extends JpaRepository<Hotel, Integer> {
 
-     boolean findByHotelDocumentId(String hotelDocumentId);
+     boolean findByDocumentId(String hotelDocumentId);
 
 }

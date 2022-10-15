@@ -23,7 +23,7 @@ public class PetTutorController {
         for (PetTutor petTutor : petTutors) {
             if (petTutor.getDocumentId().equals(documentId)) {
                 //System.out.println("ID encontrado");
-                return petTutor.getIdPetTutor();
+                return petTutor.getPetTutorId();
             }
         }
         return null;
@@ -39,8 +39,8 @@ public class PetTutorController {
 
     @PostMapping
     public ResponseEntity<PetTutor> addPetTutor(@RequestBody PetTutor petTutor) {
-        petTutor.setCreated_at(LocalDateTime.now());
-        petTutor.setUpdated_at(LocalDateTime.now());
+        petTutor.setCreatedAt(LocalDateTime.now());
+        petTutor.setUpdatedAt(LocalDateTime.now());
         petTutorRepository.save(petTutor);
         return ResponseEntity.status(201).body(petTutor);
     }
@@ -54,9 +54,9 @@ public class PetTutorController {
 
             PetTutor pe = petTutorRepository.findById(findId(documentId)).get();
 
-            petTutor.setIdPetTutor(findId(documentId));
-            petTutor.setCreated_at(pe.getCreated_at());
-            petTutor.setUpdated_at(LocalDateTime.now());
+            petTutor.setPetTutorId(findId(documentId));
+            petTutor.setCreatedAt(pe.getCreatedAt());
+            petTutor.setUpdatedAt(LocalDateTime.now());
             petTutorRepository.save(petTutor);
             return ResponseEntity.status(200).body(petTutor);
         }
