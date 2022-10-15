@@ -65,12 +65,13 @@ public class Partner {
         this.email = email;
     }
 
-    public String getPassword() {
-        return password;
-    }
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public String getDocumentId() {
+        return documentId;
     }
 
     public void setDocumentId(String documentId) {
