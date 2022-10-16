@@ -5,9 +5,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.HttpClientErrorException;
-import teste.aular.application.FileService;
+import teste.aular.application.PartnerFileService;
 import teste.aular.domain.contract.PartnerRepository;
-import teste.aular.domain.entity.Hotel;
 import teste.aular.domain.entity.Partner;
 import teste.aular.domain.entity.PetTutor;
 import teste.aular.utils.ListObj;
@@ -76,15 +75,15 @@ public class PartnerController {
         return ResponseEntity.status(404).build();
     }
 
-    @GetMapping("/gerarArquivo")
+    @GetMapping("/fileGenerator")
     public ResponseEntity<List<PetTutor>> getListObj() {
         ListObj<Partner> partnerListObj = new ListObj<>(partnerRepository.findAll().size());
 
         for (Partner p : partnerRepository.findAll()) {
-            partnerListObj.adiciona(p);
+            partnerListObj.add(p);
         }
 
-        FileService.gravaArquivoCsv(partnerListObj, "partnerFile");
+        PartnerFileService.PartnerCsvGenerate(partnerListObj, "partnerFile");
 
         return ResponseEntity.status(200).build();
     }

@@ -3,75 +3,78 @@ package teste.aular.utils;
 public class ListObj<T> {
     private T[] vetor;
 
-    private int nroElem;
+    private int numberOfElements;
 
-    public ListObj(int tamanho) {
-        vetor = (T[]) new Object[tamanho];
-        nroElem = 0;
+    public ListObj(int capacity) {
+        vetor = (T[]) new Object[capacity];
+        numberOfElements = 0;
     }
 
-    public void adiciona(T elemento) {
-        if (nroElem >= vetor.length) {
-            System.out.println("Lista cheia!");;
+    public void add(T element) {
+        if (numberOfElements >= vetor.length) {
+            System.out.println("Full list!");;
         }
         else {
-            vetor[nroElem++] = elemento;
+            vetor[numberOfElements++] = element;
         }
     }
 
-    public int busca(T elementoBuscado) {
-        for (int i = 0; i < nroElem; i++) {
-            if (vetor[i].equals(elementoBuscado)) {
+    public int search(T searchedElement) {
+        for (int i = 0; i < numberOfElements; i++) {
+            if (vetor[i].equals(searchedElement)) {
                 return i;
             }
         }
         return -1;
     }
 
-    public boolean removePeloIndice (int indice) {
-        if (indice < 0 || indice >= nroElem) {
-            System.out.println("\nÍndice inválido!");
+    public boolean removeByIndex(int index) {
+        if (index < 0 || index >= numberOfElements) {
+            System.out.println("\nInvalid index!");
             return false;
         }
 
         // Loop para "deslocar para a esquerda" os elementos do vetor
         // sobrescrevendo o elemento removido
-        for (int i = indice; i < nroElem-1; i++) {
+        for (int i = index; i < numberOfElements -1; i++) {
             vetor[i] = vetor[i+1];
         }
 
-        nroElem--;
+        numberOfElements--;
         return true;
     }
 
-    public boolean removeElemento(T elementoARemover) {
-        return removePeloIndice(busca(elementoARemover));
+    public boolean removeElement(T elementToRemove) {
+
+        return removeByIndex(search(elementToRemove));
     }
 
-    public int getTamanho() {
-        return nroElem;
+    public int getSize() {
+
+        return numberOfElements;
     }
 
-    public T getElemento(int indice) {
-        if (indice < 0 || indice >= nroElem) {
+    public T getElement(int index) {
+        if (index < 0 || index >= numberOfElements) {
             return null;
         }
         else {
-            return vetor[indice];
+            return vetor[index];
         }
     }
 
-    public void limpa() {
-        nroElem = 0;
+    public void clean() {
+
+        numberOfElements = 0;
     }
 
-    public void exibe() {
-        if (nroElem == 0) {
-            System.out.println("\nA lista está vazia.");
+    public void show() {
+        if (numberOfElements == 0) {
+            System.out.println("\nEmpty list.");
         }
         else {
-            System.out.println("\nElementos da lista:");
-            for (int i = 0; i < nroElem; i++) {
+            System.out.println("\nList Elements:");
+            for (int i = 0; i < numberOfElements; i++) {
                 System.out.println(vetor[i]);
             }
         }

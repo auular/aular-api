@@ -12,40 +12,40 @@ import java.util.*;
 
 import java.io.FileWriter;
 
-public class FileService {
+public class PartnerFileService {
 
-    public static void gravaArquivoCsv(ListObj<Partner> lista, String nomeArq){
-        FileWriter arq = null;
-        Formatter saida = null;
-        Boolean   deuRuim =false;
-        String registroHeader = "00";
-        String registroDetalhe = "02";
-        String registroTrailer = "01";
-        String tipoArquivo = "Partner";
-        String versaoLayout = "01";
-        nomeArq +=".csv";
+    public static void PartnerCsvGenerate(ListObj<Partner> list, String fileName){
+        FileWriter file = null;
+        Formatter output = null;
+        Boolean went_bad =false;
+        String headerRecord = "00";
+        String bodyRecord = "02";
+        String trailerRecord = "01";
+        String fileType = "Partner";
+        String layoutVersion = "01";
+        fileName +=".csv";
 
         try{
 
-            arq = new FileWriter(nomeArq);
-            saida =new Formatter(arq);
+            file = new FileWriter(fileName);
+            output =new Formatter(file);
         }catch (IOException erro){
-            System.out.println("Erro ao abrir o arquivo");
+            System.out.println("Error opening file");
             System.exit(1);
         }
         try{
-            //Gravando header
-            saida.format("%s;%S;%s;%s\n",
-                    registroHeader,
-                    tipoArquivo,
+            //Header
+            output.format("%s;%S;%s;%s\n",
+                    headerRecord,
+                    fileType,
                     LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")),
-                    versaoLayout
+                    layoutVersion
             );
-            //Gravando detalhe
-            for (int i=0; i < lista.getTamanho(); i++){
-                Partner p = lista.getElemento(i);
-                saida.format("%s;%d;%s;%s;%s;%s;%b;%s;%s;%s;%s;%b\n",
-                        registroDetalhe,
+            //Body
+            for (int i = 0; i < list.getSize(); i++){
+                Partner p = list.getElement(i);
+                output.format("%s;%d;%s;%s;%s;%s;%b;%s;%b;%s;%s;%s;%b\n",
+                        bodyRecord,
                         p.getPartnerId(),
                         p.getPartnerUuid(),
                         p.getName(),
@@ -53,60 +53,43 @@ public class FileService {
                         p.getDocumentId(),
                         p.isFidelity(),
                         p.getPhoneNumber(),
+                        p.getAuthenticated(),
                         p.getCreatedAt(),
                         p.getUpdatedAt(),
                         p.getDeactivatedAt(),
                         p.getActive()
                 );
             }
-            //Gravando trailer
-            saida.format("%s;%d\n",
-                    registroTrailer,
-                    lista.getTamanho()
+            //Trailer
+            output.format("%s;%d\n",
+                    trailerRecord,
+                    list.getSize()
             );
 
         }
         catch (FormatterClosedException erro){
 
-            System.out.println("Erro ao gravar o arquivo");
+            System.out.println("Error writing file");
             erro.printStackTrace();
-            deuRuim=true;
+            went_bad=true;
         }
         finally {
-            saida.close();
+            output.close();
             try{
-                arq.close();
+                file.close();
             }
             catch (IOException erro){
-                System.out.println("Erro ao fechar o arquivo");
-                deuRuim=true;
+                System.out.println("Error closing file");
+                went_bad=true;
             }
-            if (deuRuim){
+            if (went_bad){
                 System.exit(1);
             }
         }
 
     }
 
-//    public static void leExibeArquivoCsv(String nomeArq){
-//
-//        FileReader arq = null;
-//        Scanner entrada = null;
-//        Boolean deuRuim = false;
-//        nomeArq +=".csv";
-//
-//        try{
-//            arq = new FileReader(nomeArq);
-//            entrada = new Scanner(arq).useDelimiter(";|\\n");
-//        }
-//        catch (FileNotFoundException erro){
-//            System.out.println("Arquivo não encontrado!");
-//            System.exit(1);
-//
-//        }
-//    }
-
-    public static void leExibeArquivoCsv(String nomeArq){
+    public static void ReadShowPartnerCvs(String nomeArq){
 
         FileReader arq = null;
         Scanner entrada = null;
@@ -123,7 +106,7 @@ public class FileService {
 
         }
         try{
-            System.out.printf("%2S %36S %50S %40S %15S %8S %14S %20S %20S %20S %8S\n",
+            System.out.printf("%2S %36S %50S %40S %15S %8S %14S %12 %20S %20S %20S %8S\n",
                     "id",
                     "uuid",
                     "name",
@@ -131,6 +114,7 @@ public class FileService {
                     "document id",
                     "fidelity",
                     "phone_number",
+                    "autenticated",
                     "created_at",
                     "updated_at",
                     "deactivated_at",
@@ -144,11 +128,12 @@ public class FileService {
                 String document_id = entrada.next();
                 Boolean fidelity = entrada.nextBoolean();
                 String phone_number = entrada.next();
+                Boolean autenticated = entrada.nextBoolean();
                 String created_at = entrada.next();
                 String updated_at = entrada.next();
                 String deactivated_at = entrada.next();
                 Boolean active = entrada.nextBoolean();
-                System.out.printf("%2d %36s %50s %40s %15d %8b %14s %20s %20s %20s %8b",
+                System.out.printf("%2d %36s %50s %40s %15d %8b %14s %12b %20s %20s %20s %8b",
                         id,
                         uuid,
                         name,
@@ -156,6 +141,7 @@ public class FileService {
                         document_id,
                         fidelity,
                         phone_number,
+                        autenticated,
                         created_at,
                         updated_at,
                         deactivated_at,
