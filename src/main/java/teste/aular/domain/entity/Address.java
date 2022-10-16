@@ -5,14 +5,14 @@ import javax.validation.constraints.NotBlank;
 
 @Entity
 public class Address {
-    @OneToOne
-    private Hotel hotel;
-
-    @OneToOne
-    private PetTutor petTutor;
-
-    @OneToOne
-    private Partner partner;
+//    @OneToOne
+//    private Hotel hotel;
+//
+//    @OneToOne
+//    private PetTutor petTutor;
+//
+//    @OneToOne
+//    private Partner partner;
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

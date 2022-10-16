@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import teste.aular.domain.contract.PetTutorRepository;
+import teste.aular.domain.entity.Partner;
 import teste.aular.domain.entity.PetTutor;
 import javax.transaction.Transactional;
 import java.time.LocalDateTime;
@@ -16,18 +17,6 @@ import java.util.Optional;
 public class PetTutorController {
     @Autowired
     private PetTutorRepository petTutorRepository;
-
-    //Método para devolver o ID através do documentId
-    public Integer findId(String documentId) {
-        List<PetTutor> petTutors = petTutorRepository.findAll();
-        for (PetTutor petTutor : petTutors) {
-            if (petTutor.getDocumentId().equals(documentId)) {
-                //System.out.println("ID encontrado");
-                return petTutor.getPetTutorId();
-            }
-        }
-        return null;
-    }
 
     @GetMapping
     public ResponseEntity<List<PetTutor>> getPetTutors() {
@@ -70,6 +59,18 @@ public class PetTutorController {
             return ResponseEntity.status(200).build();
         }
         return ResponseEntity.status(404).build();
+    }
+
+    //Método para devolver o ID através do documentId
+    public Integer findId(String documentId) {
+        List<PetTutor> petTutors = petTutorRepository.findAll();
+        for (PetTutor petTutor : petTutors) {
+            if (petTutor.getDocumentId().equals(documentId)) {
+                //System.out.println("ID encontrado");
+                return petTutor.getPetTutorId();
+            }
+        }
+        return null;
     }
 
 //    @DeleteMapping("/{documentId}")

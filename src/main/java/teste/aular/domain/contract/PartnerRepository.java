@@ -5,4 +5,6 @@ import teste.aular.domain.entity.Partner;
 
 import java.util.UUID;
 
-public interface PartnerRepository extends JpaRepository<Partner, UUID> {}
+public interface PartnerRepository extends JpaRepository<Partner, String> {
+    boolean existsByPartnerUuid(String uuid);
+}

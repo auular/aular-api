@@ -9,7 +9,7 @@ CREATE TABLE IF NOT EXISTS `tab_partner` (
     `phone_number` varchar(20),
     `created_at` datetime NOT NULL,
     `updated_at` datetime NOT NULL,
-    `deleted_at` datetime
+    `deactivated_at` datetime
 )ENGINE=InnoDB DEFAULT CHARSET=UTF8;
 
 CREATE TABLE IF NOT EXISTS tab_hotel (
