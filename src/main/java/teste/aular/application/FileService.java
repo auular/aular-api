@@ -6,6 +6,8 @@ import teste.aular.utils.ListObj;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.*;
 
 import java.io.FileWriter;
@@ -16,6 +18,11 @@ public class FileService {
         FileWriter arq = null;
         Formatter saida = null;
         Boolean   deuRuim =false;
+        String registroHeader = "00";
+        String registroDetalhe = "02";
+        String registroTrailer = "01";
+        String tipoArquivo = "Partner";
+        String versaoLayout = "01";
         nomeArq +=".csv";
 
         try{
@@ -27,17 +34,37 @@ public class FileService {
             System.exit(1);
         }
         try{
+            //Gravando header
+            saida.format("%s;%S;%s;%s\n",
+                    registroHeader,
+                    tipoArquivo,
+                    LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")),
+                    versaoLayout
+            );
+            //Gravando detalhe
             for (int i=0; i < lista.getTamanho(); i++){
                 Partner p = lista.getElemento(i);
-                saida.format("%d;%s;%s;%s;%s;%s;%b\n",
+                saida.format("%s;%d;%s;%s;%s;%s;%b;%s;%s;%s;%s;%b\n",
+                        registroDetalhe,
                         p.getPartnerId(),
                         p.getPartnerUuid(),
                         p.getName(),
                         p.getEmail(),
                         p.getDocumentId(),
                         p.isFidelity(),
-                        p.getPhoneNumber());
+                        p.getPhoneNumber(),
+                        p.getCreatedAt(),
+                        p.getUpdatedAt(),
+                        p.getDeactivatedAt(),
+                        p.getActive()
+                );
             }
+            //Gravando trailer
+            saida.format("%s;%d\n",
+                    registroTrailer,
+                    lista.getTamanho()
+            );
+
         }
         catch (FormatterClosedException erro){
 
@@ -96,20 +123,44 @@ public class FileService {
 
         }
         try{
-            System.out.printf("%6S %6S %30S %30S %10S %12S %7S %12S\n",
-                    "id", "uuid", "nome", "email", "password","document id", "fidelity",
-                    "phone_number");
+            System.out.printf("%2S %36S %50S %40S %15S %8S %14S %20S %20S %20S %8S\n",
+                    "id",
+                    "uuid",
+                    "name",
+                    "email",
+                    "document id",
+                    "fidelity",
+                    "phone_number",
+                    "created_at",
+                    "updated_at",
+                    "deactivated_at",
+                    "active"
+                    );
             while (entrada.hasNext()){
                 int id = entrada.nextInt();
                 String uuid = entrada.next();
-                String nome = entrada.next();
+                String name = entrada.next();
                 String email = entrada.next();
-                String password = entrada.next();
                 String document_id = entrada.next();
                 Boolean fidelity = entrada.nextBoolean();
                 String phone_number = entrada.next();
-                System.out.printf("%6d %6s %30s %30s %10s %12s %7b %12s",
-                        id, uuid, nome,email,password,document_id,fidelity,phone_number);
+                String created_at = entrada.next();
+                String updated_at = entrada.next();
+                String deactivated_at = entrada.next();
+                Boolean active = entrada.nextBoolean();
+                System.out.printf("%2d %36s %50s %40s %15d %8b %14s %20s %20s %20s %8b",
+                        id,
+                        uuid,
+                        name,
+                        email,
+                        document_id,
+                        fidelity,
+                        phone_number,
+                        created_at,
+                        updated_at,
+                        deactivated_at,
+                        active
+                );
             }
         }
         catch (NoSuchElementException erro){
