@@ -34,9 +34,13 @@ public class Partner {
     private LocalDateTime deactivatedAt;
     private Boolean active;
 
+    private Boolean isAuthenticated;
+
+
     protected Partner() {
         this.partnerUuid = UUID.randomUUID().toString();
         this.active = true;
+        this.isAuthenticated = false;
     }
 
     //GETTERS SETTERS
@@ -130,5 +134,13 @@ public class Partner {
 
     public void setActive(Boolean active) {
         this.active = active;
+    }
+
+    public Boolean getAuthenticated() {
+        return isAuthenticated;
+    }
+
+    public void setAuthenticated(Boolean authenticated) {
+        isAuthenticated = authenticated;
     }
 }
