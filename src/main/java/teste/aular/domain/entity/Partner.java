@@ -32,7 +32,7 @@ public class Partner {
     @UpdateTimestamp
     private LocalDateTime updatedAt;
     private LocalDateTime deactivatedAt;
-    private Boolean active;
+    private boolean active;
 
     protected Partner() {
         this.partnerUuid = UUID.randomUUID().toString();
@@ -124,11 +124,11 @@ public class Partner {
         this.deactivatedAt = deactivatedAt;
     }
 
-    public Boolean getActive() {
+    public boolean getActive() {
         return active;
     }
 
-    public void setActive(Boolean active) {
+    public void setActive(boolean active) {
         this.active = active;
     }
 }
