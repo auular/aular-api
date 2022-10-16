@@ -3,6 +3,7 @@ package teste.aular.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.client.HttpClientErrorException;
 import teste.aular.domain.contract.PetTutorRepository;
 import teste.aular.domain.entity.Partner;
 import teste.aular.domain.entity.PetTutor;
@@ -32,14 +33,14 @@ public class PetTutorController {
         return ResponseEntity.status(201).body(petTutor);
     }
 
-    @PutMapping("/{documentId}")
+    @PutMapping("/{uuid}")
     @Transactional
     public ResponseEntity<PetTutor> updatePetTutor(
-            @PathVariable String documentId,
+            @PathVariable String uuid,
             @RequestBody PetTutor petTutor) {
-        if (petTutorRepository.existsByDocumentId(documentId)) {
-            PetTutor pe = petTutorRepository.findById(findId(documentId)).get();
-            petTutor.setPetTutorId(findId(documentId));
+        if (petTutorRepository.existsByDocumentId(uuid)) {
+            PetTutor pe = petTutorRepository.findById(uuid).get();
+            petTutor.setPetTutorId(findId(uuid));
             petTutorRepository.save(petTutor);
             return ResponseEntity.status(200).body(petTutor);
         }
@@ -47,13 +48,13 @@ public class PetTutorController {
     }
 
     //Métodos que seta o PetTutor como inativo
-    @DeleteMapping("/{documentId}")
+    @DeleteMapping("/{uuid}")
     @Transactional
     public ResponseEntity<PetTutor> deactivatePetTutor(
-            @PathVariable String documentId
+            @PathVariable String uuid
     ) {
-        if (petTutorRepository.existsByDocumentId(documentId)) {
-            PetTutor pe = petTutorRepository.findById(findId(documentId)).get();
+        if (petTutorRepository.existsById(uuid)) {
+            PetTutor pe = petTutorRepository.findById(uuid).get();
             pe.setActive(false);
             pe.setDeactivatedAt(LocalDateTime.now());
             return ResponseEntity.status(200).build();
@@ -82,5 +83,43 @@ public class PetTutorController {
 //        return ResponseEntity.status(404).build();
 //    }
 
+
+    @PostMapping("/autentication/{email}/{password}")
+    public ResponseEntity<PetTutor> logIn(@PathVariable String email,
+                                         @PathVariable String password) throws HttpClientErrorException {
+
+        List<PetTutor> registeredPetTutors = petTutorRepository.findAll();
+
+        if (registeredPetTutors.isEmpty()) {
+            return ResponseEntity.status(404).build();
+        }
+
+        for (PetTutor p : registeredPetTutors) {
+            if (p.authenticatePetTutor(email, password)) {
+                p.setAuthenticated(true);
+                petTutorRepository.save(p);
+                return ResponseEntity.status(200).body(p);
+            }
+        }
+        return ResponseEntity.status(401).build();
+    }
+
+    @DeleteMapping("autentication/{uuid}")
+    public ResponseEntity<String> logOff(@PathVariable String uuid) {
+        try {
+            if (petTutorRepository.existsByPetTutorUuid(uuid)) {
+                PetTutor h = petTutorRepository.findById(uuid).get();
+                h.setAuthenticated(false);
+                h.setDeactivatedAt(LocalDateTime.now());
+                petTutorRepository.save(h);
+                return ResponseEntity.status(200).build();
+            }
+            return ResponseEntity.status(404).build();
+
+        } catch (HttpClientErrorException.NotFound e) {
+            e.printStackTrace();
+        }
+        return ResponseEntity.status(404).build();
+    }
 
 }

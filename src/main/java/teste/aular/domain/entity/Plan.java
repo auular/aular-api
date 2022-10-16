@@ -44,8 +44,6 @@ public class Plan {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer planId;
 
-    @OneToOne
-    private  Hotel hotel;
     @NotBlank
     private String planType;
 

@@ -5,8 +5,10 @@ import teste.aular.domain.entity.Hotel;
 
 import java.util.List;
 
-public interface HotelRepository extends JpaRepository<Hotel, Integer> {
+public interface HotelRepository extends JpaRepository<Hotel, String> {
 
-     boolean findByDocumentId(String hotelDocumentId);
+     boolean existsByDocumentId(String hotelDocumentId);
 
+
+     boolean existsByHotelUuid(String uuid);
 }
