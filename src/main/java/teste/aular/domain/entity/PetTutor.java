@@ -40,10 +40,13 @@ public class PetTutor {
 
     private Boolean active;
 
+    private Boolean isAuthenticated;
+
 
     public PetTutor() {
         this.petTutorUuid = UUID.randomUUID().toString();
         this.active = true;
+        this.isAuthenticated = false;
     }
 
     //GETTERS SETTERS
@@ -129,5 +132,13 @@ public class PetTutor {
 
     public void setActive(Boolean active) {
         this.active = active;
+    }
+
+    public Boolean getAuthenticated() {
+        return isAuthenticated;
+    }
+
+    public void setAuthenticated(Boolean authenticated) {
+        isAuthenticated = authenticated;
     }
 }

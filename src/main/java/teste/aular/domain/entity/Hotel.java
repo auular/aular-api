@@ -20,7 +20,7 @@ public class Hotel {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer hotelId;
 
-    private UUID hotelUuid;
+    private String hotelUuid;
 
     @NotBlank
     @Size(min=6)
@@ -47,17 +47,25 @@ public class Hotel {
     @NotBlank
     private String phoneNumber;
 
+
     @CreationTimestamp
     private LocalDate createdAt;
 
     @UpdateTimestamp
     private LocalDate updatedAt;
 
-    private LocalDate deletedAt;
+    private LocalDate deactivatedAt;
 
-//    @OneToOne
-//    private Plan plan;
+    private Boolean active;
 
+    private Boolean isAuthenticated;
+
+    protected Hotel() {
+        this.hotelUuid = UUID.randomUUID().toString();
+        this.active = true;
+        this.isAuthenticated  = false;
+
+    }
     public Integer getHotelId() {
         return hotelId;
     }
@@ -66,11 +74,11 @@ public class Hotel {
         this.hotelId = hotelId;
     }
 
-    public UUID getHotelUuid() {
+    public String getHotelUuid() {
         return hotelUuid;
     }
 
-    public void setHotelUuid(UUID hotelUuid) {
+    public void setHotelUuid(String hotelUuid) {
         this.hotelUuid = hotelUuid;
     }
 
@@ -150,13 +158,23 @@ public class Hotel {
         this.updatedAt = updatedAt;
     }
 
-    public LocalDate getDeletedAt() {
-        return deletedAt;
+    public LocalDate getDeactivatedAt() {
+        return deactivatedAt;
     }
 
-    public void setDeletedAt(LocalDate deletedAt) {
-        this.deletedAt = deletedAt;
+    public void setDeactivatedAt(LocalDate deactivatedAt) {
+        this.deactivatedAt = deactivatedAt;
     }
+
+    public Boolean getActive() {
+        return active;
+    }
+
+    public void setActive(Boolean active) {
+        this.active = active;
+    }
+
+
 }
 
 
