@@ -13,10 +13,11 @@ import java.util.UUID;
 @Entity
 @Table(name = "tab_pet_tutor")
 public class PetTutor {
-    @Id
+
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer petTutorId;
 
+    @Id
     private String petTutorUuid;
     @NotBlank
     @Size(min = 3)
@@ -140,5 +141,10 @@ public class PetTutor {
 
     public void setAuthenticated(Boolean authenticated) {
         isAuthenticated = authenticated;
+    }
+
+    public boolean authenticatePetTutor(String email, String password) {
+        isAuthenticated = email.equals(this.email) && password.equals(this.password);
+        return isAuthenticated;
     }
 }

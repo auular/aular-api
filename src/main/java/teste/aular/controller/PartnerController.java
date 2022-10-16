@@ -4,8 +4,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.client.HttpClientErrorException;
 import teste.aular.application.FileService;
 import teste.aular.domain.contract.PartnerRepository;
+import teste.aular.domain.entity.Hotel;
 import teste.aular.domain.entity.Partner;
 import teste.aular.domain.entity.PetTutor;
 import teste.aular.utils.ListObj;
@@ -23,7 +25,7 @@ public class PartnerController {
     private PartnerRepository partnerRepository;
 
     @PostMapping
-    public ResponseEntity<Partner> addPartner(@RequestBody Partner partner) {
+    public ResponseEntity<Partner> addPartner(@RequestBody @Valid Partner partner) {
         partnerRepository.save(partner);
         return  ResponseEntity.status(201).body(partner);
     }
@@ -85,6 +87,44 @@ public class PartnerController {
         FileService.gravaArquivoCsv(partnerListObj, "partnerFile");
 
         return ResponseEntity.status(200).build();
+    }
+
+    @PostMapping("/autentication/{email}/{password}")
+    public ResponseEntity<Partner> logIn(@PathVariable String email,
+                                       @PathVariable String password) throws HttpClientErrorException {
+
+        List<Partner> registeredPartners = partnerRepository.findAll();
+
+        if (registeredPartners.isEmpty()) {
+            return ResponseEntity.status(404).build();
+        }
+
+        for (Partner p : registeredPartners) {
+            if (p.authenticatePartner(email, password)) {
+                p.setAuthenticated(true);
+                partnerRepository.save(p);
+                return ResponseEntity.status(200).body(p);
+            }
+        }
+        return ResponseEntity.status(401).build();
+    }
+
+    @DeleteMapping("autentication/{uuid}")
+    public ResponseEntity<String> logOff(@PathVariable String uuid) {
+        try {
+            if (partnerRepository.existsByPartnerUuid(uuid)) {
+                Partner h = partnerRepository.findById(uuid).get();
+                h.setAuthenticated(false);
+                h.setDeactivatedAt(LocalDateTime.now());
+                partnerRepository.save(h);
+                return ResponseEntity.status(200).build();
+            }
+            return ResponseEntity.status(404).build();
+
+        } catch (HttpClientErrorException.NotFound e) {
+            e.printStackTrace();
+        }
+        return ResponseEntity.status(404).build();
     }
 
 }

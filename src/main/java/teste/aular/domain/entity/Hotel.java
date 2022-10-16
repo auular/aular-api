@@ -10,27 +10,28 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.UUID;
 
 @Entity
 @Table(name = "tab_hotel")
 public class Hotel {
 
-    @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer hotelId;
 
+    @Id
     private String hotelUuid;
 
     @NotBlank
-    @Size(min=6)
+    @Size(min = 6)
     private String name;
 
     @Email
     private String email;
 
     @NotBlank
-    @Size(min=8)
+    @Size(min = 8)
     private String password;
 
     @NotBlank
@@ -49,23 +50,24 @@ public class Hotel {
 
 
     @CreationTimestamp
-    private LocalDate createdAt;
+    private LocalDateTime createdAt;
 
     @UpdateTimestamp
-    private LocalDate updatedAt;
+    private LocalDateTime updatedAt;
 
-    private LocalDate deactivatedAt;
+    private LocalDateTime deactivatedAt;
 
-    private Boolean active;
+    private boolean active;
 
-    private Boolean isAuthenticated;
+    private boolean isAuthenticated;
 
     protected Hotel() {
         this.hotelUuid = UUID.randomUUID().toString();
         this.active = true;
-        this.isAuthenticated  = false;
+        this.isAuthenticated = false;
 
     }
+
     public Integer getHotelId() {
         return hotelId;
     }
@@ -142,31 +144,31 @@ public class Hotel {
         this.phoneNumber = phoneNumber;
     }
 
-    public LocalDate getCreatedAt() {
+    public LocalDateTime getCreatedAt() {
         return createdAt;
     }
 
-    public void setCreatedAt(LocalDate createdAt) {
+    public void setCreatedAt(LocalDateTime createdAt) {
         this.createdAt = createdAt;
     }
 
-    public LocalDate getUpdatedAt() {
+    public LocalDateTime getUpdatedAt() {
         return updatedAt;
     }
 
-    public void setUpdatedAt(LocalDate updatedAt) {
+    public void setUpdatedAt(LocalDateTime updatedAt) {
         this.updatedAt = updatedAt;
     }
 
-    public LocalDate getDeactivatedAt() {
+    public LocalDateTime getDeactivatedAt() {
         return deactivatedAt;
     }
 
-    public void setDeactivatedAt(LocalDate deactivatedAt) {
+    public void setDeactivatedAt(LocalDateTime deactivatedAt) {
         this.deactivatedAt = deactivatedAt;
     }
 
-    public Boolean getActive() {
+    public boolean getActive() {
         return active;
     }
 
@@ -174,7 +176,22 @@ public class Hotel {
         this.active = active;
     }
 
+    public boolean getAuthenticated() {
+        return isAuthenticated;
+    }
 
+    public void setAuthenticated(Boolean authenticated) {
+        isAuthenticated = authenticated;
+    }
+
+    public boolean authenticateHotel(String hotelEmail, String hotelPassword) {
+        isAuthenticated = hotelEmail.equals(this.email) && hotelPassword.equals(this.password);
+        return isAuthenticated;
+    }
+
+    public String seePassword(){
+        return this.password;
+    }
 }
 
 

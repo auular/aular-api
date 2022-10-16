@@ -143,4 +143,9 @@ public class Partner {
     public void setAuthenticated(Boolean authenticated) {
         isAuthenticated = authenticated;
     }
+
+    public boolean authenticatePartner(String partnerEmail, String partnerPassword) {
+        isAuthenticated = partnerEmail.equals(this.email) && partnerPassword.equals(this.password);
+        return isAuthenticated;
+    }
 }
