@@ -9,6 +9,7 @@ import teste.aular.domain.contract.HotelRepository;
 import teste.aular.domain.entity.Hotel;
 import teste.aular.domain.entity.Partner;
 
+import javax.persistence.EntityNotFoundException;
 import javax.swing.*;
 import javax.validation.Valid;
 import java.net.http.HttpClient;
@@ -16,7 +17,9 @@ import java.nio.file.Path;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.EmptyStackException;
 import java.util.List;
+
 
 @RestController
 @RequestMapping("/hotels")
@@ -26,54 +29,70 @@ public class HotelController {
 
     private List<Hotel> hotels = new ArrayList<>();
 
+
     @PostMapping
-    public ResponseEntity<Hotel> postHotel(@RequestBody @Valid Hotel hotel) {
+    public ResponseEntity<Hotel> postHotel(@RequestBody @Valid Hotel hotel) throws HttpClientErrorException {
         if (hotelRepository.existsByDocumentId(hotel.getDocumentId())) {
-            return new ResponseEntity<>(HttpStatus.CONFLICT);
+            throw new HttpClientErrorException(HttpStatus.CONFLICT);
         }
-        hotelRepository.save(hotel);
-        return ResponseEntity.status(201).body(hotel);
+        try {
+            hotelRepository.save(hotel);
+            return ResponseEntity.status(201).body(hotel);
+        } catch (HttpClientErrorException e) {
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
     }
 
     @GetMapping
     public ResponseEntity<List<Hotel>> getHotels() {
         List hotels = hotelRepository.findAll();
         return hotels.isEmpty()
-                ? ResponseEntity.status(204).build()
+                ? new ResponseEntity<>(HttpStatus.NO_CONTENT)
                 : ResponseEntity.status(200).body(hotels);
     }
 
-    @PutMapping
+    @PatchMapping("/{uuid}")
     public ResponseEntity<Hotel> putHotel(@PathVariable String uuid,
                                           @RequestBody Hotel hotel) {
-        if (hotelRepository.existsById(uuid)) {
-            hotel.setHotelUuid(uuid);
-            hotelRepository.save(hotel);
-            return ResponseEntity.status(200).body(hotel);
+        try {
+            if (hotelRepository.existsById(uuid)) {
+                hotel.setHotelUuid(uuid);
+                hotel.setUpdatedAt(LocalDateTime.now());
+                hotelRepository.save(hotel);
+                return ResponseEntity.status(200).body(hotel);
+            }
+        } catch (EntityNotFoundException e) {
+            e.printStackTrace();
+            e.getMessage();
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         }
-        return ResponseEntity.status(404).build();
+        return null;
     }
 
     @DeleteMapping
     public ResponseEntity<Void> deleteHotel(@PathVariable String uuid) {
-        if (hotelRepository.existsById(uuid)) {
+        try {
+            if (hotelRepository.existsById(uuid)) {
 
-            hotelRepository.deleteById(uuid);
-            ResponseEntity.status(200).build();
+                hotelRepository.deleteById(uuid);
+                return ResponseEntity.status(200).build();
+            }
+        } catch (EntityNotFoundException e) {
+            e.printStackTrace();
         }
         return ResponseEntity.status(404).build();
     }
 
     @PostMapping("/autentication/{email}/{password}")
-    public ResponseEntity<Hotel> logIn(@PathVariable String email,
-                                        @PathVariable String password) throws HttpClientErrorException {
+    public ResponseEntity<?> logIn(@PathVariable String email,
+                                   @PathVariable String password) throws HttpClientErrorException {
 
         List<Hotel> registeredHotels = hotelRepository.findAll();
 
         if (registeredHotels.isEmpty()) {
             return ResponseEntity.status(404).build();
         }
-
+        try {
             for (Hotel h : registeredHotels) {
                 if (h.authenticateHotel(email, password)) {
                     h.setAuthenticated(true);
@@ -81,7 +100,14 @@ public class HotelController {
                     return ResponseEntity.status(200).body(h);
                 }
             }
-        return ResponseEntity.status(401).build();
+        } catch (HttpClientErrorException.BadRequest e) {
+            e.printStackTrace();
+            e.getCause();
+            e.getMessage();
+        }
+        return ResponseEntity.badRequest().build();
+
+
     }
 
     @DeleteMapping("autentication/{uuid}")
@@ -94,10 +120,11 @@ public class HotelController {
                 hotelRepository.save(h);
                 return ResponseEntity.status(200).build();
             }
-            return ResponseEntity.status(404).build();
 
         } catch (HttpClientErrorException.NotFound e) {
             e.printStackTrace();
+            e.getCause();
+            e.getMessage();
         }
         return ResponseEntity.status(404).build();
     }
