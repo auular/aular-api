@@ -106,7 +106,7 @@ public class PartnerFileService {
 
         }
         try{
-            System.out.printf("%2S %36S %50S %40S %15S %8S %14S %12 %20S %20S %20S %8S\n",
+            System.out.printf("%2S %36S %50S %40S %15S %8S %14S %12S %20S %20S %20S %8S\n",
                     "id",
                     "uuid",
                     "name",
@@ -114,26 +114,26 @@ public class PartnerFileService {
                     "document id",
                     "fidelity",
                     "phone_number",
-                    "autenticated",
+                    "authenticated",
                     "created_at",
                     "updated_at",
                     "deactivated_at",
                     "active"
                     );
             while (entrada.hasNext()){
-                int id = entrada.nextInt();
+                String id = entrada.next();
                 String uuid = entrada.next();
                 String name = entrada.next();
                 String email = entrada.next();
                 String document_id = entrada.next();
-                Boolean fidelity = entrada.nextBoolean();
+                String fidelity = entrada.next();
                 String phone_number = entrada.next();
-                Boolean autenticated = entrada.nextBoolean();
+                String authenticated = entrada.next();
                 String created_at = entrada.next();
                 String updated_at = entrada.next();
                 String deactivated_at = entrada.next();
-                Boolean active = entrada.nextBoolean();
-                System.out.printf("%2d %36s %50s %40s %15d %8b %14s %12b %20s %20s %20s %8b",
+                String active = entrada.next();
+                System.out.printf("%2s %36s %50s %40s %15s %8s %14s %12s %20s %20s %20s %8s",
                         id,
                         uuid,
                         name,
@@ -141,7 +141,7 @@ public class PartnerFileService {
                         document_id,
                         fidelity,
                         phone_number,
-                        autenticated,
+                        authenticated,
                         created_at,
                         updated_at,
                         deactivated_at,

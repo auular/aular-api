@@ -1,6 +1,7 @@
 package teste.aular.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -13,8 +14,7 @@ import teste.aular.utils.ListObj;
 import javax.transaction.Transactional;
 import javax.validation.Valid;
 import java.time.LocalDateTime;
-import java.util.List;
-
+import java.util.*;
 
 
 @RestController
@@ -36,6 +36,35 @@ public class PartnerController {
                 ? ResponseEntity.status(204).build()
                 : ResponseEntity.status(200).body(list);
     }
+
+    @GetMapping("/orderedPartner")
+    public ResponseEntity<?> getOrderedPartner(){
+        List<Partner> list = partnerRepository.findAll();
+        ListObj<Partner> orderedList = new ListObj(list.size());
+
+        if (!list.isEmpty()) {
+            for (int i = 0; i < list.size(); i++) {
+                orderedList.add(list.get(i));
+            }
+            int indMenor;
+
+            for (int i = 0; i < orderedList.getSize(); i++) {
+                indMenor = i;
+                for (int j = i + 1; j < orderedList.getSize(); j++) {
+                    if (orderedList.getElement(j).getNumberOfCampaigns() < orderedList.getElement(indMenor).getNumberOfCampaigns()) {
+                        indMenor = j;
+                    }
+                }
+                Partner aux = orderedList.getElement(i);
+                orderedList.setElement(i, orderedList.getElement(indMenor));
+                orderedList.setElement(indMenor, aux);
+                System.out.println(orderedList.getElement(i));
+            }
+            return ResponseEntity.status(200).body(orderedList);
+        }
+        return ResponseEntity.status(204).build();
+    }
+
 
     @PatchMapping("/{uuid}/{email}/{fidelity}")
     public ResponseEntity<Partner> updatePartnerPartially(
@@ -76,7 +105,7 @@ public class PartnerController {
     }
 
     @GetMapping("/fileGenerator")
-    public ResponseEntity<List<PetTutor>> getListObj() {
+    public ResponseEntity<List<Partner>> getListObj() {
         ListObj<Partner> partnerListObj = new ListObj<>(partnerRepository.findAll().size());
 
         for (Partner p : partnerRepository.findAll()) {
@@ -114,7 +143,6 @@ public class PartnerController {
             if (partnerRepository.existsByPartnerUuid(uuid)) {
                 Partner h = partnerRepository.findById(uuid).get();
                 h.setAuthenticated(false);
-                h.setDeactivatedAt(LocalDateTime.now());
                 partnerRepository.save(h);
                 return ResponseEntity.status(200).build();
             }

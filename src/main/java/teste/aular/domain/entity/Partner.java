@@ -36,6 +36,8 @@ public class Partner {
 
     private Boolean isAuthenticated;
 
+    private int numberOfCampaigns;
+
 
     protected Partner() {
         this.partnerUuid = UUID.randomUUID().toString();
@@ -147,5 +149,13 @@ public class Partner {
     public boolean authenticatePartner(String partnerEmail, String partnerPassword) {
         isAuthenticated = partnerEmail.equals(this.email) && partnerPassword.equals(this.password);
         return isAuthenticated;
+    }
+
+    public int getNumberOfCampaigns() {
+        return numberOfCampaigns;
+    }
+
+    public void setNumberOfCampaigns(int numberOfCampaigns) {
+        this.numberOfCampaigns = numberOfCampaigns;
     }
 }

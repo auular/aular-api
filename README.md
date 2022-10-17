@@ -8,7 +8,8 @@
     "password": "josesinho",
     "documentId": "509920283718",
     "fidelity": "false",
-    "phoneNumber": "(11)9827818727"
+    "phoneNumber": "(11)9827818727",
+    "numberOfCampaigns": 8 
 }
 ```
 

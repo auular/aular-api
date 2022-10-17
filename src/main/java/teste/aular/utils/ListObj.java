@@ -79,4 +79,12 @@ public class ListObj<T> {
             }
         }
     }
+
+    public void setElement(Integer index, T element){
+        vetor[index] = element;
+    }
+
+    public T[] getVetor() {
+        return vetor;
+    }
 }
