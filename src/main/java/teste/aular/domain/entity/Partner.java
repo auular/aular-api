@@ -12,12 +12,11 @@ import java.util.UUID;
 
 
 @Entity
-@Table(name = "tab_partner")
+//@Table(name = "tab_partner")
 public class Partner {
+    @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int partnerId;
-
-    @Id
     private String partnerUuid;
     private String name;
     private String email;

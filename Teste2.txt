@@ -1,0 +1,8 @@
+00CAMPAIGN2022-10-30 21:01:0801
+02000001Gold  05000,00015000-19.19s-19.19s
+03000001Joselino Aquile                                   joselinoaqlcna@gmail.com                509920283718  false(11)98278187272022-10-29T20:52:572022-10-29T20:52:57null               true 
+02000002Gold  06000,00016000-19.19s-19.19s
+03000001Joselino Aquile                                   joselinoaqlcna@gmail.com                509920283718  false(11)98278187272022-10-29T20:52:572022-10-29T20:52:57null               true 
+02000003Silver04000,00009000-19.19s-19.19s
+03000001Joselino Aquile                                   joselinoaqlcna@gmail.com                509920283718  false(11)98278187272022-10-29T20:52:572022-10-29T20:52:57null               true 
+010000000003

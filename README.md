@@ -13,6 +13,20 @@
 }
 ```
 
+#### Campaign
+```
+{
+    "type": "Gold",
+    "value": "6000.00",
+    "click": 16000,
+    "startedAt": "2022-09-29",
+    "finishedAt": "2022-10-29",
+    "partner": {
+      "partnerId": 1
+      }
+}
+```
+
 #### PetTutor
 
 ```

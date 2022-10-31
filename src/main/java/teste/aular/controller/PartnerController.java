@@ -1,15 +1,13 @@
 package teste.aular.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.HttpClientErrorException;
-import teste.aular.application.PartnerFileService;
+import teste.aular.application.PartnerCvsFileService;
 import teste.aular.domain.contract.PartnerRepository;
 import teste.aular.domain.entity.Partner;
-import teste.aular.domain.entity.PetTutor;
 import teste.aular.utils.ListObj;
 import javax.transaction.Transactional;
 import javax.validation.Valid;
@@ -26,11 +24,11 @@ public class PartnerController {
     @PostMapping
     public ResponseEntity<Partner> addPartner(@RequestBody @Valid Partner partner) {
         partnerRepository.save(partner);
-        return  ResponseEntity.status(201).body(partner);
+        return ResponseEntity.status(201).body(partner);
     }
 
     @GetMapping
-    public ResponseEntity<List<Partner>> getPartner(){
+    public ResponseEntity<List<Partner>> getPartner() {
         List<Partner> list = partnerRepository.findAll();
         return list.isEmpty()
                 ? ResponseEntity.status(204).build()
@@ -38,7 +36,7 @@ public class PartnerController {
     }
 
     @GetMapping("/orderedPartner")
-    public ResponseEntity<?> getOrderedPartner(){
+    public ResponseEntity<?> getOrderedPartner() {
         List<Partner> list = partnerRepository.findAll();
         ListObj<Partner> orderedList = new ListObj(list.size());
 
@@ -66,37 +64,36 @@ public class PartnerController {
     }
 
 
-    @PatchMapping("/{uuid}/{email}/{fidelity}")
+    @PatchMapping("/{id}/{email}/{fidelity}")
     public ResponseEntity<Partner> updatePartnerPartially(
-            @PathVariable String uuid,
-            @RequestParam(required=false) String email,
-            @RequestParam(required=false) Boolean fidelity,
-            @RequestParam(required=false) String phoneNumber){
+            @PathVariable Integer id,
+            @RequestParam(required = false) String email,
+            @RequestParam(required = false) Boolean fidelity,
+            @RequestParam(required = false) String phoneNumber) {
         try {
-            Partner partner = partnerRepository.findById(uuid).get();
-            if (email != null){
+            Partner partner = partnerRepository.findById(id).get();
+            if (email != null) {
                 partner.setEmail(email);
             }
-            if (fidelity != null){
+            if (fidelity != null) {
                 partner.setFidelity(fidelity);
             }
-            if (phoneNumber != null){
+            if (phoneNumber != null) {
                 partner.setPhoneNumber(phoneNumber);
             }
             return new ResponseEntity<Partner>(partnerRepository.save(partner), HttpStatus.OK);
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 
-    @DeleteMapping("/{uuid}")
+    @DeleteMapping("/{id}")
     @Transactional
     public ResponseEntity<Partner> deactivatePartner(
-            @PathVariable String uuid
+            @PathVariable Integer id
     ) {
-        if (partnerRepository.existsByPartnerUuid(uuid)) {
-            Partner pa = partnerRepository.findById(uuid).get();
+        if (partnerRepository.existsById(id)) {
+            Partner pa = partnerRepository.findById(id).get();
             pa.setActive(false);
             pa.setDeactivatedAt(LocalDateTime.now());
             return ResponseEntity.status(200).build();
@@ -104,7 +101,7 @@ public class PartnerController {
         return ResponseEntity.status(404).build();
     }
 
-    @GetMapping("/fileGenerator")
+    @GetMapping("/cvsGenerator")
     public ResponseEntity<List<Partner>> getListObj() {
         ListObj<Partner> partnerListObj = new ListObj<>(partnerRepository.findAll().size());
 
@@ -112,14 +109,14 @@ public class PartnerController {
             partnerListObj.add(p);
         }
 
-        PartnerFileService.PartnerCsvGenerate(partnerListObj, "partnerFile");
+        PartnerCvsFileService.PartnerCsvGenerate(partnerListObj, "partnerFile");
 
         return ResponseEntity.status(200).build();
     }
 
     @PostMapping("/autentication/{email}/{password}")
     public ResponseEntity<Partner> logIn(@PathVariable String email,
-                                       @PathVariable String password) throws HttpClientErrorException {
+                                         @PathVariable String password) throws HttpClientErrorException {
 
         List<Partner> registeredPartners = partnerRepository.findAll();
 
@@ -137,11 +134,11 @@ public class PartnerController {
         return ResponseEntity.status(401).build();
     }
 
-    @DeleteMapping("autentication/{uuid}")
-    public ResponseEntity<String> logOff(@PathVariable String uuid) {
+    @DeleteMapping("autentication/{id}")
+    public ResponseEntity<String> logOff(@PathVariable Integer id) {
         try {
-            if (partnerRepository.existsByPartnerUuid(uuid)) {
-                Partner h = partnerRepository.findById(uuid).get();
+            if (partnerRepository.existsById(id)) {
+                Partner h = partnerRepository.findById(id).get();
                 h.setAuthenticated(false);
                 partnerRepository.save(h);
                 return ResponseEntity.status(200).build();

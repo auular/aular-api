@@ -10,11 +10,10 @@ public class ListObj<T> {
         numberOfElements = 0;
     }
 
-    public void add(T element) {
+    public void add(T element) throws ArrayStoreException {
         if (numberOfElements >= vetor.length) {
-            System.out.println("Full list!");;
-        }
-        else {
+            throw new ArrayStoreException("full list");
+        } else {
             vetor[numberOfElements++] = element;
         }
     }
@@ -36,8 +35,8 @@ public class ListObj<T> {
 
         // Loop para "deslocar para a esquerda" os elementos do vetor
         // sobrescrevendo o elemento removido
-        for (int i = index; i < numberOfElements -1; i++) {
-            vetor[i] = vetor[i+1];
+        for (int i = index; i < numberOfElements - 1; i++) {
+            vetor[i] = vetor[i + 1];
         }
 
         numberOfElements--;
@@ -57,8 +56,7 @@ public class ListObj<T> {
     public T getElement(int index) {
         if (index < 0 || index >= numberOfElements) {
             return null;
-        }
-        else {
+        } else {
             return vetor[index];
         }
     }
@@ -71,8 +69,7 @@ public class ListObj<T> {
     public void show() {
         if (numberOfElements == 0) {
             System.out.println("\nEmpty list.");
-        }
-        else {
+        } else {
             System.out.println("\nList Elements:");
             for (int i = 0; i < numberOfElements; i++) {
                 System.out.println(vetor[i]);
@@ -80,7 +77,7 @@ public class ListObj<T> {
         }
     }
 
-    public void setElement(Integer index, T element){
+    public void setElement(Integer index, T element) {
         vetor[index] = element;
     }
 

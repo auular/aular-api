@@ -9,31 +9,30 @@ import java.io.IOException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.*;
-
 import java.io.FileWriter;
 
-public class PartnerFileService {
+public class PartnerCvsFileService {
 
-    public static void PartnerCsvGenerate(ListObj<Partner> list, String fileName){
+    public static void PartnerCsvGenerate(ListObj<Partner> list, String fileName) {
         FileWriter file = null;
         Formatter output = null;
-        Boolean went_bad =false;
+        Boolean went_bad = false;
         String headerRecord = "00";
         String bodyRecord = "02";
         String trailerRecord = "01";
         String fileType = "Partner";
         String layoutVersion = "01";
-        fileName +=".csv";
+        fileName += ".csv";
 
-        try{
+        try {
 
             file = new FileWriter(fileName);
-            output =new Formatter(file);
-        }catch (IOException erro){
+            output = new Formatter(file);
+        } catch (IOException erro) {
             System.out.println("Error opening file");
             System.exit(1);
         }
-        try{
+        try {
             //Header
             output.format("%s;%S;%s;%s\n",
                     headerRecord,
@@ -42,7 +41,7 @@ public class PartnerFileService {
                     layoutVersion
             );
             //Body
-            for (int i = 0; i < list.getSize(); i++){
+            for (int i = 0; i < list.getSize(); i++) {
                 Partner p = list.getElement(i);
                 output.format("%s;%d;%s;%s;%s;%s;%b;%s;%b;%s;%s;%s;%b\n",
                         bodyRecord,
@@ -66,46 +65,42 @@ public class PartnerFileService {
                     list.getSize()
             );
 
-        }
-        catch (FormatterClosedException erro){
+        } catch (FormatterClosedException erro) {
 
             System.out.println("Error writing file");
             erro.printStackTrace();
-            went_bad=true;
-        }
-        finally {
+            went_bad = true;
+        } finally {
             output.close();
-            try{
+            try {
                 file.close();
-            }
-            catch (IOException erro){
+            } catch (IOException erro) {
                 System.out.println("Error closing file");
-                went_bad=true;
+                went_bad = true;
             }
-            if (went_bad){
+            if (went_bad) {
                 System.exit(1);
             }
         }
 
     }
 
-    public static void ReadShowPartnerCvs(String nomeArq){
+    public static void ReadShowPartnerCvs(String nomeArq) {
 
         FileReader arq = null;
         Scanner entrada = null;
         Boolean deuRuim = false;
-        nomeArq +=".csv";
+        nomeArq += ".csv";
 
-        try{
+        try {
             arq = new FileReader(nomeArq);
             entrada = new Scanner(arq).useDelimiter(";|\\n");
-        }
-        catch (FileNotFoundException erro){
+        } catch (FileNotFoundException erro) {
             System.out.println("Arquivo não encontrado!");
             System.exit(1);
 
         }
-        try{
+        try {
             System.out.printf("%2S %36S %50S %40S %15S %8S %14S %12S %20S %20S %20S %8S\n",
                     "id",
                     "uuid",
@@ -119,8 +114,8 @@ public class PartnerFileService {
                     "updated_at",
                     "deactivated_at",
                     "active"
-                    );
-            while (entrada.hasNext()){
+            );
+            while (entrada.hasNext()) {
                 String id = entrada.next();
                 String uuid = entrada.next();
                 String name = entrada.next();
@@ -148,38 +143,29 @@ public class PartnerFileService {
                         active
                 );
             }
-        }
-        catch (NoSuchElementException erro){
+        } catch (NoSuchElementException erro) {
             System.out.println("Arquivo com problemas");
             System.out.println(erro);
             erro.printStackTrace();
-            deuRuim =true;
-        }
-        catch (IllegalStateException erro){
+            deuRuim = true;
+        } catch (IllegalStateException erro) {
             System.out.println("Erro na leitura do arquivo");
             System.out.println(erro);
             erro.printStackTrace();
-            deuRuim=true;
-        }
-        finally {
+            deuRuim = true;
+        } finally {
             entrada.close();
-            try{
+            try {
                 arq.close();
-            }
-            catch (IOException erro){
+            } catch (IOException erro) {
                 System.out.println("Erro ao fechar o arquivo");
-                deuRuim=true;
+                deuRuim = true;
             }
-            if (deuRuim){
+            if (deuRuim) {
                 System.exit(1);
             }
 
         }
     }
 
-//    public static void main(String[] args) {
-//        List<Partner> lista =new List<>(5);
-//        gravaArquivoCsv( lista, "partner");
-//        leExibeArquivoCsv("partner");
-//    }
 }

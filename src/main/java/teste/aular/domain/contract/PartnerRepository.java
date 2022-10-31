@@ -5,7 +5,7 @@ import teste.aular.domain.entity.Partner;
 
 import javax.transaction.Transactional;
 
-public interface PartnerRepository extends JpaRepository<Partner, String> {
+public interface PartnerRepository extends JpaRepository<Partner, Integer> {
     boolean existsByPartnerUuid(String uuid);
 
 }

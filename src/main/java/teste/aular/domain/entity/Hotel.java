@@ -14,7 +14,7 @@ import java.time.LocalDateTime;
 import java.util.UUID;
 
 @Entity
-@Table(name = "tab_hotel")
+//@Table(name = "tab_hotel")
 public class Hotel {
 
     @GeneratedValue(strategy = GenerationType.IDENTITY)
