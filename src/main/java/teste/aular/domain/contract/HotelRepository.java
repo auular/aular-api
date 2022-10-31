@@ -5,7 +5,7 @@ import teste.aular.domain.entity.Hotel;
 
 import java.util.List;
 
-public interface HotelRepository extends JpaRepository<Hotel, String> {
+public interface HotelRepository extends JpaRepository<Hotel, Integer> {
 
      boolean existsByDocumentId(String hotelDocumentId);
 

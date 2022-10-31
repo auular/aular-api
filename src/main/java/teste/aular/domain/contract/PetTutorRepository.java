@@ -6,7 +6,7 @@ import teste.aular.domain.entity.PetTutor;
 import javax.transaction.Transactional;
 import java.util.UUID;
 
-public interface PetTutorRepository extends JpaRepository<PetTutor, String> {
+public interface PetTutorRepository extends JpaRepository<PetTutor, Integer> {
 
     boolean existsByDocumentId(String documentId);
 

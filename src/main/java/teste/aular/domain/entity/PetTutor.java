@@ -11,13 +11,11 @@ import java.time.LocalDateTime;
 import java.util.UUID;
 
 @Entity
-@Table(name = "tab_pet_tutor")
+//@Table(name = "tab_pet_tutor")
 public class PetTutor {
-
+    @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer petTutorId;
-
-    @Id
     private String petTutorUuid;
     @NotBlank
     @Size(min = 3)

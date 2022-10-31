@@ -33,34 +33,34 @@ public class PetTutorController {
         return ResponseEntity.status(201).body(petTutor);
     }
 
-    @PutMapping("/{uuid}")
-    @Transactional
-    public ResponseEntity<PetTutor> updatePetTutor(
-            @PathVariable String uuid,
-            @RequestBody PetTutor petTutor) {
-        if (petTutorRepository.existsByDocumentId(uuid)) {
-            PetTutor pe = petTutorRepository.findById(uuid).get();
-            petTutor.setPetTutorId(findId(uuid));
-            petTutorRepository.save(petTutor);
-            return ResponseEntity.status(200).body(petTutor);
-        }
-        return ResponseEntity.status(404).build();
-    }
+//    @PutMapping("/{uuid}")
+//    @Transactional
+//    public ResponseEntity<PetTutor> updatePetTutor(
+//            @PathVariable String uuid,
+//            @RequestBody PetTutor petTutor) {
+//        if (petTutorRepository.existsByDocumentId(uuid)) {
+//            PetTutor pe = petTutorRepository.findById(uuid).get();
+//            petTutor.setPetTutorId(findId(uuid));
+//            petTutorRepository.save(petTutor);
+//            return ResponseEntity.status(200).body(petTutor);
+//        }
+//        return ResponseEntity.status(404).build();
+//    }
 
     //Métodos que seta o PetTutor como inativo
-    @DeleteMapping("/{uuid}")
-    @Transactional
-    public ResponseEntity<PetTutor> deactivatePetTutor(
-            @PathVariable String uuid
-    ) {
-        if (petTutorRepository.existsById(uuid)) {
-            PetTutor pe = petTutorRepository.findById(uuid).get();
-            pe.setActive(false);
-            pe.setDeactivatedAt(LocalDateTime.now());
-            return ResponseEntity.status(200).build();
-        }
-        return ResponseEntity.status(404).build();
-    }
+//    @DeleteMapping("/{uuid}")
+//    @Transactional
+//    public ResponseEntity<PetTutor> deactivatePetTutor(
+//            @PathVariable String uuid
+//    ) {
+//        if (petTutorRepository.existsById(uuid)) {
+//            PetTutor pe = petTutorRepository.findById(uuid).get();
+//            pe.setActive(false);
+//            pe.setDeactivatedAt(LocalDateTime.now());
+//            return ResponseEntity.status(200).build();
+//        }
+//        return ResponseEntity.status(404).build();
+//    }
 
     //Método para devolver o ID através do documentId
     public Integer findId(String documentId) {
@@ -104,22 +104,22 @@ public class PetTutorController {
         return ResponseEntity.status(401).build();
     }
 
-    @DeleteMapping("autentication/{uuid}")
-    public ResponseEntity<String> logOff(@PathVariable String uuid) {
-        try {
-            if (petTutorRepository.existsByPetTutorUuid(uuid)) {
-                PetTutor h = petTutorRepository.findById(uuid).get();
-                h.setAuthenticated(false);
-                h.setDeactivatedAt(LocalDateTime.now());
-                petTutorRepository.save(h);
-                return ResponseEntity.status(200).build();
-            }
-            return ResponseEntity.status(404).build();
-
-        } catch (HttpClientErrorException.NotFound e) {
-            e.printStackTrace();
-        }
-        return ResponseEntity.status(404).build();
-    }
+//    @DeleteMapping("autentication/{uuid}")
+//    public ResponseEntity<String> logOff(@PathVariable String uuid) {
+//        try {
+//            if (petTutorRepository.existsByPetTutorUuid(uuid)) {
+//                PetTutor h = petTutorRepository.findById(uuid).get();
+//                h.setAuthenticated(false);
+//                h.setDeactivatedAt(LocalDateTime.now());
+//                petTutorRepository.save(h);
+//                return ResponseEntity.status(200).build();
+//            }
+//            return ResponseEntity.status(404).build();
+//
+//        } catch (HttpClientErrorException.NotFound e) {
+//            e.printStackTrace();
+//        }
+//        return ResponseEntity.status(404).build();
+//    }
 
 }

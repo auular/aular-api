@@ -11,7 +11,7 @@ import java.time.format.DateTimeFormatter;
 import java.util.*;
 import java.io.FileWriter;
 
-public class PartnerFileService {
+public class PartnerCvsFileService {
 
     public static void PartnerCsvGenerate(ListObj<Partner> list, String fileName) {
         FileWriter file = null;
