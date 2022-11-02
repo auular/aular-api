@@ -48,6 +48,19 @@ public class PetTutor {
         this.isAuthenticated = false;
     }
 
+    //sobrecarda do contrutor para importação de arquivo
+    public PetTutor(Integer petTutorId, String name, String email, String password, String documentId, String phoneNumber) {
+        this.petTutorId = petTutorId;
+        this.petTutorUuid = UUID.randomUUID().toString();
+        this.name = name;
+        this.email = email;
+        this.password = password;
+        this.documentId = documentId;
+        this.phoneNumber = phoneNumber;
+        this.active = false;
+        this.isAuthenticated = false;
+    }
+
     //GETTERS SETTERS
     public Integer getPetTutorId() {
         return petTutorId;
@@ -144,5 +157,24 @@ public class PetTutor {
     public boolean authenticatePetTutor(String email, String password) {
         isAuthenticated = email.equals(this.email) && password.equals(this.password);
         return isAuthenticated;
+    }
+
+
+    @Override
+    public String toString() {
+        return "PetTutor{" +
+                "petTutorId=" + petTutorId +
+                ", petTutorUuid='" + petTutorUuid + '\'' +
+                ", name='" + name + '\'' +
+                ", email='" + email + '\'' +
+                ", password='" + password + '\'' +
+                ", documentId='" + documentId + '\'' +
+                ", phoneNumber='" + phoneNumber + '\'' +
+                ", createdAt=" + createdAt +
+                ", updatedAt=" + updatedAt +
+                ", deactivatedAt=" + deactivatedAt +
+                ", active=" + active +
+                ", isAuthenticated=" + isAuthenticated +
+                '}';
     }
 }

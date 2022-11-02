@@ -37,6 +37,18 @@ public class Pet {
         this.petUuid = UUID.randomUUID().toString();
     }
 
+    //sobrecarga do contrutor para leitura de arquivo
+    public Pet(Integer petId, String name, String specie, String breed, LocalDate birthdate, String healthDescription, PetTutor petTutor) {
+        this.petId = petId;
+        this.petUuid = UUID.randomUUID().toString();
+        this.name = name;
+        this.specie = specie;
+        this.breed = breed;
+        this.birthdate = birthdate;
+        this.healthDescription = healthDescription;
+        this.petTutor = petTutor;
+    }
+
     //getters setters
     public Integer getPetId() {
         return petId;
@@ -124,5 +136,22 @@ public class Pet {
 
     public void setPetTutor(PetTutor petTutor) {
         this.petTutor = petTutor;
+    }
+
+    @Override
+    public String toString() {
+        return "Pet{" +
+                "petId=" + petId +
+                ", petUuid='" + petUuid + '\'' +
+                ", name='" + name + '\'' +
+                ", specie='" + specie + '\'' +
+                ", breed='" + breed + '\'' +
+                ", birthdate=" + birthdate +
+                ", healthDescription='" + healthDescription + '\'' +
+                ", createdAt=" + createdAt +
+                ", updatedAt=" + updatedAt +
+                ", deactivatedAt=" + deactivatedAt +
+                ", petTutor=" + petTutor +
+                '}';
     }
 }

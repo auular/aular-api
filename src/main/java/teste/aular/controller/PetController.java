@@ -5,9 +5,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import teste.aular.domain.contract.PetRepository;
 import teste.aular.domain.contract.PetTutorRepository;
-import teste.aular.domain.entity.Campaign;
 import teste.aular.domain.entity.Pet;
-import teste.aular.domain.entity.PetTutor;
 
 import javax.validation.Valid;
 import java.util.List;
@@ -49,6 +47,8 @@ public class PetController {
         }
         return ResponseEntity.status(204).build();
     }
+
+
 
 
 }

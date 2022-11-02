@@ -4,8 +4,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.HttpClientErrorException;
+import teste.aular.application.PetTutorAndTutorTxtFile;
 import teste.aular.domain.contract.PetTutorRepository;
+import teste.aular.domain.contract.PetRepository;
 import teste.aular.domain.entity.Partner;
+import teste.aular.domain.entity.Pet;
 import teste.aular.domain.entity.PetTutor;
 import javax.transaction.Transactional;
 import java.time.LocalDateTime;
@@ -19,6 +22,9 @@ public class PetTutorController {
     @Autowired
     private PetTutorRepository petTutorRepository;
 
+    @Autowired
+    private PetRepository petRepository;
+
     @GetMapping
     public ResponseEntity<List<PetTutor>> getPetTutors() {
         List<PetTutor> lista = petTutorRepository.findAll();
@@ -31,6 +37,23 @@ public class PetTutorController {
     public ResponseEntity<PetTutor> addPetTutor(@RequestBody PetTutor petTutor) {
         petTutorRepository.save(petTutor);
         return ResponseEntity.status(201).body(petTutor);
+    }
+
+    @GetMapping("/txtReading")
+    public ResponseEntity<?> txtReading(){
+        PetTutorAndTutorTxtFile.lerArquivoTxt("PETTUTORANDPET.TXT");
+
+//        PetTutorAndTutorTxtFile lista1 = new PetTutorAndTutorTxtFile();
+//        for (PetTutor pT : lista1.getListPetTutorReaded()){
+//            petTutorRepository.save(pT);
+//        }
+//
+//        PetTutorAndTutorTxtFile lista2 = new PetTutorAndTutorTxtFile();
+//        for (Pet p : lista2.getListPetReaded()){
+//            petRepository.save(p);
+//        }
+        
+        return ResponseEntity.status(200).build();
     }
 
 //    @PutMapping("/{uuid}")
