@@ -88,6 +88,7 @@ public class PartnerController {
         }
     }
 
+    //Método para atualizar com DTO incompleto
 //    @PutMapping("/{id}")
 //    public ResponseEntity<UpdatePartner> put(
 //            @PathVariable int id, @RequestBody UpdatePartner updatedPartner) {
@@ -98,8 +99,6 @@ public class PartnerController {
 //        }
 //        return ResponseEntity.status(404).build();
 //    }
-
-
 
 
     @DeleteMapping("/{id}")

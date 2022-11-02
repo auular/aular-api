@@ -17,10 +17,10 @@ import java.util.UUID;
 //@Table(name = "tab_hotel")
 public class Hotel {
 
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer hotelId;
-
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private int hotelId;
+
     private String hotelUuid;
 
     @NotBlank

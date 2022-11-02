@@ -52,38 +52,38 @@ public class PetTutorController {
 //        for (Pet p : lista2.getListPetReaded()){
 //            petRepository.save(p);
 //        }
-        
+
         return ResponseEntity.status(200).build();
     }
 
-//    @PutMapping("/{uuid}")
-//    @Transactional
-//    public ResponseEntity<PetTutor> updatePetTutor(
-//            @PathVariable String uuid,
-//            @RequestBody PetTutor petTutor) {
-//        if (petTutorRepository.existsByDocumentId(uuid)) {
-//            PetTutor pe = petTutorRepository.findById(uuid).get();
-//            petTutor.setPetTutorId(findId(uuid));
-//            petTutorRepository.save(petTutor);
-//            return ResponseEntity.status(200).body(petTutor);
-//        }
-//        return ResponseEntity.status(404).build();
-//    }
+    @PutMapping("/{id}")
+    @Transactional
+    public ResponseEntity<PetTutor> updatePetTutor(
+            @PathVariable Integer id,
+            @RequestBody PetTutor petTutor) {
+        if (petTutorRepository.existsById(id)) {
+            PetTutor pe = petTutorRepository.findById(id).get();
+            petTutor.setPetTutorId(id);
+            petTutorRepository.save(petTutor);
+            return ResponseEntity.status(200).body(petTutor);
+        }
+        return ResponseEntity.status(404).build();
+    }
 
     //Métodos que seta o PetTutor como inativo
-//    @DeleteMapping("/{uuid}")
-//    @Transactional
-//    public ResponseEntity<PetTutor> deactivatePetTutor(
-//            @PathVariable String uuid
-//    ) {
-//        if (petTutorRepository.existsById(uuid)) {
-//            PetTutor pe = petTutorRepository.findById(uuid).get();
-//            pe.setActive(false);
-//            pe.setDeactivatedAt(LocalDateTime.now());
-//            return ResponseEntity.status(200).build();
-//        }
-//        return ResponseEntity.status(404).build();
-//    }
+    @DeleteMapping("/{id}")
+    @Transactional
+    public ResponseEntity<PetTutor> deactivatePetTutor(
+            @PathVariable Integer id
+    ) {
+        if (petTutorRepository.existsById(id)) {
+            PetTutor pe = petTutorRepository.findById(id).get();
+            pe.setActive(false);
+            pe.setDeactivatedAt(LocalDateTime.now());
+            return ResponseEntity.status(200).build();
+        }
+        return ResponseEntity.status(404).build();
+    }
 
     //Método para devolver o ID através do documentId
     public Integer findId(String documentId) {
@@ -97,6 +97,7 @@ public class PetTutorController {
         return null;
     }
 
+    //Método para deletar definitivamente o PetTutor
 //    @DeleteMapping("/{documentId}")
 //    public ResponseEntity<Void> deletePetTutor(@PathVariable String documentId) {
 //        if (petTutorRepository.existsByDocumentId(documentId)) {
@@ -127,22 +128,22 @@ public class PetTutorController {
         return ResponseEntity.status(401).build();
     }
 
-//    @DeleteMapping("autentication/{uuid}")
-//    public ResponseEntity<String> logOff(@PathVariable String uuid) {
-//        try {
-//            if (petTutorRepository.existsByPetTutorUuid(uuid)) {
-//                PetTutor h = petTutorRepository.findById(uuid).get();
-//                h.setAuthenticated(false);
-//                h.setDeactivatedAt(LocalDateTime.now());
-//                petTutorRepository.save(h);
-//                return ResponseEntity.status(200).build();
-//            }
-//            return ResponseEntity.status(404).build();
-//
-//        } catch (HttpClientErrorException.NotFound e) {
-//            e.printStackTrace();
-//        }
-//        return ResponseEntity.status(404).build();
-//    }
+    @DeleteMapping("autentication/{id}")
+    public ResponseEntity<String> logOff(@PathVariable Integer id) {
+        try {
+            if (petTutorRepository.existsById(id)) {
+                PetTutor h = petTutorRepository.findById(id).get();
+                h.setAuthenticated(false);
+                h.setDeactivatedAt(LocalDateTime.now());
+                petTutorRepository.save(h);
+                return ResponseEntity.status(200).build();
+            }
+            return ResponseEntity.status(404).build();
+
+        } catch (HttpClientErrorException.NotFound e) {
+            e.printStackTrace();
+        }
+        return ResponseEntity.status(404).build();
+    }
 
 }
