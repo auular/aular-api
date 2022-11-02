@@ -6,6 +6,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.HttpClientErrorException;
 import teste.aular.application.PartnerCvsFileService;
+import teste.aular.application.dto.UpdatePartner;
 import teste.aular.domain.contract.PartnerRepository;
 import teste.aular.domain.entity.Partner;
 import teste.aular.utils.ListObj;
@@ -86,6 +87,20 @@ public class PartnerController {
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
+
+//    @PutMapping("/{id}")
+//    public ResponseEntity<UpdatePartner> put(
+//            @PathVariable int id, @RequestBody UpdatePartner updatedPartner) {
+//        if (partnerRepository.existsById(id)) {
+//            updatedPartner.setPartnerId(id);
+//            partnerRepository.save(Partner); // faz um "update" pois o id existe
+//            return ResponseEntity.status(200).body(updatedPartner);
+//        }
+//        return ResponseEntity.status(404).build();
+//    }
+
+
+
 
     @DeleteMapping("/{id}")
     @Transactional

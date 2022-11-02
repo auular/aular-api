@@ -39,6 +39,21 @@
 }
 
 ```
+#### Pet
+
+```
+{
+    "name": "Rex",
+    "specie": "Dog",
+    "breed": "Pooch",
+    "birthdate": "2018-01-01",
+    "healthDescription": "Shampoo for dermatitis",
+    "petTutor":  {
+      "petTutorId": 1
+      }
+}
+
+```
 ### Hotel
 
 ````

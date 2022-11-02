@@ -22,7 +22,7 @@ public class CampaignController {
     private PartnerRepository partnerRepository;
 
     @PostMapping
-    public ResponseEntity<Campaign> addPartner(@RequestBody @Valid Campaign campaign) {
+    public ResponseEntity<Campaign> addCampaign(@RequestBody @Valid Campaign campaign) {
         campaignRepository.save(campaign);
         return ResponseEntity.status(201).body(campaign);
     }
