@@ -68,3 +68,19 @@
   "phoneNumber": "1122334455"
 }
 ````
+
+#### Pet
+
+```
+{
+    "addressCode": "04136-111",
+    "addressStreet": "Rua Samambaia",
+    "addressNumber": "700",
+    "addressComplement": "",
+    "addressDistrict": "Bosque da Saúde",
+    "addressCity": "São Paulo",
+    "addressState": "São Paulo",
+    "petTutor":  {
+      "petTutorId": 1
+      }
+}
