@@ -7,17 +7,12 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.HttpClientErrorException;
 import teste.aular.domain.contract.HotelRepository;
 import teste.aular.domain.entity.Hotel;
-import teste.aular.domain.entity.Partner;
 
-import javax.swing.*;
 import javax.transaction.Transactional;
 import javax.validation.Valid;
-import java.net.http.HttpClient;
-import java.nio.file.Path;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/hotels")
@@ -44,16 +39,17 @@ public class HotelController {
                 : ResponseEntity.status(200).body(hotels);
     }
 
-    @PutMapping("/{id}")
-    public ResponseEntity<Hotel> putHotel(@PathVariable Integer id,
-                                          @RequestBody Hotel hotel) {
+    @PatchMapping("/account/{id}/{phoneNumber}")
+    public ResponseEntity<Optional<Hotel>> putHotelPhoneNumber(@PathVariable Integer id,
+                                                               @PathVariable String phoneNumber) {
         if (hotelRepository.existsById(id)) {
-            hotel.setHotelId(id);
-            hotelRepository.save(hotel);
-            return ResponseEntity.status(200).body(hotel);
+            hotelRepository.updatePhone(id, phoneNumber);
+            return ResponseEntity.status(200).body(hotelRepository.findById(id));
         }
         return ResponseEntity.status(404).build();
     }
+
+    @PatchMapping
 
     @DeleteMapping("/{id}")
     @Transactional
