@@ -43,13 +43,34 @@ public class HotelController {
     public ResponseEntity<Optional<Hotel>> putHotelPhoneNumber(@PathVariable Integer id,
                                                                @PathVariable String phoneNumber) {
         if (hotelRepository.existsById(id)) {
-            hotelRepository.updatePhone(id, phoneNumber);
+            hotelRepository.updatePhone(phoneNumber, id);
             return ResponseEntity.status(200).body(hotelRepository.findById(id));
         }
         return ResponseEntity.status(404).build();
     }
 
-    @PatchMapping
+    @PatchMapping("/account/{id}/{name}")
+    public ResponseEntity<Optional<Hotel>> patchHotelName(@PathVariable Integer id,
+                                                          @PathVariable String name) {
+        if (hotelRepository.existsById(id)) {
+            hotelRepository.updateName(name, id);
+            return ResponseEntity.status(200).body(hotelRepository.findById(id));
+        }
+        return ResponseEntity.status(404).build();
+    }
+
+    @PatchMapping("/account/{id}/{email}")
+    public ResponseEntity<Optional<Hotel>> patchHotelEmail(@PathVariable Integer id,
+                                                           @PathVariable String email) {
+        if (hotelRepository.existsById(id)) {
+            hotelRepository.updateEmail(email, id);
+            return ResponseEntity.status(200).body(hotelRepository.findById(id));
+        }
+        return ResponseEntity.status(404).build();
+    }
+
+
+    @PatchMapping("/account/{id}?")
 
     @DeleteMapping("/{id}")
     @Transactional
