@@ -7,9 +7,9 @@ import javax.validation.constraints.NotBlank;
 public class Plan {
 
     public enum PlanType {
-        BRONZE,
-        SILVER,
-        GOLD;
+        Bronze,
+        Silver,
+        Gold;
         private Double planValue;
 
         PlanType(Double planValue) {
@@ -20,16 +20,15 @@ public class Plan {
 
         }
 
-
         public Double getPlanValue(PlanType plan) {
             switch (plan){
-                case BRONZE:
+                case Bronze:
                     planValue = 150.00;
                     break;
-                case SILVER:
+                case Silver:
                     planValue = 250.00;
                     break;
-                case GOLD:
+                case Gold:
                     planValue = 350.00;
                     break;
                 default:
@@ -44,11 +43,15 @@ public class Plan {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer planId;
 
-    @NotBlank
     private String planType;
 
     private Double planValue;
 
+    @ManyToOne
+    private Hotel hotel;
+
+
+    //Getters Setters
     public Integer getPlanId() {
         return planId;
     }
@@ -72,5 +75,13 @@ public class Plan {
     public void setPlanValue(Double planValue, PlanType plan) {
 
         this.planValue = plan.getPlanValue(plan);
+    }
+
+    public Hotel getHotel() {
+        return hotel;
+    }
+
+    public void setHotel(Hotel hotel) {
+        this.hotel = hotel;
     }
 }

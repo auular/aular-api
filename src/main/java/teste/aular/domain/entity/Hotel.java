@@ -35,12 +35,10 @@ public class Hotel {
     private String password;
 
     @NotBlank
+    @Column(updatable = false)
     private String documentId;
 
     private Boolean fidelity;
-
-    @NotBlank
-    private String planType;
 
     @NotNull
     private Double rates;
@@ -118,14 +116,6 @@ public class Hotel {
 
     public void setFidelity(Boolean fidelity) {
         this.fidelity = fidelity;
-    }
-
-    public String getPlanType() {
-        return planType;
-    }
-
-    public void setPlanType(String planType) {
-        this.planType = planType;
     }
 
     public Double getRates() {

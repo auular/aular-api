@@ -1,4 +1,5 @@
-INSERT INTO pet_tutor (name, email, password, document_id, phone_number, pet_tutor_uuid, active, created_at,  updated_at) VALUES
+INSERT INTO pet_tutor ( name, email, password, document_id, phone_number,
+                        pet_tutor_uuid, active, created_at,  updated_at) VALUES
 ('Arnaldo Pereira', 'arnaldopereira@gmail.com', 'arnaldinho', '91938502821', '(11)9917818751)', uuid(), true, now(), now()),
 ('Bernardo dos Santos', 'bernardosantos@gmail.com', 'bernardinho', '82938502892', '(11)9927818792', uuid(), true, now(), now()),
 ('Carlos Eduardo', 'cadu@gmail.com', 'caduzinho', '739385028923', '(11)9937818793', uuid(), true, now(), now()),
@@ -8,7 +9,8 @@ INSERT INTO pet_tutor (name, email, password, document_id, phone_number, pet_tut
 ('Gisele Almeida', 'gialmeida@gmail.com', 'giselezinha', '37938502897', '(11)9977818797', uuid(), true, now(), now()),
 ('Henrique Toledo', 'henriquetoledo@gmail.com', 'henriquinho', '28938502898', '(11)9987818798', uuid(), true, now(), now());
 
-INSERT INTO pet (name, birthdate, specie, breed, health_description, pet_uuid, created_at, updated_at, pet_tutor_pet_tutor_id) VALUES
+INSERT INTO pet (   name, birthdate, specie, breed, health_description,
+                    pet_uuid, created_at, updated_at, pet_tutor_pet_tutor_id) VALUES
 ('Apolo', '2011-01-01', 'Cachorro', 'Akita', 'Uma capsula de ezima pancreática por dia', uuid(), now(), now(), 1),
 ('Beethoven', '2012-02-02', 'Cachorro', 'Basset Hound', 'Um comprimido de antibiótico para otite por dia', uuid(), now(), now(), 2),
 ('Cuca', '2013-03-03', 'Cachorro', 'Chihuahua', '5 gotas de dexclorfeniramina uma vez por dia', uuid(), now(), now(), 3),
@@ -18,9 +20,16 @@ INSERT INTO pet (name, birthdate, specie, breed, health_description, pet_uuid, c
 ('Glenda', '2017-07-07', 'Cachorro', 'Golden Retriever', 'Tyrox 200mcg a cada 12 horas', uuid(), now(), now(), 7),
 ('Haley', '2018-08-08', 'Gato', 'Himalaio', null, uuid(), now(), now(), 8);
 
-INSERT INTO partner (
-    name, email, password, document_id, phone_number, partner_uuid, active,
-    fidelity, is_authenticated, number_of_campaigns, created_at, updated_at) VALUES
+INSERT INTO hotel ( name, email, password, document_id, phone_number, rates,
+                    hotel_uuid, active, fidelity, is_authenticated, created_at, updated_at) VALUES
+('PetLand Jardins', 'contato@petland.com.br', 'petland', '11.837.734/0001-46', '(11)30615063', 4.7, uuid(), true, true, false, now(), now()),
+('Pet Cidade', 'contato@petcidade.com.br', 'petcidade', '20.867.423/0001-10', '(11)995306174', 3.8, uuid(), true, true, false, now(), now()),
+('Mais Pets', 'contato@maispets.com.br', 'maispets', '43.239.777/0001-16', '(11)3061-5129', 4.2, uuid(), true, true, false, now(), now()),
+('Alegra Pet', 'contato@alegrapet.com.br', 'alegrapet', '30.729.121/0001-30', '(11)3256-5553', 4.6, uuid(), true, true, false, now(), now()),
+('Casa Pet', 'contato@casapet.com.br', 'casapet', '33.472.866/0007-40', '(11)4304-8008', 4.1, uuid(), true, true, false, now(), now());
+
+INSERT INTO partner (   name, email, password, document_id, phone_number, partner_uuid, active,
+                        fidelity, is_authenticated, number_of_campaigns, created_at, updated_at) VALUES
 ('Cobasi Comercio de Prod. Basicos e Industr. SA', 'marketing@cobasi.com.br', 'cobasimkt', '53.153.938/0001-08', '(11)38318999',
     uuid(), true, true, false, 2, now(), now()),
 ('Pet Center Comercio e  Participacoes SA', 'comercial@petz.com.br', 'petz123', '18.328.118/0040-15', '(11)21827380',
@@ -28,6 +37,52 @@ INSERT INTO partner (
 ('Petsupermarket Comércio de Produtos para Animais S.A.', 'comercial@petlove.com.br', 'petlove', '10.864.846/0001-23', '(11)30432113',
     uuid(), true, true, false, 1, now(), now());
 
+INSERT INTO campaign (type, value, click, started_at, finished_at, partner_partner_id, hotel_hotel_id) VALUES
+/*partner*/
+('Silver', 4000.00, 10857, '2022-07-03', '2022-08-03', 1, null),
+('Gold', 6000.00, 18974, '2022-08-04', '2022-09-04', 1, null),
+('Gold', 6000.00, 21237, '2022-09-05', '2022-10-05', 1, null),
+('Gold', 6000.00, 24974, '2022-10-06', '2022-11-06', 1, null),
+('Gold', 4000.00, 18952, '2022-11-07', null, 1, null),
+('Silver', 4000.00, 9238, '2022-09-20', '2022-10-20', 2, null),
+('Gold', 6000.00, 16785, '2022-10-20', '2022-11-20', 2, null),
+('Bronze', 2000.00, 4164, '2022-10-05', '2022-11-05', 3, null),
+/*hotel*/
+('Silver', 750.00, 1913, '2022-10-01', '2022-11-01', null, 1),
+('Gold', 1000.00, 2626, '2022-10-02', '2022-11-02', null, 2),
+('Silver', 750.00, 1828, '2022-10-03', '2022-11-03', null, 3),
+('Bronze', 500.00, 1137, '2022-10-04', '2022-11-04', null, 4),
+('Gold', 1000.00, 2734, '2022-10-05', '2022-11-05', null, 5);
+
+INSERT INTO plan (plan_type, plan_value, hotel_hotel_id) VALUES
+("Silver", 250.00, 1),
+("Gold", 350.00, 2),
+("Gold", 350.00, 3),
+("Broze", 150.00, 4),
+("Gold", 350.00, 5);
+
+INSERT INTO address (
+    address_code, address_street, address_number, address_complement, address_district,
+    address_city, address_state, pet_tutor_pet_tutor_id, hotel_hotel_id, partner_partner_id) VALUES
+/*pet tutor*/
+('01411-001', 'Rua Padre João Mauel', '607', 'Apto. 111', 'Cerqueira César', 'São Paulo', 'São Paulo', 1, null, null),
+('01422-000', 'Alameda  Franca', '850', 'Apto. 222', 'Cerqueira César', 'São Paulo', 'São Paulo', 2, null, null),
+('01423-003', 'Rua José Maria Lisboa', '973', 'Apto. 333', 'Jardim Paulista', 'São Paulo', 'São Paulo', 3, null, null),
+('01415-002', 'Rua Bela Cintra', '982', 'Apto. 444', 'Consolação', 'São Paulo', 'São Paulo', 4, null, null),
+('01309-010', 'Rua Antônio Carlos', '288', null, 'Consolação', 'São Paulo', 'São Paulo', 5, null, null),
+('01241-001', 'Rua Piauí', '537', 'Apto. 66', 'Higienópolis', 'São Paulo', 'São Paulo', 6, null, null),
+('01230-001', 'Rua Dr. Albuquerque Lins', '993', 'Apto. 777', 'Santa Cecíla', 'São Paulo', 'São Paulo', 7, null, null),
+('01230-001', 'Rua Santo Antônio', '955', 'Apto. 888', 'Bela Vista', 'São Paulo', 'São Paulo', 8, null, null),
+/*hotel*/
+('01415-001', 'Rua Bela Cintra', '1559', null, 'Jardins', 'São Paulo', 'São Paulo', null, 1, null),
+('01309-000', 'Rua Luís Coelho', '206', null, 'Consolação', 'São Paulo', 'São Paulo', null, 2, null),
+('01422-001', 'Alameda Franca', '1546', null, 'Jardim Paulista', 'São Paulo', 'São Paulo', null, 3, null),
+('01409-001', 'Rua Itararé', '294', null, 'Bela Vista', 'São Paulo', 'São Paulo', null, 4, null),
+('054009-000', 'Rua Capote Valente', '185', null, 'Cerqueira César', 'São Paulo', 'São Paulo', null, 5, null),
+/*partner*/
+('05319-010', 'Rua Manoel Velasco', '90', null, 'Vila Leopoldina', 'São Paulo', 'São Paulo', null, null, 1),
+('05319-010', 'Rua Guaratana', '555', '587 Sala 1', 'Pari', 'São Paulo', 'São Paulo', null, null, 2),
+('04578-910', 'Avenida das Nações Unidas', '12901', 'Conj 1201', 'Brooklin Paulista', 'São Paulo', 'São Paulo', null, null, 3);
 
 
 

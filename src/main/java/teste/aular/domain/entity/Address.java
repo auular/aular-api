@@ -5,8 +5,6 @@ import javax.validation.constraints.NotBlank;
 
 @Entity
 public class Address {
-//    @OneToOne
-//    private Hotel hotel;
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -34,6 +32,9 @@ public class Address {
 
     @OneToOne
     private Partner partner;
+
+    @OneToOne
+    private Hotel hotel;
 
     //Getters Setters
     public Integer getAddressId() {
@@ -114,5 +115,13 @@ public class Address {
 
     public void setPartner(Partner partner) {
         this.partner = partner;
+    }
+
+    public Hotel getHotel() {
+        return hotel;
+    }
+
+    public void setHotel(Hotel hotel) {
+        this.hotel = hotel;
     }
 }

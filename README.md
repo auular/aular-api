@@ -13,6 +13,45 @@
 }
 ```
 
+#### PetTutor
+```
+{
+    "name": "Heloísio Bitencourt",
+    "email": "h.bitencourt@gmail.com",
+    "password": "helisinho",
+    "documentId": "610031394829",
+    "phone_number": "(22)9938929822"
+}
+```
+
+#### Pet
+```
+{
+    "name": "Rex",
+    "specie": "Dog",
+    "breed": "Pooch",
+    "birthdate": "2018-01-01",
+    "healthDescription": "Shampoo for dermatitis",
+    "petTutor":  {
+      "petTutorId": 1
+      }
+}
+```
+
+### Hotel
+````
+{
+  "name": "wall teste",
+  "email": "wall@teste",
+  "password": "12345678",
+  "documentId": "1442232",
+  "fidelity": false,
+  "planType": "gold",
+  "rates": 0.7,
+  "phoneNumber": "1122334455"
+}
+````
+
 #### Campaign
 ```
 {
@@ -27,50 +66,18 @@
 }
 ```
 
-#### PetTutor
-
+#### Plan
 ```
 {
-    "name": "Heloísio Bitencourt",
-    "email": "h.bitencourt@gmail.com",
-    "password": "helisinho",
-    "documentId": "610031394829",
-    "phone_number": "(22)9938929822"
-}
-
-```
-#### Pet
-
-```
-{
-    "name": "Rex",
-    "specie": "Dog",
-    "breed": "Pooch",
-    "birthdate": "2018-01-01",
-    "healthDescription": "Shampoo for dermatitis",
-    "petTutor":  {
-      "petTutorId": 1
+    "planType": "Gold",
+    "planValue": 350.00,
+    "hotel": {
+      "hotelId": 1
       }
 }
-
 ```
-### Hotel
 
-````
-{
-  "name": "wall teste",
-  "email": "wall@teste",
-  "password": "12345678",
-  "documentId": "1442232",
-  "fidelity": false,
-  "planType": "gold",
-  "rates": 0.7,
-  "phoneNumber": "1122334455"
-}
-````
-
-#### Pet
-
+#### Pet Tutor Address
 ```
 {
     "addressCode": "04136-111",
@@ -84,3 +91,4 @@
       "petTutorId": 1
       }
 }
+```

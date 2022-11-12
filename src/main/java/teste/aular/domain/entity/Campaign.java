@@ -23,6 +23,9 @@ public class Campaign {
     @ManyToOne
     private Partner partner;
 
+    @ManyToOne
+    private Hotel hotel;
+
 
     //GETTERS SETTERS
     public int getCampaignId() {
@@ -79,6 +82,14 @@ public class Campaign {
 
     public void setPartner(Partner partner) {
         this.partner = partner;
+    }
+
+    public Hotel getHotel() {
+        return hotel;
+    }
+
+    public void setHotel(Hotel hotel) {
+        this.hotel = hotel;
     }
 }
 
