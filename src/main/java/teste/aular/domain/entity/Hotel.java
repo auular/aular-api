@@ -35,6 +35,7 @@ public class Hotel {
     private String password;
 
     @NotBlank
+    @Column(updatable = false)
     private String documentId;
 
     private Boolean fidelity;
