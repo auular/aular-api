@@ -1,8 +1,10 @@
 package teste.aular.application;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import teste.aular.domain.contract.PetTutorRepository;
-import teste.aular.domain.contract.PetRepository;
+import teste.aular.domain.contract.LeadPetRepository;
+import teste.aular.domain.contract.LeadPetTutorRepository;
+import teste.aular.domain.entity.LeadPet;
+import teste.aular.domain.entity.LeadPetTutor;
 import teste.aular.domain.entity.Pet;
 import teste.aular.domain.entity.PetTutor;
 
@@ -14,30 +16,30 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
-public class PetTutorAndTutorTxtFile {
+public class LeadTxtFile {
 
     @Autowired
-    private static PetRepository petRepository;
+    private static LeadPetRepository leadPetRepository;
 
     @Autowired
-    private static PetTutorRepository petTutorRepository;
+    private static LeadPetTutorRepository leadPetTutorRepository;
 
-    private static List<PetTutor> listPetTutorReaded;
-    private static List<Pet> listPetReaded;
+    private static List<LeadPetTutor> listLeadPetTutorReaded;
+    private static List<LeadPet> listLeadPetReaded;
 
     public static void lerArquivoTxt(String nomeArq) {
         BufferedReader entrada = null;
         String registro, tipoRegistro;
-        Integer petTutorId, petId;
-        String name, email, password, documentId, phoneNumber, active, isAuthenticated;
+        Integer leadPetTutorId, leadPetId;
+        String name, email, password, documentId, phoneNumber;
         String specie, breed, healthDescription;
         LocalDate birthdate;
-        Integer petTutorIdReaded;
+        Integer leadPetTutorIdReaded;
         int contaRegDadoLido = 0;
         int qtdRegDadoGravado;
 
-        listPetTutorReaded = new ArrayList<>();
-        listPetReaded = new ArrayList<>();
+        listLeadPetTutorReaded = new ArrayList<>();
+        listLeadPetReaded = new ArrayList<>();
 
 
         // try-catch para abrir o arquivo
@@ -79,7 +81,7 @@ public class PetTutorAndTutorTxtFile {
                 }
                 else if (tipoRegistro.equals("02")) {
                     System.out.println("Registro de corpo do Pet Tutor");
-                    petTutorId = Integer.valueOf(registro.substring(2,8));
+                    leadPetTutorId = Integer.valueOf(registro.substring(2,8));
                     name = registro.substring(8, 58).trim();
                     email = registro.substring(58,98).trim();
                     password = registro.substring(98, 104).trim();
@@ -87,33 +89,33 @@ public class PetTutorAndTutorTxtFile {
                     phoneNumber = registro.substring(115, 129).trim();
                     contaRegDadoLido++;
 
-                    PetTutor pT = new PetTutor(petTutorId, name, email, password, documentId, phoneNumber);
-                    //petTutorRepository.save(pT);
-                    listPetTutorReaded.add(pT);
-                    System.out.println(pT);
+                    LeadPetTutor leadPetTutor = new LeadPetTutor(leadPetTutorId, name, email, password, documentId, phoneNumber);
+                    //leadPetTutorRepository.save(leadPetTutor);
+                    listLeadPetTutorReaded.add(leadPetTutor);
+                    System.out.println(leadPetTutor);
                 }
                 else if (tipoRegistro.equals("03")) {
                     System.out.println("Registro de corpo do Pet");
-                    petId = Integer.valueOf(registro.substring(2,8));
+                    leadPetId = Integer.valueOf(registro.substring(2,8));
                     name = registro.substring(8, 58).trim();
                     specie = registro.substring(58, 78).trim();
                     breed = registro.substring(78, 118).trim();
                     DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
                     birthdate = LocalDate.parse(registro.substring(118, 128), formatter);
                     healthDescription = registro.substring(128, 228).trim();
-                    petTutorIdReaded = Integer.valueOf(registro.substring(228,234));
+                    leadPetTutorIdReaded = Integer.valueOf(registro.substring(228,234));
                     
-                    PetTutor petTutorById = null;
-                    for (PetTutor petTutorReaded: listPetTutorReaded){
-                        if (petTutorReaded.getPetTutorId().equals(petTutorIdReaded)){
-                            petTutorById = petTutorReaded;
+                    LeadPetTutor leadPetTutorById = null;
+                    for (LeadPetTutor leadPetTutorReaded: listLeadPetTutorReaded){
+                        if (leadPetTutorReaded.getLeadPetTutorId().equals(leadPetTutorIdReaded)){
+                            leadPetTutorById = leadPetTutorReaded;
                         }
                     }
                     contaRegDadoLido++;
-                    Pet pet = new Pet(petId, name, specie, breed, birthdate, healthDescription, petTutorById);
-                    //petRepository.save(pet);
-                    listPetReaded.add(pet);
-                    System.out.println(pet);
+                    LeadPet leadPet = new LeadPet(leadPetId, name, specie, breed, birthdate, healthDescription, leadPetTutorById);
+                    //leadPetRepository.save(leadPet);
+                    listLeadPetReaded.add(leadPet);
+                    System.out.println(leadPet);
                 }
                 else {
                     System.out.println("Tipo de registro inválido");
@@ -131,19 +133,19 @@ public class PetTutorAndTutorTxtFile {
     }
 
 
-    public List<PetTutor> getListPetTutorReaded() {
-        return listPetTutorReaded;
+    public static List<LeadPetTutor> getListLeadPetTutorReaded() {
+        return listLeadPetTutorReaded;
     }
 
-    public void setListPetTutorReaded(List<PetTutor> listPetTutorReaded) {
-        this.listPetTutorReaded = listPetTutorReaded;
+    public static void setListLeadPetTutorReaded(List<LeadPetTutor> listLeadPetTutorReaded) {
+        LeadTxtFile.listLeadPetTutorReaded = listLeadPetTutorReaded;
     }
 
-    public List<Pet> getListPetReaded() {
-        return listPetReaded;
+    public static List<LeadPet> getListLeadPetReaded() {
+        return listLeadPetReaded;
     }
 
-    public void setListPetReaded(List<Pet> listPetReaded) {
-        this.listPetReaded = listPetReaded;
+    public static void setListLeadPetReaded(List<LeadPet> listLeadPetReaded) {
+        LeadTxtFile.listLeadPetReaded = listLeadPetReaded;
     }
 }

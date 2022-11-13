@@ -34,7 +34,7 @@ INSERT INTO partner (   name, email, password, document_id, phone_number, partne
     uuid(), true, true, false, 2, now(), now()),
 ('Pet Center Comercio e  Participacoes SA', 'comercial@petz.com.br', 'petz123', '18.328.118/0040-15', '(11)21827380',
     uuid(), true, true, false, 1, now(), now()),
-('Petsupermarket Comércio de Produtos para Animais S.A.', 'comercial@petlove.com.br', 'petlove', '10.864.846/0001-23', '(11)30432113',
+('Petsupermarket Comércio de Prod. para Animais S.A.', 'comercial@petlove.com.br', 'petlove', '10.864.846/0001-23', '(11)30432113',
     uuid(), true, true, false, 1, now(), now());
 
 INSERT INTO campaign (type, value, click, started_at, finished_at, partner_partner_id, hotel_hotel_id) VALUES

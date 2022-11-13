@@ -4,16 +4,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.HttpClientErrorException;
-import teste.aular.application.PetTutorAndTutorTxtFile;
+import teste.aular.application.LeadTxtFile;
 import teste.aular.domain.contract.PetTutorRepository;
 import teste.aular.domain.contract.PetRepository;
-import teste.aular.domain.entity.Partner;
-import teste.aular.domain.entity.Pet;
 import teste.aular.domain.entity.PetTutor;
 import javax.transaction.Transactional;
 import java.time.LocalDateTime;
 import java.util.List;
-import java.util.Optional;
 
 
 @RestController
@@ -41,7 +38,7 @@ public class PetTutorController {
 
     @GetMapping("/txtReading")
     public ResponseEntity<?> txtReading(){
-        PetTutorAndTutorTxtFile.lerArquivoTxt("PETTUTORANDPET.TXT");
+        LeadTxtFile.lerArquivoTxt("PETTUTORANDPET.TXT");
 
 //        PetTutorAndTutorTxtFile lista1 = new PetTutorAndTutorTxtFile();
 //        for (PetTutor pT : lista1.getListPetTutorReaded()){
