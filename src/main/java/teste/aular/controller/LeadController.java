@@ -3,6 +3,7 @@ package teste.aular.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import teste.aular.application.FilaObj;
 import teste.aular.application.LeadTxtFile;
 import teste.aular.domain.contract.LeadPetRepository;
 import teste.aular.domain.contract.LeadPetTutorRepository;
@@ -29,20 +30,45 @@ public class LeadController {
                 : ResponseEntity.status(200).body(lista);
     }
 
-    @GetMapping("/txtReading")
-    public ResponseEntity<?> txtReading(){
+    FilaObj<LeadPetTutor> filaLeadPetTutor;
+    FilaObj<LeadPet> filaLeadPet;
+
+    @PostMapping("/scheduleLeads")
+    public ResponseEntity<FilaObj<LeadPet>> saveLeadPetTutor() {
         LeadTxtFile.lerArquivoTxt("LEADS.TXT");
 
         LeadTxtFile lista1 = new LeadTxtFile();
+        filaLeadPetTutor = new FilaObj<>(lista1.getListLeadPetTutorReaded().size());
         for (LeadPetTutor leadPetTutor : lista1.getListLeadPetTutorReaded()){
-            leadPetTutorRepository.save(leadPetTutor);
+            filaLeadPetTutor.insert(leadPetTutor);
         }
 
         LeadTxtFile lista2 = new LeadTxtFile();
+        filaLeadPet = new FilaObj<>(lista2.getListLeadPetReaded().size());
         for (LeadPet leadPet : lista2.getListLeadPetReaded()){
-            leadPetRepository.save(leadPet);
+            filaLeadPet.insert(leadPet);
         }
 
-        return ResponseEntity.status(200).build();
+        return filaLeadPet.isEmpty()
+                ? ResponseEntity.status(204).build()
+                : ResponseEntity.status(200).body(filaLeadPet);
+
+    }
+
+    @PostMapping("/saveLeads")
+    public ResponseEntity<?> txtReading(){
+
+        if (filaLeadPet == null || filaLeadPet.isEmpty()){
+            return ResponseEntity.status(204).build();
+        }
+        else {
+            while (!filaLeadPetTutor.isEmpty()) {
+                leadPetTutorRepository.save(filaLeadPetTutor.poll());
+            }
+            while (!filaLeadPet.isEmpty()) {
+                leadPetRepository.save(filaLeadPet.poll());
+            }
+            return ResponseEntity.status(200).build();
+        }
     }
 }

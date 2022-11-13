@@ -5,8 +5,6 @@ import teste.aular.domain.contract.LeadPetRepository;
 import teste.aular.domain.contract.LeadPetTutorRepository;
 import teste.aular.domain.entity.LeadPet;
 import teste.aular.domain.entity.LeadPetTutor;
-import teste.aular.domain.entity.Pet;
-import teste.aular.domain.entity.PetTutor;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
@@ -90,7 +88,6 @@ public class LeadTxtFile {
                     contaRegDadoLido++;
 
                     LeadPetTutor leadPetTutor = new LeadPetTutor(leadPetTutorId, name, email, password, documentId, phoneNumber);
-                    //leadPetTutorRepository.save(leadPetTutor);
                     listLeadPetTutorReaded.add(leadPetTutor);
                     System.out.println(leadPetTutor);
                 }
@@ -113,7 +110,6 @@ public class LeadTxtFile {
                     }
                     contaRegDadoLido++;
                     LeadPet leadPet = new LeadPet(leadPetId, name, specie, breed, birthdate, healthDescription, leadPetTutorById);
-                    //leadPetRepository.save(leadPet);
                     listLeadPetReaded.add(leadPet);
                     System.out.println(leadPet);
                 }
