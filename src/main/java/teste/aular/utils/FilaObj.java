@@ -1,4 +1,4 @@
-package teste.aular.application;
+package teste.aular.utils;
 
 public class FilaObj<T> {
 

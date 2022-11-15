@@ -1,9 +1,12 @@
 package teste.aular.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.CommandLineRunner;
 import org.springframework.http.ResponseEntity;
+import org.springframework.mail.SimpleMailMessage;
+import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.web.bind.annotation.*;
-import teste.aular.application.FilaObj;
+import teste.aular.utils.FilaObj;
 import teste.aular.application.LeadTxtFile;
 import teste.aular.domain.contract.LeadPetRepository;
 import teste.aular.domain.contract.LeadPetTutorRepository;
@@ -16,6 +19,8 @@ import java.util.List;
 @RestController
 @RequestMapping("/leads")
 public class LeadController {
+
+    @Autowired private JavaMailSender mailSender;
     @Autowired
     private LeadPetTutorRepository leadPetTutorRepository;
 
@@ -71,4 +76,21 @@ public class LeadController {
             return ResponseEntity.status(200).build();
         }
     }
+
+    @RequestMapping(path = "/email-send", method = RequestMethod.GET)
+    public String sendMail() {
+        SimpleMailMessage message = new SimpleMailMessage();
+        message.setText("Teste 4 de envio de e-mail");
+        message.setTo("vitormoura@me.com");
+        message.setFrom("vitormouramusico@gmail.com");
+
+        try {
+            mailSender.send(message);
+            return "Email enviado com sucesso!";
+        } catch (Exception e) {
+            e.printStackTrace();
+            return "Erro ao enviar email.";
+        }
+    }
+
 }
