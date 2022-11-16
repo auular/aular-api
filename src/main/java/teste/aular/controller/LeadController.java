@@ -44,19 +44,26 @@ public class LeadController {
 
         LeadTxtFile lista1 = new LeadTxtFile();
         filaLeadPetTutor = new FilaObj<>(lista1.getListLeadPetTutorReaded().size());
-        for (LeadPetTutor leadPetTutor : lista1.getListLeadPetTutorReaded()){
+        for (LeadPetTutor leadPetTutor : lista1.getListLeadPetTutorReaded()) {
             filaLeadPetTutor.insert(leadPetTutor);
         }
 
         LeadTxtFile lista2 = new LeadTxtFile();
         filaLeadPet = new FilaObj<>(lista2.getListLeadPetReaded().size());
-        for (LeadPet leadPet : lista2.getListLeadPetReaded()){
+        for (LeadPet leadPet : lista2.getListLeadPetReaded()) {
             filaLeadPet.insert(leadPet);
         }
 
-        return filaLeadPet.isEmpty()
-                ? ResponseEntity.status(204).build()
-                : ResponseEntity.status(200).body(filaLeadPet);
+        if (filaLeadPetTutor.isEmpty()) {
+            return ResponseEntity.status(204).build();
+        } else {
+            sendMail();
+            return ResponseEntity.status(200).body(filaLeadPet);
+        }
+
+//        return filaLeadPet.isEmpty()
+//                ? ResponseEntity.status(204).build()
+//                : ResponseEntity.status(200).body(filaLeadPet);
 
     }
 
@@ -77,19 +84,21 @@ public class LeadController {
         }
     }
 
-    @RequestMapping(path = "/email-send", method = RequestMethod.GET)
-    public String sendMail() {
+    @GetMapping("/sendEmailTest")
+    public void sendMail() {
         SimpleMailMessage message = new SimpleMailMessage();
-        message.setText("Teste 4 de envio de e-mail");
-        message.setTo("vitormoura@me.com");
-        message.setFrom("vitormouramusico@gmail.com");
+        message.setSubject("Leads na fila ");
+        message.setText("Existem Leads na fila aguardando para serem registrados.\n\n" +
+                "Faça o registro agora mesmo acessando o link abaixo!");
+        message.setTo("contato.auular@gmail.com");
+        message.setFrom("contato.auular@gmail.com");
 
         try {
             mailSender.send(message);
-            return "Email enviado com sucesso!";
+            System.out.println("Email enviado com sucesso!");
         } catch (Exception e) {
             e.printStackTrace();
-            return "Erro ao enviar email.";
+            System.out.println("Erro ao enviar email.");
         }
     }
 
