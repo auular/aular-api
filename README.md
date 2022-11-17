@@ -52,6 +52,30 @@
 }
 ````
 
+### ServicesProvided
+
+````
+{
+    "service_pool": true,
+    "service_playground": true,
+    "service_toys": true,
+    "service_bath": true,
+    "service_leathering": true,
+    "service_bedroom": true,
+    "service_food": true,
+    "service_visitation": true,
+    "service_cam": true,
+    "service_exercises": true,
+    "service_training": true,
+    "service_dentist": true,
+    "service_vet": true,
+    "service_monitoring": true,
+    "hotel": {
+        "hotelId": 1
+        }
+}
+````
+
 #### Campaign
 ```
 {

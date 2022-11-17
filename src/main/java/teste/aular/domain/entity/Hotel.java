@@ -46,6 +46,8 @@ public class Hotel {
     @NotBlank
     private String phoneNumber;
 
+    private String description;
+
 
     @CreationTimestamp
     private LocalDateTime createdAt;
@@ -132,6 +134,14 @@ public class Hotel {
 
     public void setPhoneNumber(String phoneNumber) {
         this.phoneNumber = phoneNumber;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
     }
 
     public LocalDateTime getCreatedAt() {

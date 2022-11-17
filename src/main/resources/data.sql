@@ -20,13 +20,22 @@ INSERT INTO pet (   name, birthdate, specie, breed, health_description,
 ('Glenda', '2017-07-07', 'Cachorro', 'Golden Retriever', 'Tyrox 200mcg a cada 12 horas', uuid(), now(), now(), 7),
 ('Haley', '2018-08-08', 'Gato', 'Himalaio', null, uuid(), now(), now(), 8);
 
-INSERT INTO hotel ( name, email, password, document_id, phone_number, rates,
+INSERT INTO hotel ( name, email, password, document_id, phone_number, description, rates,
                     hotel_uuid, active, fidelity, is_authenticated, created_at, updated_at) VALUES
-('PetLand Jardins', 'contato@petland.com.br', 'petland', '11.837.734/0001-46', '(11)30615063', 4.7, uuid(), true, true, false, now(), now()),
-('Pet Cidade', 'contato@petcidade.com.br', 'petcidade', '20.867.423/0001-10', '(11)995306174', 3.8, uuid(), true, true, false, now(), now()),
-('Mais Pets', 'contato@maispets.com.br', 'maispets', '43.239.777/0001-16', '(11)3061-5129', 4.2, uuid(), true, true, false, now(), now()),
-('Alegra Pet', 'contato@alegrapet.com.br', 'alegrapet', '30.729.121/0001-30', '(11)3256-5553', 4.6, uuid(), true, true, false, now(), now()),
-('Casa Pet', 'contato@casapet.com.br', 'casapet', '33.472.866/0007-40', '(11)4304-8008', 4.1, uuid(), true, true, false, now(), now());
+('PetLand Jardins', 'contato@petland.com.br', 'petland', '11.837.734/0001-46', '(11)30615063', "bla bla bla ", 4.7, uuid(), true, true, false, now(), now()),
+('Pet Cidade', 'contato@petcidade.com.br', 'petcidade', '20.867.423/0001-10', '(11)995306174', "bla bla bla", 3.8, uuid(), true, true, false, now(), now()),
+('Mais Pets', 'contato@maispets.com.br', 'maispets', '43.239.777/0001-16', '(11)3061-5129', "bla bla bla", 4.2, uuid(), true, true, false, now(), now()),
+('Alegra Pet', 'contato@alegrapet.com.br', 'alegrapet', '30.729.121/0001-30', '(11)3256-5553', "bla bla bla", 4.6, uuid(), true, true, false, now(), now()),
+('Casa Pet', 'contato@casapet.com.br', 'casapet', '33.472.866/0007-40', '(11)4304-8008', "bla bla bla", 4.1, uuid(), true, true, false, now(), now());
+
+INSERT INTO services_provided (
+service_pool, service_playground, service_toys, service_bath, service_leathering, service_bedroom, service_food,
+service_visitation, service_cam, service_exercises, service_training, service_dentist, service_vet, service_monitoring, hotel_hotel_id) VALUES
+(true, true, true, true, true, true, true, true, true, true, true, true, true, true, 1),
+(true, false, true, true, true, true, true, false, true, true, true, true, true, true, 2),
+(true, true, false, false, true, true, true, true, true, true, true, false, true, true, 3),
+(false, true, true, true, false, true, false, true, true, true, true, false, true, true, 4),
+(true, false, false, true, true, false, false, true, true, false, true, true, true, true, 5);
 
 INSERT INTO partner (   name, email, password, document_id, phone_number, partner_uuid, active,
                         fidelity, is_authenticated, number_of_campaigns, created_at, updated_at) VALUES
