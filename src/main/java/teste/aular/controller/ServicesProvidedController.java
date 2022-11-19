@@ -4,10 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import teste.aular.domain.contract.HotelRepository;
-import teste.aular.domain.contract.PartnerRepository;
 import teste.aular.domain.contract.ServicesProvidedRepository;
-import teste.aular.domain.entity.Campaign;
-import teste.aular.domain.entity.Plan;
 import teste.aular.domain.entity.ServicesProvided;
 
 import javax.validation.Valid;

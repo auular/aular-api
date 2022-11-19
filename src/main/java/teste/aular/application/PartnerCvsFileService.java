@@ -2,7 +2,6 @@ package teste.aular.application;
 
 import teste.aular.domain.entity.Partner;
 import teste.aular.utils.ListObj;
-
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;

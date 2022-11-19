@@ -3,14 +3,9 @@ package teste.aular.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import teste.aular.application.PartnerCampaignTxtFileService;
-import teste.aular.domain.contract.CampaignRepository;
 import teste.aular.domain.contract.PartnerRepository;
 import teste.aular.domain.contract.PlanRepository;
-import teste.aular.domain.entity.Campaign;
-import teste.aular.domain.entity.Partner;
 import teste.aular.domain.entity.Plan;
-
 import javax.validation.Valid;
 import java.util.List;
 

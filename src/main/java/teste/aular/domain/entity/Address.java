@@ -36,6 +36,17 @@ public class Address {
     @OneToOne
     private Hotel hotel;
 
+    public Address(Integer addressId, String addressCode, String addressStreet, String addressNumber, String addressComplement, String addressDistrict, String addressCity, String addressState) {
+        this.addressId = addressId;
+        this.addressCode = addressCode;
+        this.addressStreet = addressStreet;
+        this.addressNumber = addressNumber;
+        this.addressComplement = addressComplement;
+        this.addressDistrict = addressDistrict;
+        this.addressCity = addressCity;
+        this.addressState = addressState;
+    }
+
     //Getters Setters
     public Integer getAddressId() {
         return addressId;

@@ -5,8 +5,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import teste.aular.domain.contract.AddressRepository;
 import teste.aular.domain.entity.Address;
-import teste.aular.domain.entity.Pet;
-
 import javax.validation.Valid;
 import java.util.List;
 

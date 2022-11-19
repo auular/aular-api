@@ -26,6 +26,17 @@ public class Campaign {
     @ManyToOne
     private Hotel hotel;
 
+    public Campaign(int campaignId, String type, Double value, Integer click, LocalDate startedAt, LocalDate finishedAt) {
+        this.campaignId = campaignId;
+        this.type = type;
+        this.value = value;
+        this.click = click;
+        this.startedAt = startedAt;
+        this.finishedAt = finishedAt;
+    }
+
+    public Campaign() {
+    }
 
     //GETTERS SETTERS
     public int getCampaignId() {

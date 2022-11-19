@@ -1,15 +1,8 @@
 package teste.aular.domain.contract;
 
 import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.data.jpa.repository.Modifying;
-import org.springframework.data.jpa.repository.Query;
-import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
-import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.RestController;
 import teste.aular.domain.entity.Hotel;
-
-import java.util.List;
 
 @Repository
 public interface HotelRepository extends JpaRepository<Hotel, Integer> {
@@ -20,21 +13,14 @@ public interface HotelRepository extends JpaRepository<Hotel, Integer> {
 
      boolean existsByDocumentId(String hotelDocumentId);
 
-
      boolean existsByHotelUuid(String uuid);
 
-
      boolean existsByEmail(String email);
-
 
      boolean existsByPhoneNumber(String phoneNumber);
 
 
 
-
-
-
-//
 //
 //     @Modifying
 //     @Query("value = UPDATE tab_hotel h SET h.name = :name WHERE h.hotel_id = :id")

@@ -1,18 +1,19 @@
 package teste.aular.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.client.HttpClientErrorException;
-import org.springframework.web.server.ResponseStatusException;
+import teste.aular.domain.contract.AddressRepository;
+import teste.aular.domain.contract.CampaignRepository;
 import teste.aular.domain.contract.HotelRepository;
+import teste.aular.domain.contract.PlanRepository;
+import teste.aular.domain.entity.Address;
+import teste.aular.domain.entity.Campaign;
 import teste.aular.domain.entity.Hotel;
+import teste.aular.domain.entity.Plan;
+import teste.aular.response.HotelAllFieldsResponse;
 import teste.aular.service.HotelService;
-
-import javax.transaction.Transactional;
 import javax.validation.Valid;
-import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
@@ -22,6 +23,18 @@ public class HotelController {
 
     @Autowired
     HotelService hotelService;
+
+    @Autowired
+    HotelRepository hotelRepository;
+
+    @Autowired
+    CampaignRepository campaignRepository;
+
+    @Autowired
+    PlanRepository planRepository;
+
+    @Autowired
+    AddressRepository addressRepository;
 
     @PostMapping
     public ResponseEntity<Hotel> postHotel(@RequestBody @Valid Hotel hotel) throws IllegalArgumentException {
@@ -47,6 +60,24 @@ public class HotelController {
             return ResponseEntity.status(404).build();
         }
     }
+
+    @GetMapping("/allFields/{hotelId}")
+    public ResponseEntity<HotelAllFieldsResponse> getAllFields(@PathVariable int hotelId){
+
+        Optional<Campaign> c = campaignRepository.getSimpleCampaign(hotelId);
+
+        Optional<Hotel> h = hotelRepository.findById(hotelId);
+
+        Optional<Plan> p = planRepository.getSimplePlan(hotelId);
+
+        Optional<Address> a = addressRepository.getSimpleAddress(hotelId);
+
+        HotelAllFieldsResponse hf = new HotelAllFieldsResponse(h.get(), c.get(), p.get(), a.get());
+
+        return ResponseEntity.of(Optional.of(hf));
+    }
+
+
 //
 //    @PatchMapping
 //

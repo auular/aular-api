@@ -8,6 +8,8 @@ import teste.aular.application.LeadTxtFile;
 import teste.aular.domain.contract.PetTutorRepository;
 import teste.aular.domain.contract.PetRepository;
 import teste.aular.domain.entity.PetTutor;
+import teste.aular.response.PetTutorAllFieldsResponse;
+
 import javax.transaction.Transactional;
 import java.time.LocalDateTime;
 import java.util.List;
@@ -141,6 +143,11 @@ public class PetTutorController {
             e.printStackTrace();
         }
         return ResponseEntity.status(404).build();
+    }
+
+    @GetMapping("/allFields/{petTutorId}")
+    public ResponseEntity<PetTutorAllFieldsResponse> getAllFields(@PathVariable int petTutorId){
+        return ResponseEntity.of(petTutorRepository.getPetTutorAllFieldsResponse(petTutorId));
     }
 
 }

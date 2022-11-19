@@ -6,7 +6,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.HttpClientErrorException;
 import teste.aular.application.PartnerCvsFileService;
-import teste.aular.application.dto.UpdatePartner;
 import teste.aular.domain.contract.PartnerRepository;
 import teste.aular.domain.entity.Partner;
 import teste.aular.utils.ListObj;
@@ -14,7 +13,6 @@ import javax.transaction.Transactional;
 import javax.validation.Valid;
 import java.time.LocalDateTime;
 import java.util.*;
-
 
 @RestController
 @RequestMapping("/partners")

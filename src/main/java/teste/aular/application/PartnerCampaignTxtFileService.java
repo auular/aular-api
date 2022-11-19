@@ -1,15 +1,12 @@
 package teste.aular.application;
 
 import teste.aular.domain.entity.Campaign;
-import teste.aular.domain.entity.Partner;
-
 import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
-import java.util.Optional;
 
 public class PartnerCampaignTxtFileService {
 

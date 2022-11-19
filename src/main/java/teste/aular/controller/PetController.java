@@ -6,7 +6,6 @@ import org.springframework.web.bind.annotation.*;
 import teste.aular.domain.contract.PetRepository;
 import teste.aular.domain.contract.PetTutorRepository;
 import teste.aular.domain.entity.Pet;
-
 import javax.validation.Valid;
 import java.util.List;
 
