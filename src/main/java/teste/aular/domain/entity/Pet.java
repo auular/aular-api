@@ -49,6 +49,21 @@ public class Pet {
         this.petTutor = petTutor;
     }
 
+    //sobrecarga do contrutor para método get allFields
+    public Pet(Integer petId, String petUuid, String name, String specie, String breed, LocalDate birthdate,
+               String healthDescription, LocalDateTime createdAt, LocalDateTime updatedAt, LocalDateTime deactivatedAt) {
+        this.petId = petId;
+        this.petUuid = petUuid;
+        this.name = name;
+        this.specie = specie;
+        this.breed = breed;
+        this.birthdate = birthdate;
+        this.healthDescription = healthDescription;
+        this.createdAt = createdAt;
+        this.updatedAt = updatedAt;
+        this.deactivatedAt = deactivatedAt;
+    }
+
     //getters setters
     public Integer getPetId() {
         return petId;

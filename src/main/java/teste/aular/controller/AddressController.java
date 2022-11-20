@@ -7,6 +7,7 @@ import teste.aular.domain.contract.AddressRepository;
 import teste.aular.domain.entity.Address;
 import javax.validation.Valid;
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/addresses")

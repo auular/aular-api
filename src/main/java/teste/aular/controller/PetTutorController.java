@@ -5,14 +5,18 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.HttpClientErrorException;
 import teste.aular.application.LeadTxtFile;
+import teste.aular.domain.contract.AddressRepository;
 import teste.aular.domain.contract.PetTutorRepository;
 import teste.aular.domain.contract.PetRepository;
+import teste.aular.domain.entity.Address;
+import teste.aular.domain.entity.Pet;
 import teste.aular.domain.entity.PetTutor;
 import teste.aular.response.PetTutorAllFieldsResponse;
 
 import javax.transaction.Transactional;
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Optional;
 
 
 @RestController
@@ -23,6 +27,8 @@ public class PetTutorController {
 
     @Autowired
     private PetRepository petRepository;
+    @Autowired
+    private AddressRepository addressRepository;
 
     @GetMapping
     public ResponseEntity<List<PetTutor>> getPetTutors() {
@@ -89,7 +95,6 @@ public class PetTutorController {
         List<PetTutor> petTutors = petTutorRepository.findAll();
         for (PetTutor petTutor : petTutors) {
             if (petTutor.getDocumentId().equals(documentId)) {
-                //System.out.println("ID encontrado");
                 return petTutor.getPetTutorId();
             }
         }
@@ -147,7 +152,16 @@ public class PetTutorController {
 
     @GetMapping("/allFields/{petTutorId}")
     public ResponseEntity<PetTutorAllFieldsResponse> getAllFields(@PathVariable int petTutorId){
-        return ResponseEntity.of(petTutorRepository.getPetTutorAllFieldsResponse(petTutorId));
+
+        Optional<PetTutor> pt = petTutorRepository.findById(petTutorId);
+        Optional<Pet> p = petRepository.getSimplePetByPetTutorId(petTutorId);
+        Optional<Address> a = addressRepository.getSimpleAddressByPetTutorId(petTutorId);
+
+
+        PetTutorAllFieldsResponse pta = new PetTutorAllFieldsResponse(pt.get(), p.get(), a.get());
+
+
+        return ResponseEntity.of(Optional.of(pta));
     }
 
 }

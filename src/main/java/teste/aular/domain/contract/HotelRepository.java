@@ -21,6 +21,7 @@ public interface HotelRepository extends JpaRepository<Hotel, Integer> {
 
 
 
+
 //
 //     @Modifying
 //     @Query("value = UPDATE tab_hotel h SET h.name = :name WHERE h.hotel_id = :id")

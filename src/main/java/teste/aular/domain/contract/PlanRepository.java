@@ -10,6 +10,6 @@ public interface PlanRepository extends JpaRepository<Plan, Integer> {
     @Query("SELECT new teste.aular.domain.entity.Plan(p.planId, p.planType, p.planValue) " +
             "FROM Plan p " +
             "WHERE p.hotel.hotelId = ?1 ")
-    Optional<Plan> getSimplePlan(int hotelId);
+    Optional<Plan> getSimplePlanByHotelId(int hotelId);
 
 }

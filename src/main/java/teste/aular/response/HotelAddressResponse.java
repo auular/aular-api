@@ -1,43 +1,24 @@
-package teste.aular.domain.entity;
+package teste.aular.response;
 
-import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 
-@Entity
-public class Address {
+public class HotelAddressResponse {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer addressId;
-
-    @NotBlank
+    private int hotelId;
+    private String hotelUuid;
     private String addressCode;
-
-    @NotBlank
     private String addressStreet;
-
-    @NotBlank
     private String addressNumber;
-
     private String addressComplement;
-
     private String addressDistrict;
-
-    private  String addressCity;
-
+    private String addressCity;
     private String addressState;
 
-    @OneToOne
-    private PetTutor petTutor;
-
-    @OneToOne
-    private Partner partner;
-
-    @OneToOne
-    private Hotel hotel;
-
-    public Address(Integer addressId, String addressCode, String addressStreet, String addressNumber, String addressComplement, String addressDistrict, String addressCity, String addressState) {
-        this.addressId = addressId;
+    public HotelAddressResponse(int hotelId, String hotelUuid, String addressCode, String addressStreet,
+                                String addressNumber, String addressComplement, String addressDistrict,
+                                String addressCity, String addressState) {
+        this.hotelId = hotelId;
+        this.hotelUuid = hotelUuid;
         this.addressCode = addressCode;
         this.addressStreet = addressStreet;
         this.addressNumber = addressNumber;
@@ -47,18 +28,20 @@ public class Address {
         this.addressState = addressState;
     }
 
-
-
-    public Address() {
+    public int getHotelId() {
+        return hotelId;
     }
 
-    //Getters Setters
-    public Integer getAddressId() {
-        return addressId;
+    public void setHotelId(int hotelId) {
+        this.hotelId = hotelId;
     }
 
-    public void setAddressId(Integer addressId) {
-        this.addressId = addressId;
+    public String getHotelUuid() {
+        return hotelUuid;
+    }
+
+    public void setHotelUuid(String hotelUuid) {
+        this.hotelUuid = hotelUuid;
     }
 
     public String getAddressCode() {
@@ -115,29 +98,5 @@ public class Address {
 
     public void setAddressState(String addressState) {
         this.addressState = addressState;
-    }
-
-    public PetTutor getPetTutor() {
-        return petTutor;
-    }
-
-    public void setPetTutor(PetTutor petTutor) {
-        this.petTutor = petTutor;
-    }
-
-    public Partner getPartner() {
-        return partner;
-    }
-
-    public void setPartner(Partner partner) {
-        this.partner = partner;
-    }
-
-    public Hotel getHotel() {
-        return hotel;
-    }
-
-    public void setHotel(Hotel hotel) {
-        this.hotel = hotel;
     }
 }

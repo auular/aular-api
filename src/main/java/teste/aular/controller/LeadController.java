@@ -56,14 +56,10 @@ public class LeadController {
         if (filaLeadPetTutor.isEmpty()) {
             return ResponseEntity.status(204).build();
         } else {
+            // envia email antes de enviar a resposta
             sendMail();
             return ResponseEntity.status(200).body(filaLeadPet);
         }
-
-//        return filaLeadPet.isEmpty()
-//                ? ResponseEntity.status(204).build()
-//                : ResponseEntity.status(200).body(filaLeadPet);
-
     }
 
     @PostMapping("/saveLeads")

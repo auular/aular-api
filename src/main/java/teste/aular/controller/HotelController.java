@@ -11,6 +11,7 @@ import teste.aular.domain.entity.Address;
 import teste.aular.domain.entity.Campaign;
 import teste.aular.domain.entity.Hotel;
 import teste.aular.domain.entity.Plan;
+import teste.aular.response.HotelAddressResponse;
 import teste.aular.response.HotelAllFieldsResponse;
 import teste.aular.service.HotelService;
 import javax.validation.Valid;
@@ -62,19 +63,24 @@ public class HotelController {
     }
 
     @GetMapping("/allFields/{hotelId}")
-    public ResponseEntity<HotelAllFieldsResponse> getAllFields(@PathVariable int hotelId){
+    public ResponseEntity<HotelAllFieldsResponse> getAllFieldsById(@PathVariable int hotelId){
 
-        Optional<Campaign> c = campaignRepository.getSimpleCampaign(hotelId);
-
+        Optional<Campaign> c = campaignRepository.getSimpleCampaignByHotelId(hotelId);
         Optional<Hotel> h = hotelRepository.findById(hotelId);
-
-        Optional<Plan> p = planRepository.getSimplePlan(hotelId);
-
-        Optional<Address> a = addressRepository.getSimpleAddress(hotelId);
+        Optional<Plan> p = planRepository.getSimplePlanByHotelId(hotelId);
+        Optional<Address> a = addressRepository.getSimpleAddressByHotelId(hotelId);
 
         HotelAllFieldsResponse hf = new HotelAllFieldsResponse(h.get(), c.get(), p.get(), a.get());
 
         return ResponseEntity.of(Optional.of(hf));
+    }
+
+    @GetMapping("/hotelAddress")
+    public ResponseEntity<Optional<List<HotelAddressResponse>>> getHotelAddress() {
+        Optional<List<HotelAddressResponse>> list = addressRepository.getHotelsAddress();
+        return list.isEmpty()
+                ? ResponseEntity.status(204).build()
+                : ResponseEntity.status(200).body(list);
     }
 
 
