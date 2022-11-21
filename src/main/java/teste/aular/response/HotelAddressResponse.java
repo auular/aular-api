@@ -14,9 +14,17 @@ public class HotelAddressResponse {
     private String addressCity;
     private String addressState;
 
-    public HotelAddressResponse(int hotelId, String hotelUuid, String addressCode, String addressStreet,
-                                String addressNumber, String addressComplement, String addressDistrict,
-                                String addressCity, String addressState) {
+    public HotelAddressResponse(
+            int hotelId,
+            String hotelUuid,
+            String addressCode,
+            String addressStreet,
+            String addressNumber,
+            String addressComplement,
+            String addressDistrict,
+            String addressCity,
+            String addressState
+    ) {
         this.hotelId = hotelId;
         this.hotelUuid = hotelUuid;
         this.addressCode = addressCode;

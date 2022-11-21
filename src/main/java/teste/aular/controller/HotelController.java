@@ -55,11 +55,9 @@ public class HotelController {
     //
     @PatchMapping("/account/{id}/{phoneNumber}")
     public ResponseEntity<Optional<Hotel>> putHotelPhoneNumber(@PathVariable Integer id, @PathVariable String phoneNumber) {
-        if (hotelService.updateHotelPhoneNumber(id, phoneNumber))
-            return ResponseEntity.status(200).build();
-        else {
-            return ResponseEntity.status(404).build();
-        }
+        if (hotelService.updateHotelPhoneNumber(id, phoneNumber)) return ResponseEntity.status(200).build();
+
+        return ResponseEntity.status(404).build();
     }
 
     @GetMapping("/allFields/{hotelId}")
@@ -75,7 +73,7 @@ public class HotelController {
         return ResponseEntity.of(Optional.of(hf));
     }
 
-    @GetMapping("/hotelAddress")
+    @GetMapping("/addresses")
     public ResponseEntity<Optional<List<HotelAddressResponse>>> getHotelAddress() {
         Optional<List<HotelAddressResponse>> list = addressRepository.getHotelsAddress();
         return list.isEmpty()

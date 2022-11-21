@@ -20,13 +20,11 @@ public class HotelService {
         if (hotel != null) {
             if (!hotelRepository.existsByDocumentId(hotel.getDocumentId())){
 
-                if (!hotelRepository.existsByEmail(hotel.getEmail()))  {
+                if (!hotelRepository.existsByEmail(hotel.getEmail())) {
                     hotelRepository.save(hotel);
                     return true;
                 }
-                else {
-                    throw new ResponseStatusException(HttpStatus.FORBIDDEN, "This email has already been registered ");
-                }
+                throw new ResponseStatusException(HttpStatus.FORBIDDEN, "This email has already been registered ");
             }
             throw new ResponseStatusException(HttpStatus.FORBIDDEN, "This document ID has already been registered ");
         }
@@ -40,9 +38,9 @@ public class HotelService {
             h.get().setPhoneNumber(phoneNumber);
             hotelRepository.save(h.get());
             return true;
-        } else {
-            throw new ResponseStatusException(HttpStatus.FORBIDDEN, "This phone number has already been registered");
         }
+
+        throw new ResponseStatusException(HttpStatus.FORBIDDEN, "This phone number has already been registered");
 
     }
 
