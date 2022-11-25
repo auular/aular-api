@@ -1,8 +1,10 @@
 package teste.aular.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.server.ResponseStatusException;
 import teste.aular.application.PartnerCampaignTxtFileService;
 import teste.aular.domain.contract.CampaignRepository;
 import teste.aular.domain.contract.PartnerRepository;
@@ -44,20 +46,5 @@ public class CampaignController {
 
         return ResponseEntity.status(200).build();
     }
-
-    @GetMapping("/partnersCampaignTxtGenerate/{partnerId}")
-    public ResponseEntity<?> txtGenerate(@PathVariable Integer partnerId){
-        if (partnerRepository.existsById(partnerId)) {
-            Partner partner = partnerRepository.findById(partnerId).get();
-            String nomeArquivo = partner.getName() + "-Capaigns.txt";
-
-            List<Campaign> listaCampanhas = campaignRepository.findAllByPartnerPartnerId(partnerId);
-
-            PartnerCampaignTxtFileService.CapaignsPartnerTxtGenerate(listaCampanhas, nomeArquivo);
-            return ResponseEntity.status(200).build();
-        }
-        return ResponseEntity.status(204).build();
-    }
-
 
 }

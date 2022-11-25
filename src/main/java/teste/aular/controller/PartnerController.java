@@ -5,8 +5,12 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.HttpClientErrorException;
+import org.springframework.web.server.ResponseStatusException;
+import teste.aular.application.PartnerCampaignTxtFileService;
 import teste.aular.application.PartnerCvsFileService;
+import teste.aular.domain.contract.CampaignRepository;
 import teste.aular.domain.contract.PartnerRepository;
+import teste.aular.domain.entity.Campaign;
 import teste.aular.domain.entity.Partner;
 import teste.aular.utils.ListObj;
 import javax.transaction.Transactional;
@@ -19,6 +23,9 @@ import java.util.*;
 public class PartnerController {
     @Autowired
     private PartnerRepository partnerRepository;
+
+    @Autowired
+    private CampaignRepository campaignRepository;
 
     @PostMapping
     public ResponseEntity<Partner> addPartner(@RequestBody @Valid Partner partner) {
@@ -161,6 +168,58 @@ public class PartnerController {
             e.printStackTrace();
         }
         return ResponseEntity.status(404).build();
+    }
+
+    @PatchMapping(value = "/report/{partnerId}", consumes = "text/plain")
+    public ResponseEntity<Void> patchRelatorio(@PathVariable int partnerId, @RequestBody byte[] novoRelatorio) {
+        if (!partnerRepository.existsById(partnerId)) {
+            throw new ResponseStatusException(
+                    HttpStatus.NOT_FOUND,
+                    "Partner não encontrado"
+            );
+        }
+        else {
+            if (novoRelatorio.length < 10 || novoRelatorio.length > 10 * 1024 * 1024) {
+                throw new ResponseStatusException(
+                        HttpStatus.BAD_REQUEST,
+                        "Relatório deve conter entre 10b e 10Mb"
+                );
+            }
+            String conteudoTexto = new String(novoRelatorio);
+            partnerRepository.setRelatorio(partnerId, novoRelatorio);
+        }
+        return ResponseEntity.status(200).build();
+    }
+
+    @GetMapping(value = "/report/{partnerId}", produces = "text/plain")
+    public ResponseEntity<byte[]> getRelatorio(@PathVariable int partnerId) {
+        if (!partnerRepository.existsById(partnerId)) {
+            throw new ResponseStatusException(
+                    HttpStatus.NOT_FOUND,
+                    "Partner não encontrado"
+            );
+        }
+        Partner partner = partnerRepository.findById(partnerId).get();
+        String nomeArquivo = partner.getName() + "-Capaigns.txt";
+
+        byte[] relatorio = partnerRepository.getRelatorio(partnerId);
+        // esse header "content-disposition" indica o nome do arquivo em caso de download em navegador
+//        return ResponseEntity.status(200).header("content-disposition", "attachment; filename=\"relatorio-teste.txt\"").body(relatorio);
+        return ResponseEntity.status(200).header("content-disposition", "attachment; filename="+ nomeArquivo).body(relatorio);
+    }
+
+    @PostMapping("/reportGenerate/{partnerId}")
+    public ResponseEntity<?> txtGenerate(@PathVariable Integer partnerId){
+        if (partnerRepository.existsById(partnerId)) {
+            Partner partner = partnerRepository.findById(partnerId).get();
+            String nomeArquivo = "/Users/vitormoura/Desktop/reportFiles/" + partner.getName() + "-Capaigns.txt";
+
+            List<Campaign> listaCampanhas = campaignRepository.findAllByPartnerPartnerId(partnerId);
+
+            PartnerCampaignTxtFileService.CapaignsPartnerTxtGenerate(listaCampanhas, nomeArquivo);
+            return ResponseEntity.status(200).build();
+        }
+        return ResponseEntity.status(204).build();
     }
 
 }

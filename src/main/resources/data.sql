@@ -22,7 +22,7 @@ INSERT INTO pet (   name, birthdate, specie, breed, health_description,
 
 INSERT INTO hotel ( name, email, password, document_id, phone_number, description, rates,
                     hotel_uuid, active, fidelity, is_authenticated, created_at, updated_at) VALUES
-('PetLand Jardins', 'contato@petland.com.br', 'petland', '11.837.734/0001-46', '(11)30615063', "bla bla bla ", 4.7, uuid(), true, true, false, now(), now()),
+('PetLand Jardins', 'contato@petland.com.br', 'petland', '11.837.734/0001-46', '(11)30615063', "maxcbvhksbvishv asouvh sdvhadsui fghv asuhgv alusdgh aisdugh asdiuhgvasuid vaohisuviuashgviays akshdg aiys sid gaisd iaysdg iaoysdg ashdgoaisdgfa sdiut siga sdfiugasd. asduagsdif aiuyqwerhbd bvscjgvasludiygf b vlkhasgf akdfb asdoiygfaowiybfasjdhfgiyastdfgiyaw f.", 4.7, uuid(), true, true, false, now(), now()),
 ('Pet Cidade', 'contato@petcidade.com.br', 'petcidade', '20.867.423/0001-10', '(11)995306174', "bla bla bla", 3.8, uuid(), true, true, false, now(), now()),
 ('Mais Pets', 'contato@maispets.com.br', 'maispets', '43.239.777/0001-16', '(11)3061-5129', "bla bla bla", 4.2, uuid(), true, true, false, now(), now()),
 ('Alegra Pet', 'contato@alegrapet.com.br', 'alegrapet', '30.729.121/0001-30', '(11)3256-5553', "bla bla bla", 4.6, uuid(), true, true, false, now(), now()),
@@ -39,11 +39,11 @@ service_visitation, service_cam, service_exercises, service_training, service_de
 
 INSERT INTO partner (   name, email, password, document_id, phone_number, partner_uuid, active,
                         fidelity, is_authenticated, number_of_campaigns, created_at, updated_at) VALUES
-('Cobasi Comercio de Prod. Basicos e Industr. SA', 'marketing@cobasi.com.br', 'cobasimkt', '53.153.938/0001-08', '(11)38318999',
+('Cobasi', 'marketing@cobasi.com.br', 'cobasimkt', '53.153.938/0001-08', '(11)38318999',
     uuid(), true, true, false, 2, now(), now()),
-('Pet Center Comercio e  Participacoes SA', 'comercial@petz.com.br', 'petz123', '18.328.118/0040-15', '(11)21827380',
+('Pet Center', 'comercial@petz.com.br', 'petz123', '18.328.118/0040-15', '(11)21827380',
     uuid(), true, true, false, 1, now(), now()),
-('Petsupermarket Comércio de Prod. para Animais S.A.', 'comercial@petlove.com.br', 'petlove', '10.864.846/0001-23', '(11)30432113',
+('Pet Love', 'comercial@petlove.com.br', 'petlove', '10.864.846/0001-23', '(11)30432113',
     uuid(), true, true, false, 1, now(), now());
 
 INSERT INTO campaign (type, value, click, started_at, finished_at, partner_partner_id, hotel_hotel_id) VALUES

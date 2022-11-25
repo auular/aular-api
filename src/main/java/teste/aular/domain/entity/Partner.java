@@ -1,5 +1,6 @@
 package teste.aular.domain.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.hibernate.annotations.*;
 
 import javax.persistence.*;
@@ -36,6 +37,10 @@ public class Partner {
     private Boolean isAuthenticated;
 
     private int numberOfCampaigns;
+
+    @JsonIgnore
+    @Column(length = 10 * 1024 *1024)
+    private byte[] relatorioCampanha;
 
 
     protected Partner() {
@@ -156,5 +161,13 @@ public class Partner {
 
     public void setNumberOfCampaigns(int numberOfCampaigns) {
         this.numberOfCampaigns = numberOfCampaigns;
+    }
+
+    public byte[] getRelatorioCampanha() {
+        return relatorioCampanha;
+    }
+
+    public void setRelatorioCampanha(byte[] relatorioCampanha) {
+        this.relatorioCampanha = relatorioCampanha;
     }
 }

@@ -1,5 +1,7 @@
 package teste.aular.domain.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import java.time.LocalDate;
 
@@ -102,5 +104,6 @@ public class Campaign {
     public void setHotel(Hotel hotel) {
         this.hotel = hotel;
     }
+
 }
 

@@ -5,6 +5,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
+import teste.aular.utils.Disc;
 import teste.aular.utils.FilaObj;
 import teste.aular.application.LeadTxtFile;
 import teste.aular.domain.contract.LeadPetRepository;
@@ -12,6 +14,7 @@ import teste.aular.domain.contract.LeadPetTutorRepository;
 import teste.aular.domain.entity.LeadPet;
 import teste.aular.domain.entity.LeadPetTutor;
 
+import javax.mail.Multipart;
 import java.util.List;
 
 
@@ -22,9 +25,11 @@ public class LeadController {
     @Autowired private JavaMailSender mailSender;
     @Autowired
     private LeadPetTutorRepository leadPetTutorRepository;
-
     @Autowired
     private LeadPetRepository leadPetRepository;
+
+    @Autowired
+    private Disc disc;
 
     @GetMapping
     public ResponseEntity<List<LeadPet>> getPetTutors() {
@@ -34,12 +39,18 @@ public class LeadController {
                 : ResponseEntity.status(200).body(lista);
     }
 
+    @PostMapping("/uploadLeadsFile")
+    public void uploadLeadsFile(@RequestParam MultipartFile leadFile) {
+        disc.saveLeadFile(leadFile);
+    }
+
     FilaObj<LeadPetTutor> filaLeadPetTutor;
     FilaObj<LeadPet> filaLeadPet;
 
+    //Lê o arquivo dos Leads (PetTutor e Pet na fila), armazena na fila e dispara o email
     @PostMapping("/scheduleLeads")
     public ResponseEntity<FilaObj<LeadPet>> saveLeadPetTutor() {
-        LeadTxtFile.lerArquivoTxt("LEADS.TXT");
+        LeadTxtFile.lerArquivoTxt("/Users/vitormoura/Desktop/LEADS.TXT");
 
         LeadTxtFile lista1 = new LeadTxtFile();
         filaLeadPetTutor = new FilaObj<>(lista1.getListLeadPetTutorReaded().size());
@@ -62,6 +73,7 @@ public class LeadController {
         }
     }
 
+    // Salva os Leads que estavam na fina no banco de dados
     @PostMapping("/saveLeads")
     public ResponseEntity<?> txtReading(){
 
@@ -79,6 +91,7 @@ public class LeadController {
         }
     }
 
+    // Método sendMail que dispara o email, endpoint criado para poder terstar apenas o envio
     @GetMapping("/sendEmailTest")
     public void sendMail() {
         SimpleMailMessage message = new SimpleMailMessage();

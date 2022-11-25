@@ -46,11 +46,12 @@ public class Hotel {
     @NotBlank
     private String phoneNumber;
 
+    @Column(length=512)
     private String description;
 
 
-    @CreationTimestamp
-    private LocalDateTime createdAt;
+//    @CreationTimestamp
+    private LocalDateTime createdAt = LocalDateTime.now();
 
     @UpdateTimestamp
     private LocalDateTime updatedAt;
