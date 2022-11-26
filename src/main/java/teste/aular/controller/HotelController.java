@@ -18,8 +18,11 @@ import teste.aular.domain.entity.Plan;
 import teste.aular.response.HotelAddressResponse;
 import teste.aular.response.HotelAllFieldsResponse;
 import teste.aular.service.HotelService;
+import teste.aular.utils.Pilha;
 
+import javax.transaction.Transactional;
 import javax.validation.Valid;
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
@@ -45,20 +48,42 @@ public class HotelController {
     @Autowired
     ServicesProvidedRepository servicesProvidedRepository;
 
+    Pilha pilha = new Pilha(10);
+
     @PostMapping
-    public ResponseEntity<Hotel> postHotel(@RequestBody @Valid Hotel hotel) throws IllegalArgumentException {
+    public ResponseEntity<Integer> postHotel(@RequestBody @Valid Hotel hotel) throws IllegalArgumentException {
         if (hotel != null) {
             if (!hotelRepository.existsByDocumentId(hotel.getDocumentId())) {
 
                 if (!hotelRepository.existsByEmail(hotel.getEmail())) {
                     hotelRepository.save(hotel);
-                    return ResponseEntity.status(201).body(hotel);
+                    pilha.push(hotel.getHotelId());
+                    return ResponseEntity.status(201).body(hotel.getHotelId());
                 }
                 throw new ResponseStatusException(HttpStatus.FORBIDDEN, "This email has already been registered ");
             }
             throw new ResponseStatusException(HttpStatus.FORBIDDEN, "This document ID has already been registered ");
         }
         return ResponseEntity.status(403).build();
+    }
+
+    @Transactional
+    @DeleteMapping("/undoPostHotel")
+    public ResponseEntity undoPostHotel(){
+        if (pilha.isEmpty()){
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND,
+                    "Pilha vazia, não é possível desfazer o cadastro do hotel"
+            );
+        }
+
+        if (!hotelRepository.existsById(pilha.peek())){
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND,
+                    "hotelId da pilha não encontrado ao tentar desfazer o cadastro"
+            );
+        }
+        System.out.println(pilha.peek());
+        deactiveHotel(pilha.pop());
+        return ResponseEntity.status(200).build();
     }
 
     @PostMapping("/allFields/{hotelId}")
@@ -112,21 +137,19 @@ public class HotelController {
         return list.isEmpty() ? ResponseEntity.status(204).build() : ResponseEntity.status(200).body(list);
     }
 
+    @DeleteMapping("/{id}")
+    @Transactional
+    public ResponseEntity<Hotel> deactiveHotel(
+            @PathVariable Integer id) {
+        if (hotelRepository.existsById(id)) {
+            Hotel h = hotelRepository.findById(id).get();
+            h.setActive(false);
+            h.setDeactivatedAt(LocalDateTime.now());
+            return ResponseEntity.status(200).build();
+        }
+        return ResponseEntity.status(204).build();
+    }
 
-//
-//    @DeleteMapping("/{id}")
-//    @Transactional
-//    public ResponseEntity<Hotel> deactiveHotel(
-//            @PathVariable Integer id) {
-//        if (hotelRepository.existsById(id)) {
-//            Hotel h = hotelRepository.findById(id).get();
-//            h.setActive(false);
-//            h.setDeactivatedAt(LocalDateTime.now());
-//            return ResponseEntity.status(200).build();
-//        }
-//        return ResponseEntity.status(204).build();
-//    }
-//
 //    @PostMapping("/autentication/{email}/{password}")
 //    public ResponseEntity<Hotel> logIn(@PathVariable String email,
 //                                        @PathVariable String password){

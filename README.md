@@ -45,7 +45,8 @@
   "email": "pethappy@gmail.com",
   "password": "pethappy",
   "documentId": "22.948.845/0001-57",
-  "phoneNumber": "1120056725"
+  "phoneNumber": "1120056725",
+  "description": "Uma descrição bem grande aqui com muitas e muitas palavras, formando várias e várias frases com limite de 512 caracteres"
 }
 ````
 
@@ -122,14 +123,14 @@
     "value": 2000.00,
     "click": 0,
     "hotel": {
-      "hotelId": 7
+      "hotelId": 6
     }
   },
   "plan": {
     "planType": "Bronze",
     "planValue": 150.00,
     "hotel": {
-      "hotelId": 7
+      "hotelId": 6
     }
   },
   "address": {
@@ -140,7 +141,7 @@
     "addressCity": "São Paulo",
     "addressState": "São Paulo",
     "hotel": {
-      "hotelId": 7
+      "hotelId": 6
     }
   },
   "servicesProvided": {
@@ -163,7 +164,7 @@
     "othersAcepted": true,
     "averagePrice": "Até R$ 200,00",
     "hotel": {
-      "hotelId": 7
+      "hotelId": 6
     }
   }
 }

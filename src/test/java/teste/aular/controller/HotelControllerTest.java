@@ -77,7 +77,7 @@ class HotelControllerTest {
         when(repository.existsByDocumentId(documentId)).thenReturn(true);
         when(repository.existsByEmail(email)).thenReturn(true);
 
-        ResponseEntity<Hotel> response = hotelController.postHotel(hotel);
+        ResponseEntity<Integer> response = hotelController.postHotel(hotel);
 
         verify(repository, times(1)).save(hotel);
 
@@ -92,7 +92,7 @@ class HotelControllerTest {
         String documentId = "12345";
         String email = "wall@test.com";
         when(repository.existsByEmail(email)).thenReturn(false);
-        ResponseEntity<Hotel> response = hotelController.postHotel(null);
+        ResponseEntity<Integer> response = hotelController.postHotel(null);
         assertEquals(403, response.getStatusCodeValue());
         assertNull(response.getBody());
     }
