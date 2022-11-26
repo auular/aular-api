@@ -167,25 +167,24 @@ public class HotelController {
     }
 
 
-//    @PostMapping("/autentication/{email}/{password}")
-//    public ResponseEntity<Hotel> logIn(@PathVariable String email,
-//                                        @PathVariable String password){
-//
-//        List<Hotel> registeredHotels = hotelRepository.findAll();
-//
-//        if (registeredHotels.isEmpty()) {
-//            return ResponseEntity.status(404).build();
-//        }
-//
-//            for (Hotel h : registeredHotels) {
-//                if (h.authenticateHotel(email, password)) {
-//                    h.setAuthenticated(true);
-//                    hotelRepository.save(h);
-//                    return ResponseEntity.status(200).body(h);
-//                }
-//            }
-//        return ResponseEntity.status(401).build();
-//    }
+    @PostMapping("/autentication")
+    public ResponseEntity<Hotel> logIn(@RequestBody Hotel login){
+
+        List<Hotel> registeredHotels = hotelRepository.findAll();
+
+        if (registeredHotels.isEmpty()) {
+            return ResponseEntity.status(404).build();
+        }
+
+            for (Hotel h : registeredHotels) {
+                if (h.authenticateHotel(login.getEmail(), login.seePassword())) {
+                    h.setAuthenticated(true);
+                    hotelRepository.save(h);
+                    return ResponseEntity.status(200).body(h);
+                }
+            }
+        return ResponseEntity.status(401).build();
+    }
 //
 //    @DeleteMapping("autentication/{id}")
 //    public ResponseEntity<String> logOff(@PathVariable Integer id) {
