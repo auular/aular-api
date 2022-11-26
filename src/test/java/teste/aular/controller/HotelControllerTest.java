@@ -8,10 +8,7 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import teste.aular.domain.contract.AddressRepository;
-import teste.aular.domain.contract.CampaignRepository;
-import teste.aular.domain.contract.HotelRepository;
-import teste.aular.domain.contract.PlanRepository;
+import teste.aular.domain.contract.*;
 import teste.aular.domain.entity.Hotel;
 import teste.aular.service.HotelService;
 
@@ -39,6 +36,9 @@ class HotelControllerTest {
 
     @MockBean
     private PlanRepository planRepository;
+
+    @MockBean
+    ServicesProvidedRepository servicesProvidedRepository;
 
 
     @Test
@@ -72,19 +72,30 @@ class HotelControllerTest {
         String documentId = "12345";
         String email = "wall@test.com";
 
-        Hotel hotel = mock(Hotel.class);
+        Hotel hotel = new Hotel();
 
         when(repository.existsByDocumentId(documentId)).thenReturn(true);
         when(repository.existsByEmail(email)).thenReturn(true);
 
-        //ResponseEntity<Hotel> response = hotelController.postHotel(hotel);
         ResponseEntity<Hotel> response = hotelController.postHotel(hotel);
 
         verify(repository, times(1)).save(hotel);
 
         assertEquals(201, response.getStatusCodeValue());
+        assertNotNull(response.getBody());
 
     }
-    
+
+    @Test
+    @DisplayName("Class must return 403 with null hotel")
+    void postReturns403() {
+        String documentId = "12345";
+        String email = "wall@test.com";
+        when(repository.existsByEmail(email)).thenReturn(false);
+        ResponseEntity<Hotel> response = hotelController.postHotel(null);
+        assertEquals(403, response.getStatusCodeValue());
+        assertNull(response.getBody());
+    }
+
 
 }
