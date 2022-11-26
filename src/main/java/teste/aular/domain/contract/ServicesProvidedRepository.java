@@ -16,4 +16,5 @@ public interface ServicesProvidedRepository extends JpaRepository<ServicesProvid
             "FROM ServicesProvided s " +
             "WHERE s.hotel.hotelId = ?1 ")
     Optional<ServicesProvided> getSimpleAddressByHotelId(int hotelId);
+
 }

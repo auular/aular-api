@@ -50,8 +50,8 @@ public class Hotel {
     private String description;
 
 
-//    @CreationTimestamp
-    private LocalDateTime createdAt = LocalDateTime.now();
+    @CreationTimestamp
+    private LocalDateTime createdAt;
 
     @UpdateTimestamp
     private LocalDateTime updatedAt;

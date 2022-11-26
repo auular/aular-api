@@ -68,7 +68,7 @@ INSERT INTO plan (plan_type, plan_value, hotel_hotel_id) VALUES
 ("Silver", 250.00, 1),
 ("Gold", 350.00, 2),
 ("Gold", 350.00, 3),
-("Broze", 150.00, 4),
+("Bronze", 150.00, 4),
 ("Gold", 350.00, 5);
 
 INSERT INTO address (

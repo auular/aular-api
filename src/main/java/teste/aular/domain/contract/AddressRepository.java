@@ -29,6 +29,4 @@ public interface AddressRepository extends JpaRepository<Address, Integer> {
             "FROM Address a ")
     Optional<List<HotelAddressResponse>> getHotelsAddress();
 
-
-
 }

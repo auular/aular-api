@@ -23,6 +23,9 @@ public class Plan {
         this.planValue = planValue;
     }
 
+    public Plan() {
+    }
+
     //Getters Setters
 
     public Integer getPlanId() {

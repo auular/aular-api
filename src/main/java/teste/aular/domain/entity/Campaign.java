@@ -1,6 +1,8 @@
 package teste.aular.domain.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import org.hibernate.annotations.CreationTimestamp;
+import org.springframework.data.annotation.CreatedDate;
 
 import javax.persistence.*;
 import java.time.LocalDate;
@@ -18,6 +20,7 @@ public class Campaign {
 
     private Integer click;
 
+    @CreationTimestamp
     private LocalDate startedAt;
 
     private LocalDate finishedAt;

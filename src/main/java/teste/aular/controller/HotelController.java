@@ -1,8 +1,10 @@
 package teste.aular.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.server.ResponseStatusException;
 import teste.aular.domain.contract.*;
 import teste.aular.domain.entity.*;
 import teste.aular.response.HotelAddressResponse;
@@ -35,12 +37,29 @@ public class HotelController {
     ServicesProvidedRepository servicesProvidedRepository;
 
     @PostMapping
-    public ResponseEntity<Hotel> postHotel(@RequestBody @Valid Hotel hotel) throws IllegalArgumentException {
+    public ResponseEntity<Integer> postHotel(@RequestBody @Valid Hotel hotel) throws IllegalArgumentException {
 
         if (hotelService.addHotel(hotel)) {
-            return ResponseEntity.status(201).body(hotel);
+            return ResponseEntity.status(201).body(hotel.getHotelId());
         }
         return ResponseEntity.status(403).build();
+    }
+
+    @PostMapping("/allFields/{hotelId}")
+    public ResponseEntity postAllFields(@RequestBody HotelAllFieldsResponse hotelAllFieldsResponse,
+                                                           @PathVariable int hotelId) throws IllegalArgumentException {
+
+        if (!hotelRepository.existsById(hotelId)) {
+            throw new ResponseStatusException(
+                    HttpStatus.NOT_FOUND,
+                    "hotelId não encontrado ao cadastrar endereço e serviços"
+            );
+        }
+        campaignRepository.save(hotelAllFieldsResponse.getCampaign());
+        planRepository.save(hotelAllFieldsResponse.getPlan());
+        addressRepository.save(hotelAllFieldsResponse.getAddress());
+        servicesProvidedRepository.save(hotelAllFieldsResponse.getServicesProvided());
+        return ResponseEntity.status(201).build();
     }
 
     @GetMapping

@@ -41,14 +41,11 @@
 ### Hotel
 ````
 {
-  "name": "wall teste",
-  "email": "wall@teste",
-  "password": "12345678",
-  "documentId": "1442232",
-  "fidelity": false,
-  "planType": "gold",
-  "rates": 0.7,
-  "phoneNumber": "1122334455"
+  "name": "Pet Happy",
+  "email": "pethappy@gmail.com",
+  "password": "pethappy",
+  "documentId": "22.948.845/0001-57",
+  "phoneNumber": "1120056725"
 }
 ````
 
@@ -114,5 +111,60 @@
     "petTutor":  {
       "petTutorId": 1
       }
+}
+```
+
+#### Hotel Post AllFilds
+```
+{
+  "campaign": {
+    "type": "Bronze",
+    "value": 2000.00,
+    "click": 0,
+    "hotel": {
+      "hotelId": 7
+    }
+  },
+  "plan": {
+    "planType": "Bronze",
+    "planValue": 150.00,
+    "hotel": {
+      "hotelId": 7
+    }
+  },
+  "address": {
+    "addressCode": "04137-111",
+    "addressStreet": "Rua dos Eucaliptos",
+    "addressNumber": "798",
+    "addressDistrict": "Bosque da Saúde",
+    "addressCity": "São Paulo",
+    "addressState": "São Paulo",
+    "hotel": {
+      "hotelId": 7
+    }
+  },
+  "servicesProvided": {
+    "servicePool": true,
+    "servicePlayground": true,
+    "serviceToys": true,
+    "serviceBath": true,
+    "serviceLeathering": true,
+    "serviceBedroom": true,
+    "serviceFood": true,
+    "serviceVisitation": true,
+    "serviceCam": true,
+    "serviceExercises": true,
+    "serviceTraining": true,
+    "serviceDentist": true,
+    "serviceVet": true,
+    "serviceMonitoring": true,
+    "dogsAcepted": true,
+    "catsAcepted": true,
+    "othersAcepted": true,
+    "averagePrice": "Até R$ 200,00",
+    "hotel": {
+      "hotelId": 7
+    }
+  }
 }
 ```

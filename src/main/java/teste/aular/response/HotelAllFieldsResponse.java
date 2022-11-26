@@ -8,16 +8,22 @@ public class HotelAllFieldsResponse {
     private Campaign campaign;
     private Plan plan;
     private Address address;
-
     private ServicesProvided servicesProvided;
 
 
-    public HotelAllFieldsResponse(Hotel hotel, Campaign campaign, Plan plan, Address address, ServicesProvided servicesProvided) {
+    public HotelAllFieldsResponse(Hotel hotel,
+                                  Campaign campaign,
+                                  Plan plan,
+                                  Address address,
+                                  ServicesProvided servicesProvided) {
         this.hotel = hotel;
         this.campaign = campaign;
         this.plan = plan;
         this.address = address;
         this.servicesProvided = servicesProvided;
+    }
+
+    public HotelAllFieldsResponse() {
     }
 
     public Hotel getHotel() {
