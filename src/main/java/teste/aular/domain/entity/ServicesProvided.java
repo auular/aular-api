@@ -9,38 +9,74 @@ public class ServicesProvided {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int servicesProvidedId;
 
-    private boolean service_pool;
+    private boolean servicePool;
 
-    private boolean service_playground;
+    private boolean servicePlayground;
 
-    private boolean service_toys;
+    private boolean serviceToys;
 
-    private boolean service_bath;
+    private boolean serviceBath;
 
-    private boolean service_leathering;
+    private boolean serviceLeathering;
 
-    private boolean service_bedroom;
+    private boolean serviceBedroom;
 
-    private boolean service_food;
+    private boolean serviceFood;
 
-    private boolean service_visitation;
+    private boolean serviceVisitation;
 
-    private boolean service_cam;
+    private boolean serviceCam;
 
-    private boolean service_exercises;
+    private boolean serviceExercises;
 
-    private boolean service_training;
+    private boolean serviceTraining;
 
-    private boolean service_dentist;
+    private boolean serviceDentist;
 
-    private boolean service_vet;
+    private boolean serviceVet;
 
-    private boolean service_monitoring;
+    private boolean serviceMonitoring;
+
+    private boolean dogsAcepted;
+
+    private boolean catsAcepted;
+
+    private boolean othersAcepted;
+
+    private String averagePrice;
 
     @ManyToOne
     private Hotel hotel;
 
 
+    public ServicesProvided(int servicesProvidedId, boolean servicePool, boolean servicePlayground, boolean serviceToys,
+                            boolean serviceBath, boolean serviceLeathering, boolean serviceBedroom, boolean serviceFood,
+                            boolean serviceVisitation, boolean serviceCam, boolean serviceExercises,
+                            boolean serviceTraining, boolean serviceDentist, boolean serviceVet, boolean serviceMonitoring,
+                            boolean dogsAcepted, boolean catsAcepted, boolean othersAcepted, String averagePrice) {
+        this.servicesProvidedId = servicesProvidedId;
+        this.servicePool = servicePool;
+        this.servicePlayground = servicePlayground;
+        this.serviceToys = serviceToys;
+        this.serviceBath = serviceBath;
+        this.serviceLeathering = serviceLeathering;
+        this.serviceBedroom = serviceBedroom;
+        this.serviceFood = serviceFood;
+        this.serviceVisitation = serviceVisitation;
+        this.serviceCam = serviceCam;
+        this.serviceExercises = serviceExercises;
+        this.serviceTraining = serviceTraining;
+        this.serviceDentist = serviceDentist;
+        this.serviceVet = serviceVet;
+        this.serviceMonitoring = serviceMonitoring;
+        this.dogsAcepted = dogsAcepted;
+        this.catsAcepted = catsAcepted;
+        this.othersAcepted = othersAcepted;
+        this.averagePrice = averagePrice;
+    }
+
+    public ServicesProvided() {
+    }
 
     public int getServicesProvidedId() {
         return servicesProvidedId;
@@ -50,116 +86,148 @@ public class ServicesProvided {
         this.servicesProvidedId = servicesProvidedId;
     }
 
-    public boolean isService_pool() {
-        return service_pool;
+    public boolean isServicePool() {
+        return servicePool;
     }
 
-    public void setService_pool(boolean service_pool) {
-        this.service_pool = service_pool;
+    public void setServicePool(boolean servicePool) {
+        this.servicePool = servicePool;
     }
 
-    public boolean isService_playground() {
-        return service_playground;
+    public boolean isServicePlayground() {
+        return servicePlayground;
     }
 
-    public void setService_playground(boolean service_playground) {
-        this.service_playground = service_playground;
+    public void setServicePlayground(boolean servicePlayground) {
+        this.servicePlayground = servicePlayground;
     }
 
-    public boolean isService_toys() {
-        return service_toys;
+    public boolean isServiceToys() {
+        return serviceToys;
     }
 
-    public void setService_toys(boolean service_toys) {
-        this.service_toys = service_toys;
+    public void setServiceToys(boolean serviceToys) {
+        this.serviceToys = serviceToys;
     }
 
-    public boolean isService_bath() {
-        return service_bath;
+    public boolean isServiceBath() {
+        return serviceBath;
     }
 
-    public void setService_bath(boolean service_bath) {
-        this.service_bath = service_bath;
+    public void setServiceBath(boolean serviceBath) {
+        this.serviceBath = serviceBath;
     }
 
-    public boolean isService_leathering() {
-        return service_leathering;
+    public boolean isServiceLeathering() {
+        return serviceLeathering;
     }
 
-    public void setService_leathering(boolean service_leathering) {
-        this.service_leathering = service_leathering;
+    public void setServiceLeathering(boolean serviceLeathering) {
+        this.serviceLeathering = serviceLeathering;
     }
 
-    public boolean isService_bedroom() {
-        return service_bedroom;
+    public boolean isServiceBedroom() {
+        return serviceBedroom;
     }
 
-    public void setService_bedroom(boolean service_bedroom) {
-        this.service_bedroom = service_bedroom;
+    public void setServiceBedroom(boolean serviceBedroom) {
+        this.serviceBedroom = serviceBedroom;
     }
 
-    public boolean isService_food() {
-        return service_food;
+    public boolean isServiceFood() {
+        return serviceFood;
     }
 
-    public void setService_food(boolean service_food) {
-        this.service_food = service_food;
+    public void setServiceFood(boolean serviceFood) {
+        this.serviceFood = serviceFood;
     }
 
-    public boolean isService_visitation() {
-        return service_visitation;
+    public boolean isServiceVisitation() {
+        return serviceVisitation;
     }
 
-    public void setService_visitation(boolean service_visitation) {
-        this.service_visitation = service_visitation;
+    public void setServiceVisitation(boolean serviceVisitation) {
+        this.serviceVisitation = serviceVisitation;
     }
 
-    public boolean isService_cam() {
-        return service_cam;
+    public boolean isServiceCam() {
+        return serviceCam;
     }
 
-    public void setService_cam(boolean service_cam) {
-        this.service_cam = service_cam;
+    public void setServiceCam(boolean serviceCam) {
+        this.serviceCam = serviceCam;
     }
 
-    public boolean isService_exercises() {
-        return service_exercises;
+    public boolean isServiceExercises() {
+        return serviceExercises;
     }
 
-    public void setService_exercises(boolean service_exercises) {
-        this.service_exercises = service_exercises;
+    public void setServiceExercises(boolean serviceExercises) {
+        this.serviceExercises = serviceExercises;
     }
 
-    public boolean isService_training() {
-        return service_training;
+    public boolean isServiceTraining() {
+        return serviceTraining;
     }
 
-    public void setService_training(boolean service_training) {
-        this.service_training = service_training;
+    public void setServiceTraining(boolean serviceTraining) {
+        this.serviceTraining = serviceTraining;
     }
 
-    public boolean isService_dentist() {
-        return service_dentist;
+    public boolean isServiceDentist() {
+        return serviceDentist;
     }
 
-    public void setService_dentist(boolean service_dentist) {
-        this.service_dentist = service_dentist;
+    public void setServiceDentist(boolean serviceDentist) {
+        this.serviceDentist = serviceDentist;
     }
 
-    public boolean isService_vet() {
-        return service_vet;
+    public boolean isServiceVet() {
+        return serviceVet;
     }
 
-    public void setService_vet(boolean service_vet) {
-        this.service_vet = service_vet;
+    public void setServiceVet(boolean serviceVet) {
+        this.serviceVet = serviceVet;
     }
 
-    public boolean isService_monitoring() {
-        return service_monitoring;
+    public boolean isServiceMonitoring() {
+        return serviceMonitoring;
     }
 
-    public void setService_monitoring(boolean service_monitoring) {
-        this.service_monitoring = service_monitoring;
+    public void setServiceMonitoring(boolean serviceMonitoring) {
+        this.serviceMonitoring = serviceMonitoring;
+    }
+
+    public boolean isDogsAcepted() {
+        return dogsAcepted;
+    }
+
+    public void setDogsAcepted(boolean dogsAcepted) {
+        this.dogsAcepted = dogsAcepted;
+    }
+
+    public boolean isCatsAcepted() {
+        return catsAcepted;
+    }
+
+    public void setCatsAcepted(boolean catsAcepted) {
+        this.catsAcepted = catsAcepted;
+    }
+
+    public boolean isOthersAcepted() {
+        return othersAcepted;
+    }
+
+    public void setOthersAcepted(boolean othersAcepted) {
+        this.othersAcepted = othersAcepted;
+    }
+
+    public String getAveragePrice() {
+        return averagePrice;
+    }
+
+    public void setAveragePrice(String averagePrice) {
+        this.averagePrice = averagePrice;
     }
 
     public Hotel getHotel() {

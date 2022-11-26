@@ -40,7 +40,7 @@ public class Hotel {
 
     private Boolean fidelity;
 
-    @NotNull
+
     private Double rates;
 
     @NotBlank

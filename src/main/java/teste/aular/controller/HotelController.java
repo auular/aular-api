@@ -3,14 +3,8 @@ package teste.aular.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import teste.aular.domain.contract.AddressRepository;
-import teste.aular.domain.contract.CampaignRepository;
-import teste.aular.domain.contract.HotelRepository;
-import teste.aular.domain.contract.PlanRepository;
-import teste.aular.domain.entity.Address;
-import teste.aular.domain.entity.Campaign;
-import teste.aular.domain.entity.Hotel;
-import teste.aular.domain.entity.Plan;
+import teste.aular.domain.contract.*;
+import teste.aular.domain.entity.*;
 import teste.aular.response.HotelAddressResponse;
 import teste.aular.response.HotelAllFieldsResponse;
 import teste.aular.service.HotelService;
@@ -36,6 +30,9 @@ public class HotelController {
 
     @Autowired
     AddressRepository addressRepository;
+
+    @Autowired
+    ServicesProvidedRepository servicesProvidedRepository;
 
     @PostMapping
     public ResponseEntity<Hotel> postHotel(@RequestBody @Valid Hotel hotel) throws IllegalArgumentException {
@@ -67,8 +64,9 @@ public class HotelController {
         Optional<Hotel> h = hotelRepository.findById(hotelId);
         Optional<Plan> p = planRepository.getSimplePlanByHotelId(hotelId);
         Optional<Address> a = addressRepository.getSimpleAddressByHotelId(hotelId);
+        Optional<ServicesProvided> s = servicesProvidedRepository.getSimpleAddressByHotelId(hotelId);
 
-        HotelAllFieldsResponse hf = new HotelAllFieldsResponse(h.get(), c.get(), p.get(), a.get());
+        HotelAllFieldsResponse hf = new HotelAllFieldsResponse(h.get(), c.get(), p.get(), a.get(), s.get());
 
         return ResponseEntity.of(Optional.of(hf));
     }

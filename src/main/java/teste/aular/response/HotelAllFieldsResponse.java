@@ -1,16 +1,6 @@
 package teste.aular.response;
 
-import org.hibernate.annotations.CreationTimestamp;
-import org.hibernate.annotations.UpdateTimestamp;
 import teste.aular.domain.entity.*;
-
-import javax.persistence.*;
-import javax.validation.constraints.Email;
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
-import java.time.LocalDate;
-import java.time.LocalDateTime;
 
 public class HotelAllFieldsResponse {
 
@@ -19,12 +9,15 @@ public class HotelAllFieldsResponse {
     private Plan plan;
     private Address address;
 
+    private ServicesProvided servicesProvided;
 
-    public HotelAllFieldsResponse(Hotel hotel, Campaign campaign, Plan plan, Address address) {
+
+    public HotelAllFieldsResponse(Hotel hotel, Campaign campaign, Plan plan, Address address, ServicesProvided servicesProvided) {
         this.hotel = hotel;
         this.campaign = campaign;
         this.plan = plan;
         this.address = address;
+        this.servicesProvided = servicesProvided;
     }
 
     public Hotel getHotel() {
@@ -57,5 +50,13 @@ public class HotelAllFieldsResponse {
 
     public void setAddress(Address address) {
         this.address = address;
+    }
+
+    public ServicesProvided getServicesProvided() {
+        return servicesProvided;
+    }
+
+    public void setServicesProvided(ServicesProvided servicesProvided) {
+        this.servicesProvided = servicesProvided;
     }
 }

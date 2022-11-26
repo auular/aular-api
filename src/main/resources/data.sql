@@ -22,20 +22,21 @@ INSERT INTO pet (   name, birthdate, specie, breed, health_description,
 
 INSERT INTO hotel ( name, email, password, document_id, phone_number, description, rates,
                     hotel_uuid, active, fidelity, is_authenticated, created_at, updated_at) VALUES
-('PetLand Jardins', 'contato@petland.com.br', 'petland', '11.837.734/0001-46', '(11)30615063', "maxcbvhksbvishv asouvh sdvhadsui fghv asuhgv alusdgh aisdugh asdiuhgvasuid vaohisuviuashgviays akshdg aiys sid gaisd iaysdg iaoysdg ashdgoaisdgfa sdiut siga sdfiugasd. asduagsdif aiuyqwerhbd bvscjgvasludiygf b vlkhasgf akdfb asdoiygfaowiybfasjdhfgiyastdfgiyaw f.", 4.7, uuid(), true, true, false, now(), now()),
-('Pet Cidade', 'contato@petcidade.com.br', 'petcidade', '20.867.423/0001-10', '(11)995306174', "bla bla bla", 3.8, uuid(), true, true, false, now(), now()),
-('Mais Pets', 'contato@maispets.com.br', 'maispets', '43.239.777/0001-16', '(11)3061-5129', "bla bla bla", 4.2, uuid(), true, true, false, now(), now()),
-('Alegra Pet', 'contato@alegrapet.com.br', 'alegrapet', '30.729.121/0001-30', '(11)3256-5553', "bla bla bla", 4.6, uuid(), true, true, false, now(), now()),
-('Casa Pet', 'contato@casapet.com.br', 'casapet', '33.472.866/0007-40', '(11)4304-8008', "bla bla bla", 4.1, uuid(), true, true, false, now(), now());
+('PetLand Jardins', 'contato@petland.com.br', 'petland', '11.837.734/0001-46', '(11)30615063', "Somos a PetLand Jardins, um hotel que entrega com excelência uma experiência rica com atividades, exercícios, alimentação, dormitórios e médicos prontos para cuidar da saúde do seu filho. Conte conosco para fornecer ao seu pet a mais incrível das experiências, aproveite e esqueça do pior, até por que seu pet merece o melhor.", 4.7, uuid(), true, true, false, now(), now()),
+('Pet Cidade', 'contato@petcidade.com.br', 'petcidade', '20.867.423/0001-10', '(11)995306174', "Na Pet Cidade temos diversas atividades para o seu pet, aqui ele poderá brincar, nadar, comer e aprender a socializar com os outros pets através do adestramento, conte conosco para ajudar seu animalzinho a aproveitar o tempo longe de você da melhor forma possível. Na Pet Cidade contamos com diversos profissionais para proteger e cuidar do seu pet. Somente na Pet Cidade seu pet encontra a melhor experiência da cidade.", 3.8, uuid(), true, true, false, now(), now()),
+('Mais Pets', 'contato@maispets.com.br', 'maispets', '43.239.777/0001-16', '(11)3061-5129', "Aqui na Mais Pets somos o hotel que aceita a maior variedade de pets na Cidade de São Paulo, aqui todos são bem vindos, temos cuidadores especializados em diversas espécies, temos locais próprios para cada espécie, alimentações naturais e saudáveis para seu animalzinho. Aproveite e nos visite para conhecer todos os serviços disponíveis. Mais Pets, do seu cachorrinho até o seu porquinho.", 4.2, uuid(), true, true, false, now(), now()),
+('Alegra Pet', 'contato@alegrapet.com.br', 'alegrapet', '30.729.121/0001-30', '(11)3256-5553', "Alegra Pet está pronto para receber seu cachorrinho para se divertir e aproveitar enquanto você viaja. Nos estamos preparados para cuidar do seu doguinho com a maior excelência, aqui ele irá correr, brincar, tomar banho, passar por veterinários especializados em cães. No alegra pet, temos como objetivo tornar seu pet feliz enquanto estiver aqui. Confie em nós e deixe seu pet feliz aqui na Alegra Pet.", 4.6, uuid(), true, true, false, now(), now()),
+('Casa Pet', 'contato@casapet.com.br', 'casapet', '33.472.866/0007-40', '(11)4304-8008', "A Casa Pet oferece ao seu bichinho um conforto que ele encontra na sua casa, com um ambiente higienizado, alimentação premium e dormitórios para diversos tamanhos e raças diferentes. Entregamos ao seu pet uma experiência única, para que ele aproveite enquanto você está longe. Conte com a casa pet para os momentos que precisar.", 4.1, uuid(), true, true, false, now(), now());
 
 INSERT INTO services_provided (
 service_pool, service_playground, service_toys, service_bath, service_leathering, service_bedroom, service_food,
-service_visitation, service_cam, service_exercises, service_training, service_dentist, service_vet, service_monitoring, hotel_hotel_id) VALUES
-(true, true, true, true, true, true, true, true, true, true, true, true, true, true, 1),
-(true, false, true, true, true, true, true, false, true, true, true, true, true, true, 2),
-(true, true, false, false, true, true, true, true, true, true, true, false, true, true, 3),
-(false, true, true, true, false, true, false, true, true, true, true, false, true, true, 4),
-(true, false, false, true, true, false, false, true, true, false, true, true, true, true, 5);
+service_visitation, service_cam, service_exercises, service_training, service_dentist, service_vet, service_monitoring,
+dogs_acepted, cats_acepted, others_acepted, average_price, hotel_hotel_id) VALUES
+(true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, false, "Até R$ 100,00", 1),
+(true, false, true, true, true, true, true, false, true, true, true, true, true, true, true, true, false, "Até R$ 200,00", 2),
+(true, true, false, false, true, true, true, true, true, true, true, false, true, true, true, true, true, "Até R$ 200,00", 3),
+(false, true, true, true, false, true, false, true, true, true, true, false, true, true, true, false, false, "Até R$ 100,00", 4),
+(true, false, false, true, true, false, false, true, true, false, true, true, true, true, true, true, true, "Até R$ 200,00", 5);
 
 INSERT INTO partner (   name, email, password, document_id, phone_number, partner_uuid, active,
                         fidelity, is_authenticated, number_of_campaigns, created_at, updated_at) VALUES
