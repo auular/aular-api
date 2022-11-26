@@ -54,22 +54,28 @@
 
 ````
 {
-    "service_pool": true,
-    "service_playground": true,
-    "service_toys": true,
-    "service_bath": true,
-    "service_leathering": true,
-    "service_bedroom": true,
-    "service_food": true,
-    "service_visitation": true,
-    "service_cam": true,
-    "service_exercises": true,
-    "service_training": true,
-    "service_dentist": true,
-    "service_vet": true,
-    "service_monitoring": true,
+  "servicesProvided": {
+    "servicePool": true,
+    "servicePlayground": true,
+    "serviceToys": true,
+    "serviceBath": true,
+    "serviceLeathering": true,
+    "serviceBedroom": true,
+    "serviceFood": true,
+    "serviceVisitation": true,
+    "serviceCam": true,
+    "serviceExercises": true,
+    "serviceTraining": true,
+    "serviceDentist": true,
+    "serviceVet": true,
+    "serviceMonitoring": true,
+    "dogsAcepted": true,
+    "catsAcepted": true,
+    "othersAcepted": true,
+    "averagePrice": "Até R$ 200,00",
+    "guestsNumber": 31,
     "hotel": {
-        "hotelId": 1
+      "hotelId": 6
         }
 }
 ````
@@ -163,6 +169,7 @@
     "catsAcepted": true,
     "othersAcepted": true,
     "averagePrice": "Até R$ 200,00",
+    "guestsNumber": 31,
     "hotel": {
       "hotelId": 6
     }

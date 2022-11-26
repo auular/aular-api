@@ -31,12 +31,12 @@ INSERT INTO hotel ( name, email, password, document_id, phone_number, descriptio
 INSERT INTO services_provided (
 service_pool, service_playground, service_toys, service_bath, service_leathering, service_bedroom, service_food,
 service_visitation, service_cam, service_exercises, service_training, service_dentist, service_vet, service_monitoring,
-dogs_acepted, cats_acepted, others_acepted, average_price, hotel_hotel_id) VALUES
-(true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, false, "Até R$ 100,00", 1),
-(true, false, true, true, true, true, true, false, true, true, true, true, true, true, true, true, false, "Até R$ 200,00", 2),
-(true, true, false, false, true, true, true, true, true, true, true, false, true, true, true, true, true, "Até R$ 200,00", 3),
-(false, true, true, true, false, true, false, true, true, true, true, false, true, true, true, false, false, "Até R$ 100,00", 4),
-(true, false, false, true, true, false, false, true, true, false, true, true, true, true, true, true, true, "Até R$ 200,00", 5);
+dogs_acepted, cats_acepted, others_acepted, average_price, guests_number, hotel_hotel_id) VALUES
+(true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, false, "Até R$ 100,00", 28, 1),
+(true, false, true, true, true, true, true, false, true, true, true, true, true, true, true, true, false, "Até R$ 200,00", 32, 2),
+(true, true, false, false, true, true, true, true, true, true, true, false, true, true, true, true, true, "Até R$ 200,00", 23, 3),
+(false, true, true, true, false, true, false, true, true, true, true, false, true, true, true, false, false, "Até R$ 100,00", 34, 4),
+(true, false, false, true, true, false, false, true, true, false, true, true, true, true, true, true, true, "Até R$ 200,00", 25, 5);
 
 INSERT INTO partner (   name, email, password, document_id, phone_number, partner_uuid, active,
                         fidelity, is_authenticated, number_of_campaigns, created_at, updated_at) VALUES
