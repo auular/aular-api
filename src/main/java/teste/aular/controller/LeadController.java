@@ -32,7 +32,7 @@ public class LeadController {
     private Disc disc;
 
     @GetMapping
-    public ResponseEntity<List<LeadPet>> getPetTutors() {
+    public ResponseEntity<List<LeadPet>> getLeads() {
         List<LeadPet> lista = leadPetRepository.findAll();
         return lista.isEmpty()
                 ? ResponseEntity.status(204).build()
@@ -49,7 +49,7 @@ public class LeadController {
 
     //Lê o arquivo dos Leads (PetTutor e Pet na fila), armazena na fila e dispara o email
     @PostMapping("/scheduleLeads")
-    public ResponseEntity<FilaObj<LeadPet>> saveLeadPetTutor() {
+    public ResponseEntity<FilaObj<LeadPet>> scheduleLeads() {
         LeadTxtFile.lerArquivoTxt("/Users/vitormoura/Desktop/LEADS.TXT");
 
         LeadTxtFile lista1 = new LeadTxtFile();
@@ -75,7 +75,7 @@ public class LeadController {
 
     // Salva os Leads que estavam na fina no banco de dados
     @PostMapping("/saveLeads")
-    public ResponseEntity<?> txtReading(){
+    public ResponseEntity<?> saveLeads(){
 
         if (filaLeadPet == null || filaLeadPet.isEmpty()){
             return ResponseEntity.status(204).build();
