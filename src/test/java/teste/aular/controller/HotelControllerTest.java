@@ -104,8 +104,8 @@ class HotelControllerTest {
         String phoneNumber = "11912345566";
         Integer id = 13;
         Boolean authenticated = true;
-
         Hotel hotel = mock(Hotel.class);
+
 
         when(repository.findById(id)).thenReturn(Optional.of(hotel));
         when(repository.existsByPhoneNumber(phoneNumber)).thenReturn(false);
@@ -124,7 +124,6 @@ class HotelControllerTest {
         String phoneNumber = "11912345566";
         Integer id = 13;
         Boolean authenticated = true;
-
         Hotel hotel = mock(Hotel.class);
 
         when(repository.findById(id)).thenReturn(Optional.of(hotel));

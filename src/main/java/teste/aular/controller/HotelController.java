@@ -141,10 +141,10 @@ public class HotelController {
         return ResponseEntity.status(204).build();
     }
 
-    @PatchMapping("/account?id&phoneNumber&authenticated")
-    public ResponseEntity<Hotel> updateHotelPhoneNumber(@RequestParam Integer id,
-                                                        @RequestParam String phoneNumber,
-                                                        @RequestParam Boolean authenticated) {
+    @PatchMapping("/account/{id}/{phoneNumber}/{authenticated}")
+    public ResponseEntity<Hotel> updateHotelPhoneNumber(@PathVariable Integer id,
+                                                        @PathVariable String phoneNumber,
+                                                        @PathVariable Boolean authenticated) {
         Optional<Hotel> h = hotelRepository.findById(id);
 
         if (authenticated) {
@@ -155,8 +155,9 @@ public class HotelController {
                 hotelRepository.save(h.get());
                 return ResponseEntity.status(200).body(h.get());
             }
-        }
             throw new PhoneNumberAlreadyInUseException();
+        }
+        return ResponseEntity.status(401).build();
     }
 
     public ResponseEntity<List<Hotel>> getAllHotels() {
