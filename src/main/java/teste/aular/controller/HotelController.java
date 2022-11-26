@@ -15,9 +15,9 @@ import teste.aular.domain.entity.Address;
 import teste.aular.domain.entity.Campaign;
 import teste.aular.domain.entity.Hotel;
 import teste.aular.domain.entity.Plan;
+import teste.aular.exceptions.PhoneNumberAlreadyInUseException;
 import teste.aular.response.HotelAddressResponse;
 import teste.aular.response.HotelAllFieldsResponse;
-import teste.aular.service.HotelService;
 import teste.aular.utils.Pilha;
 
 import javax.transaction.Transactional;
@@ -30,8 +30,6 @@ import java.util.Optional;
 @RequestMapping("/hotels")
 public class HotelController {
 
-//    @Autowired
-//    HotelService hotelService;
 
     @Autowired
     HotelRepository hotelRepository;
@@ -69,14 +67,14 @@ public class HotelController {
 
     @Transactional
     @DeleteMapping("/undoPostHotel")
-    public ResponseEntity undoPostHotel(){
-        if (pilha.isEmpty()){
+    public ResponseEntity undoPostHotel() {
+        if (pilha.isEmpty()) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND,
                     "Pilha vazia, não é possível desfazer o cadastro do hotel"
             );
         }
 
-        if (!hotelRepository.existsById(pilha.peek())){
+        if (!hotelRepository.existsById(pilha.peek())) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND,
                     "hotelId da pilha não encontrado ao tentar desfazer o cadastro"
             );
@@ -88,7 +86,7 @@ public class HotelController {
 
     @PostMapping("/allFields/{hotelId}")
     public ResponseEntity postAllFields(@RequestBody HotelAllFieldsResponse hotelAllFieldsResponse,
-                                                           @PathVariable int hotelId) throws IllegalArgumentException {
+                                        @PathVariable int hotelId) throws IllegalArgumentException {
 
         if (!hotelRepository.existsById(hotelId)) {
             throw new ResponseStatusException(
@@ -103,19 +101,12 @@ public class HotelController {
         return ResponseEntity.status(201).build();
     }
 
-//    @GetMapping
-//    public ResponseEntity<List<Hotel>> getHotels() {
-//        List hotels = hotelService.getAllHotels();
-//        return hotels.isEmpty() ? ResponseEntity.status(204).build() : ResponseEntity.status(200).body(hotels);
-//    }
+    @GetMapping
+    public ResponseEntity<List<Hotel>> getHotels() {
+        List hotels = hotelRepository.findAll();
+        return hotels.isEmpty() ? ResponseEntity.status(204).build() : ResponseEntity.status(200).body(hotels);
+    }
 
-    //
-//    @PatchMapping("/account/{id}/{phoneNumber}")
-//    public ResponseEntity<Optional<Hotel>> putHotelPhoneNumber(@PathVariable Integer id, @PathVariable String phoneNumber) {
-//        if (hotelService.updateHotelPhoneNumber(id, phoneNumber)) return ResponseEntity.status(200).build();
-//
-//        return ResponseEntity.status(404).build();
-//    }
 
     @GetMapping("/allFields/{hotelId}")
     public ResponseEntity<HotelAllFieldsResponse> getAllFieldsById(@PathVariable int hotelId) {
@@ -149,6 +140,31 @@ public class HotelController {
         }
         return ResponseEntity.status(204).build();
     }
+
+    @PatchMapping("/account?id&phoneNumber&authenticated")
+    public ResponseEntity<Hotel> updateHotelPhoneNumber(@RequestParam Integer id,
+                                                        @RequestParam String phoneNumber,
+                                                        @RequestParam Boolean authenticated) {
+        Optional<Hotel> h = hotelRepository.findById(id);
+
+        if (authenticated) {
+
+            if (!hotelRepository.existsByPhoneNumber(phoneNumber)) {
+                h.get().setHotelId(id);
+                h.get().setPhoneNumber(phoneNumber);
+                hotelRepository.save(h.get());
+                return ResponseEntity.status(200).body(h.get());
+            }
+        }
+            throw new PhoneNumberAlreadyInUseException();
+    }
+
+    public ResponseEntity<List<Hotel>> getAllHotels() {
+        List hotels = hotelRepository.findAll();
+        if (hotels.isEmpty()) throw new ResponseStatusException(HttpStatus.NO_CONTENT, "There are no hotels to show");
+        return ResponseEntity.status(200).body(hotels);
+    }
+
 
 //    @PostMapping("/autentication/{email}/{password}")
 //    public ResponseEntity<Hotel> logIn(@PathVariable String email,

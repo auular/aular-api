@@ -8,9 +8,13 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.server.ResponseStatusException;
 import teste.aular.domain.contract.*;
 import teste.aular.domain.entity.Hotel;
-import teste.aular.service.HotelService;
+import teste.aular.exceptions.PhoneNumberAlreadyInUseException;
+
+import java.net.http.HttpResponse;
+import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
@@ -18,9 +22,6 @@ import static org.mockito.Mockito.*;
 @SpringBootTest(classes = HotelController.class)
 class HotelControllerTest {
 
-
-    @MockBean
-    private HotelService service;
 
     @Autowired
     private HotelController hotelController;
@@ -89,12 +90,48 @@ class HotelControllerTest {
     @Test
     @DisplayName("Class must return 403 with null hotel")
     void postReturns403() {
-        String documentId = "12345";
         String email = "wall@test.com";
         when(repository.existsByEmail(email)).thenReturn(false);
         ResponseEntity<Integer> response = hotelController.postHotel(null);
         assertEquals(403, response.getStatusCodeValue());
         assertNull(response.getBody());
+    }
+
+
+    @Test
+    @DisplayName("Class must return 200 with body")
+    void patchReturn200WithBody() {
+        String phoneNumber = "11912345566";
+        Integer id = 13;
+        Boolean authenticated = true;
+
+        Hotel hotel = mock(Hotel.class);
+
+        when(repository.findById(id)).thenReturn(Optional.of(hotel));
+        when(repository.existsByPhoneNumber(phoneNumber)).thenReturn(false);
+
+        ResponseEntity<Hotel> response = hotelController.updateHotelPhoneNumber(id, phoneNumber, authenticated);
+
+        verify(repository, times(1)).save(hotel);
+
+        assertEquals(200, response.getStatusCodeValue());
+        assertNotNull(response.getBody());
+    }
+
+    @Test
+    @DisplayName("Class must return 403")
+    void patchReturn403() {
+        String phoneNumber = "11912345566";
+        Integer id = 13;
+        Boolean authenticated = true;
+
+        Hotel hotel = mock(Hotel.class);
+
+        when(repository.findById(id)).thenReturn(Optional.of(hotel));
+        when(repository.existsByPhoneNumber(phoneNumber)).thenReturn(true);
+
+        assertThrows(PhoneNumberAlreadyInUseException.class,
+                () -> hotelController.updateHotelPhoneNumber(id, phoneNumber, authenticated));
     }
 
 
