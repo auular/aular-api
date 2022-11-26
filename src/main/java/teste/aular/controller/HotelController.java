@@ -7,9 +7,18 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 import teste.aular.domain.contract.*;
 import teste.aular.domain.entity.*;
+import teste.aular.domain.contract.AddressRepository;
+import teste.aular.domain.contract.CampaignRepository;
+import teste.aular.domain.contract.HotelRepository;
+import teste.aular.domain.contract.PlanRepository;
+import teste.aular.domain.entity.Address;
+import teste.aular.domain.entity.Campaign;
+import teste.aular.domain.entity.Hotel;
+import teste.aular.domain.entity.Plan;
 import teste.aular.response.HotelAddressResponse;
 import teste.aular.response.HotelAllFieldsResponse;
 import teste.aular.service.HotelService;
+
 import javax.validation.Valid;
 import java.util.List;
 import java.util.Optional;
@@ -18,8 +27,8 @@ import java.util.Optional;
 @RequestMapping("/hotels")
 public class HotelController {
 
-    @Autowired
-    HotelService hotelService;
+//    @Autowired
+//    HotelService hotelService;
 
     @Autowired
     HotelRepository hotelRepository;
@@ -37,10 +46,19 @@ public class HotelController {
     ServicesProvidedRepository servicesProvidedRepository;
 
     @PostMapping
-    public ResponseEntity<Integer> postHotel(@RequestBody @Valid Hotel hotel) throws IllegalArgumentException {
+    public ResponseEntity<Hotel> postHotel(@RequestBody @Valid Hotel hotel) throws IllegalArgumentException {
+        if (hotel != null) {
+            if (!hotelRepository.existsByDocumentId(hotel.getDocumentId())) {
 
-        if (hotelService.addHotel(hotel)) {
-            return ResponseEntity.status(201).body(hotel.getHotelId());
+                if (!hotelRepository.existsByEmail(hotel.getEmail())) {
+                    hotelRepository.save(hotel);
+                    return ResponseEntity.status(201).body(hotel);
+                }
+                throw new ResponseStatusException(HttpStatus.FORBIDDEN,
+                        "This email has already been registered ");
+            }
+            throw new ResponseStatusException(HttpStatus.FORBIDDEN,
+                    "This document ID has already been registered ");
         }
         return ResponseEntity.status(403).build();
     }
@@ -62,22 +80,22 @@ public class HotelController {
         return ResponseEntity.status(201).build();
     }
 
-    @GetMapping
-    public ResponseEntity<List<Hotel>> getHotels() {
-        List hotels = hotelService.getAllHotels();
-        return hotels.isEmpty() ? ResponseEntity.status(204).build() : ResponseEntity.status(200).body(hotels);
-    }
+//    @GetMapping
+//    public ResponseEntity<List<Hotel>> getHotels() {
+//        List hotels = hotelService.getAllHotels();
+//        return hotels.isEmpty() ? ResponseEntity.status(204).build() : ResponseEntity.status(200).body(hotels);
+//    }
 
     //
-    @PatchMapping("/account/{id}/{phoneNumber}")
-    public ResponseEntity<Optional<Hotel>> putHotelPhoneNumber(@PathVariable Integer id, @PathVariable String phoneNumber) {
-        if (hotelService.updateHotelPhoneNumber(id, phoneNumber)) return ResponseEntity.status(200).build();
-
-        return ResponseEntity.status(404).build();
-    }
+//    @PatchMapping("/account/{id}/{phoneNumber}")
+//    public ResponseEntity<Optional<Hotel>> putHotelPhoneNumber(@PathVariable Integer id, @PathVariable String phoneNumber) {
+//        if (hotelService.updateHotelPhoneNumber(id, phoneNumber)) return ResponseEntity.status(200).build();
+//
+//        return ResponseEntity.status(404).build();
+//    }
 
     @GetMapping("/allFields/{hotelId}")
-    public ResponseEntity<HotelAllFieldsResponse> getAllFieldsById(@PathVariable int hotelId){
+    public ResponseEntity<HotelAllFieldsResponse> getAllFieldsById(@PathVariable int hotelId) {
 
         Optional<Campaign> c = campaignRepository.getSimpleCampaignByHotelId(hotelId);
         Optional<Hotel> h = hotelRepository.findById(hotelId);
@@ -99,8 +117,6 @@ public class HotelController {
     }
 
 
-//
-//    @PatchMapping
 //
 //    @DeleteMapping("/{id}")
 //    @Transactional

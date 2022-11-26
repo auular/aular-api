@@ -62,7 +62,7 @@ public class Hotel {
 
     private boolean isAuthenticated;
 
-    protected Hotel() {
+    public Hotel() {
         this.hotelUuid = UUID.randomUUID().toString();
         this.active = true;
         this.isAuthenticated = false;

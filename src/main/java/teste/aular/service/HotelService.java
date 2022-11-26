@@ -16,20 +16,9 @@ public class HotelService {
     @Autowired
     HotelRepository hotelRepository;
 
-    public boolean addHotel(Hotel hotel) {
-        if (hotel != null) {
-            if (!hotelRepository.existsByDocumentId(hotel.getDocumentId())){
-
-                if (!hotelRepository.existsByEmail(hotel.getEmail())) {
-                    hotelRepository.save(hotel);
-                    return true;
-                }
-                throw new ResponseStatusException(HttpStatus.FORBIDDEN, "This email has already been registered ");
-            }
-            throw new ResponseStatusException(HttpStatus.FORBIDDEN, "This document ID has already been registered ");
-        }
-        return false;
-    }
+//    public boolean addHotel(Hotel hotel) {
+//
+//    }
 
     public boolean updateHotelPhoneNumber(Integer id, String phoneNumber) {
         Optional<Hotel> h = hotelRepository.findById(id);
