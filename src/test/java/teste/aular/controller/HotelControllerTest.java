@@ -2,19 +2,18 @@ package teste.aular.controller;
 
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import org.mockito.junit.jupiter.MockitoSettings;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import teste.aular.domain.contract.AddressRepository;
+import teste.aular.domain.contract.CampaignRepository;
 import teste.aular.domain.contract.HotelRepository;
+import teste.aular.domain.contract.PlanRepository;
 import teste.aular.domain.entity.Hotel;
 import teste.aular.service.HotelService;
-
-import java.util.List;
-import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
@@ -26,12 +25,20 @@ class HotelControllerTest {
     @MockBean
     private HotelService service;
 
-    @MockBean
-    private  HotelController hotelController;
-
+    @Autowired
+    private HotelController hotelController;
 
     @MockBean
     private HotelRepository repository;
+
+    @MockBean
+    private CampaignRepository campaignRepository;
+
+    @MockBean
+    private AddressRepository addressRepository;
+
+    @MockBean
+    private PlanRepository planRepository;
 
 
     @Test
@@ -70,9 +77,14 @@ class HotelControllerTest {
         when(repository.existsByDocumentId(documentId)).thenReturn(true);
         when(repository.existsByEmail(email)).thenReturn(true);
 
+        //ResponseEntity<Hotel> response = hotelController.postHotel(hotel);
         ResponseEntity<Hotel> response = hotelController.postHotel(hotel);
 
-        verify(hotelController, times(1)).postHotel(hotel);
-        
+        verify(repository, times(1)).save(hotel);
+
+        assertEquals(201, response.getStatusCodeValue());
+
     }
+    
+
 }

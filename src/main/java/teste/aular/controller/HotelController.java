@@ -54,11 +54,9 @@ public class HotelController {
                     hotelRepository.save(hotel);
                     return ResponseEntity.status(201).body(hotel);
                 }
-                throw new ResponseStatusException(HttpStatus.FORBIDDEN,
-                        "This email has already been registered ");
+                throw new ResponseStatusException(HttpStatus.FORBIDDEN, "This email has already been registered ");
             }
-            throw new ResponseStatusException(HttpStatus.FORBIDDEN,
-                    "This document ID has already been registered ");
+            throw new ResponseStatusException(HttpStatus.FORBIDDEN, "This document ID has already been registered ");
         }
         return ResponseEntity.status(403).build();
     }
@@ -111,9 +109,7 @@ public class HotelController {
     @GetMapping("/addresses")
     public ResponseEntity<Optional<List<HotelAddressResponse>>> getHotelAddress() {
         Optional<List<HotelAddressResponse>> list = addressRepository.getHotelsAddress();
-        return list.isEmpty()
-                ? ResponseEntity.status(204).build()
-                : ResponseEntity.status(200).body(list);
+        return list.isEmpty() ? ResponseEntity.status(204).build() : ResponseEntity.status(200).body(list);
     }
 
 

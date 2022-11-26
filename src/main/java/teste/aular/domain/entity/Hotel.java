@@ -15,7 +15,7 @@ import java.util.UUID;
 
 @Entity
 //@Table(name = "tab_hotel")
-public class Hotel {
+public class Hotel  {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
