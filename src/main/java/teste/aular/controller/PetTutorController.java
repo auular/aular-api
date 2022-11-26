@@ -1,9 +1,11 @@
 package teste.aular.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.HttpClientErrorException;
+import org.springframework.web.server.ResponseStatusException;
 import teste.aular.application.LeadTxtFile;
 import teste.aular.domain.contract.AddressRepository;
 import teste.aular.domain.contract.PetTutorRepository;
@@ -40,12 +42,18 @@ public class PetTutorController {
 
     @PostMapping
     public ResponseEntity<PetTutor> addPetTutor(@RequestBody PetTutor petTutor) {
-        petTutorRepository.save(petTutor);
-        return ResponseEntity.status(201).body(petTutor);
+        if (petTutor != null) {
+            if (!petTutorRepository.existsByDocumentId(petTutor.getDocumentId())) {
+                petTutorRepository.save(petTutor);
+                return ResponseEntity.status(201).body(petTutor);
+            }
+        }
+        return ResponseEntity.status(403).build();
+
     }
 
     @GetMapping("/txtReading")
-    public ResponseEntity<?> txtReading(){
+    public ResponseEntity<?> txtReading() {
         LeadTxtFile.lerArquivoTxt("PETTUTORANDPET.TXT");
 
 //        PetTutorAndTutorTxtFile lista1 = new PetTutorAndTutorTxtFile();
@@ -114,7 +122,7 @@ public class PetTutorController {
 
     @PostMapping("/autentication/{email}/{password}")
     public ResponseEntity<PetTutor> logIn(@PathVariable String email,
-                                         @PathVariable String password) throws HttpClientErrorException {
+                                          @PathVariable String password) throws HttpClientErrorException {
 
         List<PetTutor> registeredPetTutors = petTutorRepository.findAll();
 
@@ -151,7 +159,7 @@ public class PetTutorController {
     }
 
     @GetMapping("/allFields/{petTutorId}")
-    public ResponseEntity<PetTutorAllFieldsResponse> getAllFields(@PathVariable int petTutorId){
+    public ResponseEntity<PetTutorAllFieldsResponse> getAllFields(@PathVariable int petTutorId) {
 
         Optional<PetTutor> pt = petTutorRepository.findById(petTutorId);
         Optional<Pet> p = petRepository.getSimplePetByPetTutorId(petTutorId);
