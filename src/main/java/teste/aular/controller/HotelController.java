@@ -15,6 +15,7 @@ import teste.aular.domain.entity.Address;
 import teste.aular.domain.entity.Campaign;
 import teste.aular.domain.entity.Hotel;
 import teste.aular.domain.entity.Plan;
+import teste.aular.exceptions.EmailNotFoundException;
 import teste.aular.exceptions.PhoneNumberAlreadyInUseException;
 import teste.aular.response.HotelAddressResponse;
 import teste.aular.response.HotelAllFieldsResponse;
@@ -182,7 +183,7 @@ public class HotelController {
 
 
     @PostMapping("/autentication")
-    public ResponseEntity<Hotel> logIn(@RequestBody Hotel login){
+    public ResponseEntity<Hotel> logIn(@RequestBody Hotel login) {
 
         List<Hotel> registeredHotels = hotelRepository.findAll();
 
@@ -190,6 +191,7 @@ public class HotelController {
             return ResponseEntity.status(404).build();
         }
 
+        if (hotelRepository.existsByEmail(login.getEmail())) {
             for (Hotel h : registeredHotels) {
                 if (h.authenticateHotel(login.getEmail(), login.seePassword())) {
                     h.setAuthenticated(true);
@@ -197,7 +199,9 @@ public class HotelController {
                     return ResponseEntity.status(200).body(h);
                 }
             }
-        return ResponseEntity.status(401).build();
+            return ResponseEntity.status(401).build();
+        }
+        throw new EmailNotFoundException();
     }
 //
 //    @DeleteMapping("autentication/{id}")

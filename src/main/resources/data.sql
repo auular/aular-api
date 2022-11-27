@@ -84,11 +84,11 @@ INSERT INTO address (
 ('01230-001', 'Rua Dr. Albuquerque Lins', '993', 'Apto. 777', 'Santa Cecíla', 'São Paulo', 'São Paulo', 7, null, null),
 ('01230-001', 'Rua Santo Antônio', '955', 'Apto. 888', 'Bela Vista', 'São Paulo', 'São Paulo', 8, null, null),
 /*hotel*/
-('01415-001', 'Rua Bela Cintra', '1559', null, 'Jardins', 'São Paulo', 'São Paulo', null, 1, null),
-('01309-000', 'Rua Luís Coelho', '206', null, 'Consolação', 'São Paulo', 'São Paulo', null, 2, null),
-('01422-001', 'Alameda Franca', '1546', null, 'Jardim Paulista', 'São Paulo', 'São Paulo', null, 3, null),
-('01409-001', 'Rua Itararé', '294', null, 'Bela Vista', 'São Paulo', 'São Paulo', null, 4, null),
-('054009-000', 'Rua Capote Valente', '185', null, 'Cerqueira César', 'São Paulo', 'São Paulo', null, 5, null),
+('01415001', 'Rua Bela Cintra', '1559', null, 'Jardins', 'São Paulo', 'São Paulo', null, 1, null),
+('01309000', 'Rua Luís Coelho', '206', null, 'Consolação', 'São Paulo', 'São Paulo', null, 2, null),
+('01422001', 'Alameda Franca', '1546', null, 'Jardim Paulista', 'São Paulo', 'São Paulo', null, 3, null),
+('01409001', 'Rua Itararé', '294', null, 'Bela Vista', 'São Paulo', 'São Paulo', null, 4, null),
+('054009000', 'Rua Capote Valente', '185', null, 'Cerqueira César', 'São Paulo', 'São Paulo', null, 5, null),
 /*partner*/
 ('05319-010', 'Rua Manoel Velasco', '90', null, 'Vila Leopoldina', 'São Paulo', 'São Paulo', null, null, 1),
 ('05319-010', 'Rua Guaratana', '555', '587 Sala 1', 'Pari', 'São Paulo', 'São Paulo', null, null, 2),

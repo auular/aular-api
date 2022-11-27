@@ -8,12 +8,10 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.server.ResponseStatusException;
 import teste.aular.domain.contract.*;
 import teste.aular.domain.entity.Hotel;
 import teste.aular.exceptions.PhoneNumberAlreadyInUseException;
 
-import java.net.http.HttpResponse;
 import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -133,5 +131,20 @@ class HotelControllerTest {
                 () -> hotelController.updateHotelPhoneNumber(id, phoneNumber, authenticated));
     }
 
+//    @Test
+//    @DisplayName("Login must return 200")
+//    void loginMustReturn200() {
+//        String email = "wall@test.com";
+//        String password = "feijuca";
+//
+//        Hotel hotel = mock(Hotel.class);
+//        when(repository.existsByEmail(email)).thenReturn(true);
+//        when(hotel.authenticateHotel(email, password)).thenReturn(true);
+//        ResponseEntity<Hotel> response = hotelController.logIn(hotel);
+//
+//        verify(hotel, times(1)).authenticateHotel(email, password);
+//
+//        assertEquals(200, response.getStatusCodeValue());
+//    }
 
 }
