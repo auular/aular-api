@@ -171,7 +171,7 @@ public class PartnerController {
     }
 
     @PatchMapping(value = "/report/{partnerId}", consumes = "text/plain")
-    public ResponseEntity<Void> patchRelatorio(@PathVariable int partnerId, @RequestBody byte[] novoRelatorio) {
+    public ResponseEntity<Void> patchReport(@PathVariable int partnerId, @RequestBody byte[] novoRelatorio) {
         if (!partnerRepository.existsById(partnerId)) {
             throw new ResponseStatusException(
                     HttpStatus.NOT_FOUND,
@@ -192,7 +192,7 @@ public class PartnerController {
     }
 
     @GetMapping(value = "/report/{partnerId}", produces = "text/plain")
-    public ResponseEntity<byte[]> getRelatorio(@PathVariable int partnerId) {
+    public ResponseEntity<byte[]> getReport(@PathVariable int partnerId) {
         if (!partnerRepository.existsById(partnerId)) {
             throw new ResponseStatusException(
                     HttpStatus.NOT_FOUND,
@@ -200,7 +200,7 @@ public class PartnerController {
             );
         }
         Partner partner = partnerRepository.findById(partnerId).get();
-        String nomeArquivo = partner.getName() + "-Capaigns.txt";
+        String nomeArquivo = partner.getName().replace(" ", "-") + "-Capaigns.txt";
 
         byte[] relatorio = partnerRepository.getRelatorio(partnerId);
         // esse header "content-disposition" indica o nome do arquivo em caso de download em navegador
@@ -209,10 +209,11 @@ public class PartnerController {
     }
 
     @PostMapping("/reportGenerate/{partnerId}")
-    public ResponseEntity<?> txtGenerate(@PathVariable Integer partnerId){
+    public ResponseEntity<?> reportGenerate(@PathVariable Integer partnerId){
         if (partnerRepository.existsById(partnerId)) {
             Partner partner = partnerRepository.findById(partnerId).get();
-            String nomeArquivo = "/Users/vitormoura/Desktop/reportFiles/" + partner.getName() + "-Capaigns.txt";
+            String nomeArquivo = "/Users/vitormoura/Desktop/reportFiles/" +
+                    partner.getName().replace(" ", "-") + "-Capaigns.txt";
 
             List<Campaign> listaCampanhas = campaignRepository.findAllByPartnerPartnerId(partnerId);
 
