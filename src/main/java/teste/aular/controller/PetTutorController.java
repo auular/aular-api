@@ -1,11 +1,9 @@
 package teste.aular.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.HttpClientErrorException;
-import org.springframework.web.server.ResponseStatusException;
 import teste.aular.application.LeadTxtFile;
 import teste.aular.domain.contract.AddressRepository;
 import teste.aular.domain.contract.PetTutorRepository;
@@ -75,7 +73,7 @@ public class PetTutorController {
             @PathVariable Integer id,
             @RequestBody PetTutor petTutor) {
         if (petTutorRepository.existsById(id)) {
-            PetTutor pe = petTutorRepository.findById(id).get();
+            Class<? extends Optional> pe = petTutorRepository.findById(id).getClass();
             petTutor.setPetTutorId(id);
             petTutorRepository.save(petTutor);
             return ResponseEntity.status(200).body(petTutor);

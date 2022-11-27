@@ -98,4 +98,32 @@ class PetTutorControllerTest {
         assertNull(response.getBody());
     }
 
+    @Test
+    @DisplayName("Returns 200 with body for put request")
+    void putReturns200WithBody() {
+        Integer id = 13;
+        PetTutor petTutor = new PetTutor();
+
+        when(repository.existsById(id)).thenReturn(true);
+
+        ResponseEntity<PetTutor> response = controller.updatePetTutor(id, petTutor);
+        verify(repository, times(1)).save(petTutor);
+
+        assertEquals(200, response.getStatusCodeValue());
+        assertNotNull(response.getBody());
+    }
+
+    @Test
+    @DisplayName("Returns 404  for put request")
+    void putReturns404() {
+        Integer id = 13;
+        PetTutor petTutor = new PetTutor();
+
+        when(repository.existsById(id)).thenReturn(false);
+
+        ResponseEntity<PetTutor> response = controller.updatePetTutor(id, petTutor);
+
+        assertEquals(404, response.getStatusCodeValue());
+        assertNull(response.getBody());
+    }
 }
