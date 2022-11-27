@@ -98,6 +98,8 @@ public class PetTutor {
         this.password = password;
     }
 
+    public String seePassword(){return password;}
+
     public String getDocumentId() {
         return documentId;
     }
