@@ -75,14 +75,14 @@ INSERT INTO address (
     address_code, address_street, address_number, address_complement, address_district,
     address_city, address_state, pet_tutor_pet_tutor_id, hotel_hotel_id, partner_partner_id) VALUES
 /*pet tutor*/
-('01411-001', 'Rua Padre João Mauel', '607', 'Apto. 111', 'Cerqueira César', 'São Paulo', 'São Paulo', 1, null, null),
-('01422-000', 'Alameda  Franca', '850', 'Apto. 222', 'Cerqueira César', 'São Paulo', 'São Paulo', 2, null, null),
-('01423-003', 'Rua José Maria Lisboa', '973', 'Apto. 333', 'Jardim Paulista', 'São Paulo', 'São Paulo', 3, null, null),
-('01415-002', 'Rua Bela Cintra', '982', 'Apto. 444', 'Consolação', 'São Paulo', 'São Paulo', 4, null, null),
-('01309-010', 'Rua Antônio Carlos', '288', null, 'Consolação', 'São Paulo', 'São Paulo', 5, null, null),
-('01241-001', 'Rua Piauí', '537', 'Apto. 66', 'Higienópolis', 'São Paulo', 'São Paulo', 6, null, null),
-('01230-001', 'Rua Dr. Albuquerque Lins', '993', 'Apto. 777', 'Santa Cecíla', 'São Paulo', 'São Paulo', 7, null, null),
-('01230-001', 'Rua Santo Antônio', '955', 'Apto. 888', 'Bela Vista', 'São Paulo', 'São Paulo', 8, null, null),
+('01411001', 'Rua Padre João Mauel', '607', 'Apto. 111', 'Cerqueira César', 'São Paulo', 'São Paulo', 1, null, null),
+('01422000', 'Alameda  Franca', '850', 'Apto. 222', 'Cerqueira César', 'São Paulo', 'São Paulo', 2, null, null),
+('01423003', 'Rua José Maria Lisboa', '973', 'Apto. 333', 'Jardim Paulista', 'São Paulo', 'São Paulo', 3, null, null),
+('01415002', 'Rua Bela Cintra', '982', 'Apto. 444', 'Consolação', 'São Paulo', 'São Paulo', 4, null, null),
+('01309010', 'Rua Antônio Carlos', '288', null, 'Consolação', 'São Paulo', 'São Paulo', 5, null, null),
+('01241001', 'Rua Piauí', '537', 'Apto. 66', 'Higienópolis', 'São Paulo', 'São Paulo', 6, null, null),
+('01230001', 'Rua Dr. Albuquerque Lins', '993', 'Apto. 777', 'Santa Cecíla', 'São Paulo', 'São Paulo', 7, null, null),
+('01230001', 'Rua Santo Antônio', '955', 'Apto. 888', 'Bela Vista', 'São Paulo', 'São Paulo', 8, null, null),
 /*hotel*/
 ('01415001', 'Rua Bela Cintra', '1559', null, 'Jardins', 'São Paulo', 'São Paulo', null, 1, null),
 ('01309000', 'Rua Luís Coelho', '206', null, 'Consolação', 'São Paulo', 'São Paulo', null, 2, null),
@@ -90,9 +90,9 @@ INSERT INTO address (
 ('01409001', 'Rua Itararé', '294', null, 'Bela Vista', 'São Paulo', 'São Paulo', null, 4, null),
 ('054009000', 'Rua Capote Valente', '185', null, 'Cerqueira César', 'São Paulo', 'São Paulo', null, 5, null),
 /*partner*/
-('05319-010', 'Rua Manoel Velasco', '90', null, 'Vila Leopoldina', 'São Paulo', 'São Paulo', null, null, 1),
-('05319-010', 'Rua Guaratana', '555', '587 Sala 1', 'Pari', 'São Paulo', 'São Paulo', null, null, 2),
-('04578-910', 'Avenida das Nações Unidas', '12901', 'Conj 1201', 'Brooklin Paulista', 'São Paulo', 'São Paulo', null, null, 3);
+('05319010', 'Rua Manoel Velasco', '90', null, 'Vila Leopoldina', 'São Paulo', 'São Paulo', null, null, 1),
+('05319010', 'Rua Guaratana', '555', '587 Sala 1', 'Pari', 'São Paulo', 'São Paulo', null, null, 2),
+('04578910', 'Avenida das Nações Unidas', '12901', 'Conj 1201', 'Brooklin Paulista', 'São Paulo', 'São Paulo', null, null, 3);
 
 
 
