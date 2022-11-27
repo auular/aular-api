@@ -13,6 +13,9 @@ import teste.aular.domain.contract.PetRepository;
 import teste.aular.domain.contract.PetTutorRepository;
 import teste.aular.domain.entity.PetTutor;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
@@ -47,8 +50,8 @@ class PetTutorControllerTest {
 
 
     @Test
-    @DisplayName("Class must return 201 with body")
-    void mustReturn201WithBody() {
+    @DisplayName("post must return 201 with body")
+    void postMustReturn201WithBody() {
         String documentId = "11223344";
         when(repository.existsByDocumentId(
                 documentId)).thenReturn(true);
@@ -60,11 +63,39 @@ class PetTutorControllerTest {
     }
 
     @Test
-    @DisplayName("Class must return 403")
-    void mustReturn403() {
+    @DisplayName("post must return 403")
+    void postMustReturn403() {
         ResponseEntity<PetTutor> response = controller.addPetTutor(null);
 
         assertEquals(403, response.getStatusCodeValue());
         assertNull(response.getBody());
     }
+
+    @Test
+    @DisplayName("Get must return 200 with body")
+    void getMustReturn200WithBody() {
+        List<PetTutor> list = List.of(
+                mock(PetTutor.class),
+                mock(PetTutor.class)
+        );
+
+        when(repository.findAll()).thenReturn(list);
+
+        ResponseEntity<List<PetTutor>> response = controller.getPetTutors();
+
+        assertEquals(200, response.getStatusCodeValue());
+        assertNotNull(response.getBody());
+    }
+    @Test
+    @DisplayName("Get must return 202 when list is empty")
+    void getMustReturn204() {
+
+        when(repository.findAll()).thenReturn(new ArrayList<>());
+
+        ResponseEntity<List<PetTutor>> response = controller.getPetTutors();
+
+        assertEquals(204, response.getStatusCodeValue());
+        assertNull(response.getBody());
+    }
+
 }
