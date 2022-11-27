@@ -1,12 +1,13 @@
 package teste.aular.controller;
 
-import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 import teste.aular.domain.contract.CampaignRepository;
 import teste.aular.domain.contract.PartnerRepository;
 import teste.aular.domain.entity.Partner;
@@ -51,4 +52,20 @@ class PartnerControllerTest {
         assertEquals(403, response.getStatusCodeValue());
         assertNull(response.getBody());
     }
+
+    @Test
+    @DisplayName("Class must have @RequestMapping annotation")
+    void mustHaveRequestMappingAnnotation() {
+        assertTrue(controller.getClass().isAnnotationPresent(RequestMapping.class),
+                "@RequestMapping annotation not found");
+    }
+
+    @Test
+    @DisplayName("Class must have @RestController annotation")
+    void mustHaveRestControllerAnnotation() {
+        assertTrue(controller.getClass().isAnnotationPresent(RestController.class),
+                "@RestController annotation not found");
+    }
+
+
 }
