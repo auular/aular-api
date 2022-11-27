@@ -126,4 +126,10 @@ class PetTutorControllerTest {
         assertEquals(404, response.getStatusCodeValue());
         assertNull(response.getBody());
     }
+
+    @Test
+    @DisplayName("Login returns 200 with body")
+    void loginReturns200WithBody() {
+
+    }
 }

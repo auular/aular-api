@@ -118,9 +118,8 @@ public class PetTutorController {
 //    }
 
 
-    @PostMapping("/autentication/{email}/{password}")
-    public ResponseEntity<PetTutor> logIn(@PathVariable String email,
-                                          @PathVariable String password) throws HttpClientErrorException {
+    @PostMapping("/autentication")
+    public ResponseEntity<PetTutor> logIn(@RequestBody PetTutor login) throws HttpClientErrorException {
 
         List<PetTutor> registeredPetTutors = petTutorRepository.findAll();
 
@@ -129,7 +128,7 @@ public class PetTutorController {
         }
 
         for (PetTutor p : registeredPetTutors) {
-            if (p.authenticatePetTutor(email, password)) {
+            if (p.authenticatePetTutor(login.getEmail(), login.seePassword())) {
                 p.setAuthenticated(true);
                 petTutorRepository.save(p);
                 return ResponseEntity.status(200).body(p);
