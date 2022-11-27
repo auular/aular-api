@@ -15,4 +15,9 @@ public interface CampaignRepository extends JpaRepository<Campaign, Integer> {
             "FROM Campaign c " +
             "WHERE c.hotel.hotelId = ?1 ")
     Optional<Campaign> getSimpleCampaignByHotelId(int hotelId);
+
+    @Query("SELECT new teste.aular.domain.entity.Campaign(c.campaignId, c.type, c.value, c.click, c.startedAt, c.finishedAt ) " +
+            "FROM Campaign c " +
+            "WHERE c.hotel.hotelUuid = ?1 ")
+    Optional<Campaign> getSimpleCampaignByHotelUuid(String hotelUuid);
 }

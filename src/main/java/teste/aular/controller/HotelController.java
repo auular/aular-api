@@ -122,6 +122,20 @@ public class HotelController {
         return ResponseEntity.of(Optional.of(hf));
     }
 
+    @GetMapping("/allFieldsByUuid/{hotelUuid}")
+    public ResponseEntity<HotelAllFieldsResponse> getAllFieldsByUuid(@PathVariable String hotelUuid) {
+
+        Optional<Campaign> c = campaignRepository.getSimpleCampaignByHotelUuid(hotelUuid);
+        Optional<Hotel> h = hotelRepository.getSimpleByHotelUuid(hotelUuid);
+        Optional<Plan> p = planRepository.getSimplePlanByHotelUuid(hotelUuid);
+        Optional<Address> a = addressRepository.getSimpleAddressByHotelUuid(hotelUuid);
+        Optional<ServicesProvided> s = servicesProvidedRepository.getSimpleAddressByHotelUuid(hotelUuid);
+
+        HotelAllFieldsResponse hf = new HotelAllFieldsResponse(h.get(), c.get(), p.get(), a.get(), s.get());
+
+        return ResponseEntity.of(Optional.of(hf));
+    }
+
     @GetMapping("/addresses")
     public ResponseEntity<Optional<List<HotelAddressResponse>>> getHotelAddress() {
         Optional<List<HotelAddressResponse>> list = addressRepository.getHotelsAddress();

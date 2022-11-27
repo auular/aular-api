@@ -68,6 +68,25 @@ public class Hotel  {
 
     }
 
+    public Hotel(int hotelId, String hotelUuid, String name, String email, String documentId,
+                 Boolean fidelity, Double rates, String phoneNumber, String description, LocalDateTime createdAt,
+                 LocalDateTime updatedAt, LocalDateTime deactivatedAt, boolean active, boolean isAuthenticated) {
+        this.hotelId = hotelId;
+        this.hotelUuid = hotelUuid;
+        this.name = name;
+        this.email = email;
+        this.documentId = documentId;
+        this.fidelity = fidelity;
+        this.rates = rates;
+        this.phoneNumber = phoneNumber;
+        this.description = description;
+        this.createdAt = createdAt;
+        this.updatedAt = updatedAt;
+        this.deactivatedAt = deactivatedAt;
+        this.active = active;
+        this.isAuthenticated = isAuthenticated;
+    }
+
     public Integer getHotelId() {
         return hotelId;
     }

@@ -19,6 +19,12 @@ public interface AddressRepository extends JpaRepository<Address, Integer> {
     @Query("SELECT new teste.aular.domain.entity.Address(a.addressId, a.addressCode, a.addressStreet, a.addressNumber, " +
             "a.addressComplement, a.addressDistrict, a.addressCity, a.addressState) " +
             "FROM Address a " +
+            "WHERE a.hotel.hotelUuid = ?1 ")
+    Optional<Address> getSimpleAddressByHotelUuid(String hotelUuid);
+
+    @Query("SELECT new teste.aular.domain.entity.Address(a.addressId, a.addressCode, a.addressStreet, a.addressNumber, " +
+            "a.addressComplement, a.addressDistrict, a.addressCity, a.addressState) " +
+            "FROM Address a " +
             "WHERE a.petTutor.petTutorId = ?1 ")
     Optional<Address> getSimpleAddressByPetTutorId(int petTutorId);
 
