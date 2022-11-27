@@ -42,6 +42,7 @@ public class LeadController {
     @PostMapping("/uploadLeadsFile")
     public void uploadLeadsFile(@RequestParam MultipartFile leadFile) {
         disc.saveLeadFile(leadFile);
+        sendMail();
     }
 
     FilaObj<LeadPetTutor> filaLeadPetTutor;
@@ -50,7 +51,7 @@ public class LeadController {
     //Lê o arquivo dos Leads (PetTutor e Pet na fila), armazena na fila e dispara o email
     @PostMapping("/scheduleLeads")
     public ResponseEntity<FilaObj<LeadPet>> scheduleLeads() {
-        LeadTxtFile.lerArquivoTxt("/Users/vitormoura/Desktop/LEADS.TXT");
+        LeadTxtFile.lerArquivoTxt("/Users/vitormoura/Desktop/leadFiles/LEADS.TXT");
 
         LeadTxtFile lista1 = new LeadTxtFile();
         filaLeadPetTutor = new FilaObj<>(lista1.getListLeadPetTutorReaded().size());
@@ -67,8 +68,6 @@ public class LeadController {
         if (filaLeadPetTutor.isEmpty()) {
             return ResponseEntity.status(204).build();
         } else {
-            // envia email antes de enviar a resposta
-            sendMail();
             return ResponseEntity.status(200).body(filaLeadPet);
         }
     }
@@ -96,8 +95,8 @@ public class LeadController {
     public void sendMail() {
         SimpleMailMessage message = new SimpleMailMessage();
         message.setSubject("Leads na fila ");
-        message.setText("Existem Leads na fila aguardando para serem registrados.\n\n" +
-                "Faça o registro agora mesmo acessando o link abaixo!");
+        message.setText("Novo arquivo com leads na pasta leadsFile.\n\n" +
+                "Acesse o link abaixo para verificar os dados do arquivo!");
         message.setTo("contato.auular@gmail.com");
         message.setFrom("contato.auular@gmail.com");
 
