@@ -82,6 +82,8 @@ public class Partner {
         this.email = email;
     }
 
+    public String seePassword() { return this.password;}
+
     public void setPassword(String password) {
         this.password = password;
     }

@@ -139,9 +139,8 @@ public class PartnerController {
         return ResponseEntity.status(200).build();
     }
 
-    @PostMapping("/autentication/{email}/{password}")
-    public ResponseEntity<Partner> logIn(@PathVariable String email,
-                                         @PathVariable String password) throws HttpClientErrorException {
+    @PostMapping("/autentication")
+    public ResponseEntity<Partner> logIn(@RequestBody Partner login) throws HttpClientErrorException {
 
         List<Partner> registeredPartners = partnerRepository.findAll();
 
@@ -150,7 +149,7 @@ public class PartnerController {
         }
 
         for (Partner p : registeredPartners) {
-            if (p.authenticatePartner(email, password)) {
+            if (p.authenticatePartner(login.getEmail(), login.seePassword())) {
                 p.setAuthenticated(true);
                 partnerRepository.save(p);
                 return ResponseEntity.status(200).body(p);
