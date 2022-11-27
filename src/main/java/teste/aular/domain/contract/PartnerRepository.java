@@ -17,4 +17,6 @@ public interface PartnerRepository extends JpaRepository<Partner, Integer> {
     @Query("select p.relatorioCampanha from Partner p where p.id = ?1")
     byte[] getRelatorio(Integer id);
 
+    Boolean existsByDocumentId(String documentId);
+
 }
