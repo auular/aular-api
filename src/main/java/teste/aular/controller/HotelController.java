@@ -51,7 +51,7 @@ public class HotelController {
     Pilha pilha = new Pilha(10);
 
     @PostMapping
-    public ResponseEntity<Integer> postHotel(@RequestBody @Valid Hotel hotel) throws IllegalArgumentException {
+    public ResponseEntity<Integer> postHotel(@RequestBody Hotel hotel) throws IllegalArgumentException {
         if (hotel != null) {
             if (!hotelRepository.existsByDocumentId(hotel.getDocumentId())) {
 
@@ -96,8 +96,8 @@ public class HotelController {
                     "hotelId não encontrado ao cadastrar endereço e serviços"
             );
         }
-        campaignRepository.save(hotelAllFieldsResponse.getCampaign());
-        planRepository.save(hotelAllFieldsResponse.getPlan());
+//        campaignRepository.save(hotelAllFieldsResponse.getCampaign());
+//        planRepository.save(hotelAllFieldsResponse.getPlan());
         addressRepository.save(hotelAllFieldsResponse.getAddress());
         servicesProvidedRepository.save(hotelAllFieldsResponse.getServicesProvided());
         return ResponseEntity.status(201).build();
@@ -119,8 +119,8 @@ public class HotelController {
         Optional<Address> a = addressRepository.getSimpleAddressByHotelId(hotelId);
         Optional<ServicesProvided> s = servicesProvidedRepository.getSimpleAddressByHotelId(hotelId);
 
-        HotelAllFieldsResponse hf = new HotelAllFieldsResponse(h.get(), c.get(), p.get(), a.get(), s.get());
-
+//        HotelAllFieldsResponse hf = new HotelAllFieldsResponse(h.get(), c.get(), p.get(), a.get(), s.get());
+        HotelAllFieldsResponse hf = new HotelAllFieldsResponse(h.get(), a.get(), s.get());
         return ResponseEntity.of(Optional.of(hf));
     }
 

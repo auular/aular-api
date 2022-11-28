@@ -11,6 +11,7 @@ import teste.aular.domain.contract.PetRepository;
 import teste.aular.domain.entity.Address;
 import teste.aular.domain.entity.Pet;
 import teste.aular.domain.entity.PetTutor;
+import teste.aular.exceptions.EmailNotFoundException;
 import teste.aular.response.PetTutorAllFieldsResponse;
 
 import javax.transaction.Transactional;

@@ -23,7 +23,12 @@ public class HotelAllFieldsResponse {
         this.servicesProvided = servicesProvided;
     }
 
-    public HotelAllFieldsResponse() {
+    public HotelAllFieldsResponse() {}
+
+    public HotelAllFieldsResponse(Hotel hotel, Address address, ServicesProvided servicesProvided) {
+        this.hotel = hotel;
+        this.address = address;
+        this.servicesProvided = servicesProvided;
     }
 
     public Hotel getHotel() {

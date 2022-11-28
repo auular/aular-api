@@ -45,7 +45,7 @@ public class ServicesProvided {
 
     private String averagePrice;
 
-    private Integer guestsNumber;
+    private String guestsNumber;
 
     @ManyToOne
     private Hotel hotel;
@@ -55,7 +55,7 @@ public class ServicesProvided {
                             boolean serviceBath, boolean serviceLeathering, boolean serviceBedroom, boolean serviceFood,
                             boolean serviceVisitation, boolean serviceCam, boolean serviceExercises, boolean serviceTraining,
                             boolean serviceDentist, boolean serviceVet, boolean serviceMonitoring, boolean dogsAcepted,
-                            boolean catsAcepted, boolean othersAcepted, String averagePrice, Integer guestsNumber) {
+                            boolean catsAcepted, boolean othersAcepted, String averagePrice, String guestsNumber) {
         this.servicesProvidedId = servicesProvidedId;
         this.servicePool = servicePool;
         this.servicePlayground = servicePlayground;
@@ -233,11 +233,11 @@ public class ServicesProvided {
         this.averagePrice = averagePrice;
     }
 
-    public Integer getGuestsNumber() {
+    public String getGuestsNumber() {
         return guestsNumber;
     }
 
-    public void setGuestsNumber(Integer guestsNumber) {
+    public void setGuestsNumber(String guestsNumber) {
         this.guestsNumber = guestsNumber;
     }
 
