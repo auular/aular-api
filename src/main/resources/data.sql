@@ -151,7 +151,7 @@ INSERT INTO address (
 ('01309000', 'Rua Luís Coelho', '206', null, 'Consolação', 'São Paulo', 'São Paulo', null, 2, null),
 ('01422001', 'Alameda Franca', '1546', null, 'Jardim Paulista', 'São Paulo', 'São Paulo', null, 3, null),
 ('01409001', 'Rua Itararé', '294', null, 'Bela Vista', 'São Paulo', 'São Paulo', null, 4, null),
-('054009000', 'Rua Capote Valente', '185', null, 'Cerqueira César', 'São Paulo', 'São Paulo', null, 5, null),
+('05409000', 'Rua Capote Valente', '185', null, 'Cerqueira César', 'São Paulo', 'São Paulo', null, 5, null),
 /*partner*/
 ('05319010', 'Rua Manoel Velasco', '90', null, 'Vila Leopoldina', 'São Paulo', 'São Paulo', null, null, 1),
 ('05319010', 'Rua Guaratana', '555', '587 Sala 1', 'Pari', 'São Paulo', 'São Paulo', null, null, 2),

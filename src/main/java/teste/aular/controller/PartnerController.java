@@ -13,6 +13,7 @@ import teste.aular.domain.contract.PartnerRepository;
 import teste.aular.domain.entity.Campaign;
 import teste.aular.domain.entity.Partner;
 import teste.aular.utils.ListObj;
+
 import javax.transaction.Transactional;
 import javax.validation.Valid;
 import java.time.LocalDateTime;
@@ -29,8 +30,13 @@ public class PartnerController {
 
     @PostMapping
     public ResponseEntity<Partner> addPartner(@RequestBody @Valid Partner partner) {
-        partnerRepository.save(partner);
-        return ResponseEntity.status(201).body(partner);
+        if (partner != null) {
+            if (!partnerRepository.existsByDocumentId(partner.getDocumentId())) {
+                partnerRepository.save(partner);
+                return ResponseEntity.status(201).body(partner);
+            }
+        }
+        return ResponseEntity.status(403).build();
     }
 
     @GetMapping
@@ -133,9 +139,8 @@ public class PartnerController {
         return ResponseEntity.status(200).build();
     }
 
-    @PostMapping("/autentication/{email}/{password}")
-    public ResponseEntity<Partner> logIn(@PathVariable String email,
-                                         @PathVariable String password) throws HttpClientErrorException {
+    @PostMapping("/autentication")
+    public ResponseEntity<Partner> logIn(@RequestBody Partner login) throws HttpClientErrorException {
 
         List<Partner> registeredPartners = partnerRepository.findAll();
 
@@ -144,7 +149,7 @@ public class PartnerController {
         }
 
         for (Partner p : registeredPartners) {
-            if (p.authenticatePartner(email, password)) {
+            if (p.authenticatePartner(login.getEmail(), login.seePassword())) {
                 p.setAuthenticated(true);
                 partnerRepository.save(p);
                 return ResponseEntity.status(200).body(p);
@@ -177,8 +182,7 @@ public class PartnerController {
                     HttpStatus.NOT_FOUND,
                     "Partner não encontrado"
             );
-        }
-        else {
+        } else {
             if (novoRelatorio.length < 10 || novoRelatorio.length > 10 * 1024 * 1024) {
                 throw new ResponseStatusException(
                         HttpStatus.BAD_REQUEST,
@@ -205,11 +209,11 @@ public class PartnerController {
         byte[] relatorio = partnerRepository.getRelatorio(partnerId);
         // esse header "content-disposition" indica o nome do arquivo em caso de download em navegador
 //        return ResponseEntity.status(200).header("content-disposition", "attachment; filename=\"relatorio-teste.txt\"").body(relatorio);
-        return ResponseEntity.status(200).header("content-disposition", "attachment; filename="+ nomeArquivo).body(relatorio);
+        return ResponseEntity.status(200).header("content-disposition", "attachment; filename=" + nomeArquivo).body(relatorio);
     }
 
     @PostMapping("/reportGenerate/{partnerId}")
-    public ResponseEntity<?> reportGenerate(@PathVariable Integer partnerId){
+    public ResponseEntity<?> reportGenerate(@PathVariable Integer partnerId) {
         if (partnerRepository.existsById(partnerId)) {
             Partner partner = partnerRepository.findById(partnerId).get();
             String nomeArquivo = "/Users/vitormoura/Desktop/reportFiles/" +

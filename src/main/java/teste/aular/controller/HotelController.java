@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.server.ResponseStatusException;
 import teste.aular.domain.contract.*;
 import teste.aular.domain.entity.*;
@@ -188,7 +189,8 @@ public class HotelController {
         List<Hotel> registeredHotels = hotelRepository.findAll();
 
         if (registeredHotels.isEmpty()) {
-            return ResponseEntity.status(404).build();
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND,
+                    "Usuário não encontrado.");
         }
 
         if (hotelRepository.existsByEmail(login.getEmail())) {
@@ -204,22 +206,22 @@ public class HotelController {
         throw new EmailNotFoundException();
     }
 //
-//    @DeleteMapping("autentication/{id}")
-//    public ResponseEntity<String> logOff(@PathVariable Integer id) {
-//        try {
-//            if (hotelRepository.existsById(id)) {
-//                Hotel h = hotelRepository.findById(id).get();
-//                h.setAuthenticated(false);
-//                h.setDeactivatedAt(LocalDateTime.now());
-//                hotelRepository.save(h);
-//                return ResponseEntity.status(200).build();
-//            }
-//            return ResponseEntity.status(404).build();
-//
-//        } catch (HttpClientErrorException.NotFound e) {
-//            e.printStackTrace();
-//        }
-//        return ResponseEntity.status(404).build();
-//    }
+    @DeleteMapping("autentication/{id}")
+    public ResponseEntity<String> logOff(@PathVariable Integer id) {
+        try {
+            if (hotelRepository.existsById(id)) {
+                Hotel h = hotelRepository.findById(id).get();
+                h.setAuthenticated(false);
+                h.setDeactivatedAt(LocalDateTime.now());
+                hotelRepository.save(h);
+                return ResponseEntity.status(200).build();
+            }
+            return ResponseEntity.status(404).build();
+
+        } catch (HttpClientErrorException.NotFound e) {
+            e.printStackTrace();
+        }
+        return ResponseEntity.status(404).build();
+    }
 
 }
