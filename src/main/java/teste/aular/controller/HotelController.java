@@ -116,7 +116,7 @@ public class HotelController {
         Optional<Hotel> h = hotelRepository.findById(hotelId);
         Optional<Plan> p = planRepository.getSimplePlanByHotelId(hotelId);
         Optional<Address> a = addressRepository.getSimpleAddressByHotelId(hotelId);
-        Optional<ServicesProvided> s = servicesProvidedRepository.getSimpleAddressByHotelId(hotelId);
+        Optional<ServicesProvided> s = servicesProvidedRepository.getSimpleServicesProvidedByHotelId(hotelId);
 
         HotelAllFieldsResponse hf = new HotelAllFieldsResponse(h.get(), c.get(), p.get(), a.get(), s.get());
 
@@ -130,7 +130,7 @@ public class HotelController {
         Optional<Hotel> h = hotelRepository.getSimpleByHotelUuid(hotelUuid);
         Optional<Plan> p = planRepository.getSimplePlanByHotelUuid(hotelUuid);
         Optional<Address> a = addressRepository.getSimpleAddressByHotelUuid(hotelUuid);
-        Optional<ServicesProvided> s = servicesProvidedRepository.getSimpleAddressByHotelUuid(hotelUuid);
+        Optional<ServicesProvided> s = servicesProvidedRepository.getSimpleServicesProvidedByHotelUuid(hotelUuid);
 
         HotelAllFieldsResponse hf = new HotelAllFieldsResponse(h.get(), c.get(), p.get(), a.get(), s.get());
 
