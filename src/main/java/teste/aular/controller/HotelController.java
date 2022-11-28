@@ -189,7 +189,8 @@ public class HotelController {
         List<Hotel> registeredHotels = hotelRepository.findAll();
 
         if (registeredHotels.isEmpty()) {
-            return ResponseEntity.status(404).build();
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND,
+                    "Usuário não encontrado.");
         }
 
         if (hotelRepository.existsByEmail(login.getEmail())) {
