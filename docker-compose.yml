@@ -10,3 +10,12 @@ services:
     environment:
       MYSQL_DATABASE: db_aular
       MYSQL_ROOT_PASSWORD: feijuca
+
+  app:
+    container_name: aular_api
+    build: .
+    restart: always
+    ports:
+      - "8080:8080"
+    depends_on:
+      - mysql
