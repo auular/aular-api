@@ -1,11 +1,15 @@
 package teste.aular.controller;
 
+import com.amazonaws.services.s3.model.S3ObjectInputStream;
+import com.amazonaws.util.IOUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.server.ResponseStatusException;
+import teste.aular.application.S3;
 import teste.aular.domain.contract.*;
 import teste.aular.domain.entity.*;
 import teste.aular.domain.contract.AddressRepository;
@@ -24,6 +28,7 @@ import teste.aular.utils.Pilha;
 
 import javax.transaction.Transactional;
 import javax.validation.Valid;
+import java.io.IOException;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
@@ -222,6 +227,18 @@ public class HotelController {
             e.printStackTrace();
         }
         return ResponseEntity.status(404).build();
+    }
+
+    @GetMapping(
+        value = "/image",
+        produces = MediaType.IMAGE_PNG_VALUE
+    )
+    public @ResponseBody byte[] getHotelImage(@RequestParam String hotelSlug) throws IOException {
+        S3 s3 = new S3();
+
+        S3ObjectInputStream imageStream = s3.downloadImage("auular-hotels", hotelSlug);
+
+        return IOUtils.toByteArray(imageStream);
     }
 
 }
