@@ -9,8 +9,11 @@ import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+import java.net.URI;
+import java.net.URL;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.Arrays;
 import java.util.UUID;
 
 @Entity
@@ -60,6 +63,7 @@ public class Hotel  {
     private boolean active;
 
     private boolean isAuthenticated;
+    private URL imageByteArray;
 
     public Hotel() {
         this.hotelUuid = UUID.randomUUID().toString();
@@ -212,6 +216,21 @@ public class Hotel  {
         return this.password;
     }
 
+    public URL getImageByteArray() {
+        return this.imageByteArray;
+    }
+
+    public void setImageByteArray(URL image) {
+        this.imageByteArray = image;
+    }
+
+    public String mapToHotelSlug() {
+        String slug = Arrays.stream(this.name.toLowerCase().split(" ")).reduce("", (partialString, element) -> partialString + "-" + element);
+        return removeFirstHyphen(slug);
+    }
+
+    public String removeFirstHyphen(String slug) {
+        return slug.replaceFirst("-", "");
+    }
+
 }
-
-

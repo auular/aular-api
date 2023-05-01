@@ -1,6 +1,7 @@
 package teste.aular.application;
 
 import com.amazonaws.AmazonServiceException;
+import com.amazonaws.HttpMethod;
 import com.amazonaws.auth.AWSSessionCredentials;
 import com.amazonaws.client.builder.AwsClientBuilder;
 import com.amazonaws.regions.Regions;
@@ -8,10 +9,10 @@ import com.amazonaws.services.s3.AmazonS3;
 import com.amazonaws.services.s3.AmazonS3ClientBuilder;
 import com.amazonaws.services.s3.model.*;
 
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.IOException;
+import java.net.URL;
+import java.time.Instant;
 import java.util.Optional;
+import java.util.stream.Stream;
 
 public class S3 {
     private final AmazonS3 s3;
@@ -21,18 +22,32 @@ public class S3 {
         this.s3 = AmazonS3ClientBuilder.standard().withRegion(Regions.SA_EAST_1).build();
     }
 
-    public S3ObjectInputStream downloadImage(String bucketName, String hotelSlug) {
-        ListObjectsV2Result result = this.s3.listObjectsV2("auular-hotels", hotelSlug);
-        Optional<S3ObjectSummary> object =  result.getObjectSummaries().stream().findFirst();
+    public URL getTempUrl(String bucketName, String hotelSlug) {
+        String prefix = hotelSlug + "/";
+        ListObjectsV2Result result = this.s3.listObjectsV2(new ListObjectsV2Request().withBucketName("auular-hotels").withPrefix(prefix).withDelimiter("/"));
 
-        if (object.isEmpty()) {
-            throw new RuntimeException("No object found!");
+        Stream<S3ObjectSummary> object = result.getObjectSummaries().stream().filter((S3ObjectSummary o) -> {
+            return !o.getKey().equals(prefix);
+        });
+
+        Optional<S3ObjectSummary> objectFiltered = object.findFirst();
+
+        if (objectFiltered.isEmpty()) {
+            return null;
         }
 
-        GetObjectRequest request = new GetObjectRequest(bucketName, object.get().getKey());
-        S3Object o = this.s3.getObject(request);
-        S3ObjectInputStream s3is = o.getObjectContent();
+        System.out.println(objectFiltered.get().getKey());
 
-        return s3is;
+        java.util.Date expiration = new java.util.Date();
+        long expTimeMillis = Instant.now().toEpochMilli();
+        expTimeMillis += 1000 * 60 * 60;
+        expiration.setTime(expTimeMillis);
+
+        GeneratePresignedUrlRequest generatePresignedUrlRequest =
+                new GeneratePresignedUrlRequest(bucketName, objectFiltered.get().getKey())
+                        .withMethod(HttpMethod.GET)
+                        .withExpiration(expiration);
+
+        return this.s3.generatePresignedUrl(generatePresignedUrlRequest);
     }
 }

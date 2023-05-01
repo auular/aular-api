@@ -2,10 +2,13 @@ package teste.aular.controller;
 
 import com.amazonaws.services.s3.model.S3ObjectInputStream;
 import com.amazonaws.util.IOUtils;
+import io.netty.handler.codec.base64.Base64Encoder;
+import org.apache.logging.log4j.util.Base64Util;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.util.Base64Utils;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.server.ResponseStatusException;
@@ -29,15 +32,15 @@ import teste.aular.utils.Pilha;
 import javax.transaction.Transactional;
 import javax.validation.Valid;
 import java.io.IOException;
+import java.net.URL;
 import java.time.LocalDateTime;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 @RestController
 @RequestMapping("/hotels")
 public class HotelController {
-
-
     @Autowired
     HotelRepository hotelRepository;
 
@@ -76,15 +79,11 @@ public class HotelController {
     @DeleteMapping("/undoPostHotel")
     public ResponseEntity undoPostHotel() {
         if (pilha.isEmpty()) {
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND,
-                    "Pilha vazia, não é possível desfazer o cadastro do hotel"
-            );
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Pilha vazia, não é possível desfazer o cadastro do hotel");
         }
 
         if (!hotelRepository.existsById(pilha.peek())) {
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND,
-                    "hotelId da pilha não encontrado ao tentar desfazer o cadastro"
-            );
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "hotelId da pilha não encontrado ao tentar desfazer o cadastro");
         }
         System.out.println(pilha.peek());
         deactiveHotel(pilha.pop());
@@ -92,14 +91,10 @@ public class HotelController {
     }
 
     @PostMapping("/allFields/{hotelId}")
-    public ResponseEntity postAllFields(@RequestBody HotelAllFieldsResponse hotelAllFieldsResponse,
-                                        @PathVariable int hotelId) throws IllegalArgumentException {
+    public ResponseEntity postAllFields(@RequestBody HotelAllFieldsResponse hotelAllFieldsResponse, @PathVariable int hotelId) throws IllegalArgumentException {
 
         if (!hotelRepository.existsById(hotelId)) {
-            throw new ResponseStatusException(
-                    HttpStatus.NOT_FOUND,
-                    "hotelId não encontrado ao cadastrar endereço e serviços"
-            );
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "hotelId não encontrado ao cadastrar endereço e serviços");
         }
         campaignRepository.save(hotelAllFieldsResponse.getCampaign());
         planRepository.save(hotelAllFieldsResponse.getPlan());
@@ -109,8 +104,17 @@ public class HotelController {
     }
 
     @GetMapping
-    public ResponseEntity<List<Hotel>> getHotels() {
-        List hotels = hotelRepository.findAll();
+    public ResponseEntity<List<Hotel>> getHotels() throws IOException {
+        List<Hotel> hotels = hotelRepository.findAll().subList(0, 4);
+
+        S3 s3 = new S3();
+
+        for (Hotel hotel : hotels) {
+            URL imageUrl = s3.getTempUrl("auular-hotels", hotel.mapToHotelSlug());
+
+            hotel.setImageByteArray(imageUrl);
+        }
+
         return hotels.isEmpty() ? ResponseEntity.status(204).build() : ResponseEntity.status(200).body(hotels);
     }
 
@@ -151,8 +155,7 @@ public class HotelController {
 
     @DeleteMapping("/{id}")
     @Transactional
-    public ResponseEntity<Hotel> deactiveHotel(
-            @PathVariable Integer id) {
+    public ResponseEntity<Hotel> deactiveHotel(@PathVariable Integer id) {
         if (hotelRepository.existsById(id)) {
             Hotel h = hotelRepository.findById(id).get();
             h.setActive(false);
@@ -163,9 +166,7 @@ public class HotelController {
     }
 
     @PatchMapping("/account/{id}/{phoneNumber}/{authenticated}")
-    public ResponseEntity<Hotel> updateHotelPhoneNumber(@PathVariable Integer id,
-                                                        @PathVariable String phoneNumber,
-                                                        @PathVariable Boolean authenticated) {
+    public ResponseEntity<Hotel> updateHotelPhoneNumber(@PathVariable Integer id, @PathVariable String phoneNumber, @PathVariable Boolean authenticated) {
         Optional<Hotel> h = hotelRepository.findById(id);
 
         if (authenticated) {
@@ -182,7 +183,7 @@ public class HotelController {
     }
 
     public ResponseEntity<List<Hotel>> getAllHotels() {
-        List hotels = hotelRepository.findAll();
+        List<Hotel> hotels = hotelRepository.findAll();
         if (hotels.isEmpty()) throw new ResponseStatusException(HttpStatus.NO_CONTENT, "There are no hotels to show");
         return ResponseEntity.status(200).body(hotels);
     }
@@ -194,8 +195,7 @@ public class HotelController {
         List<Hotel> registeredHotels = hotelRepository.findAll();
 
         if (registeredHotels.isEmpty()) {
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND,
-                    "Usuário não encontrado.");
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Usuário não encontrado.");
         }
 
         if (hotelRepository.existsByEmail(login.getEmail())) {
@@ -210,7 +210,8 @@ public class HotelController {
         }
         throw new EmailNotFoundException();
     }
-//
+
+    //
     @DeleteMapping("autentication/{id}")
     public ResponseEntity<String> logOff(@PathVariable Integer id) {
         try {
@@ -229,16 +230,16 @@ public class HotelController {
         return ResponseEntity.status(404).build();
     }
 
-    @GetMapping(
-        value = "/image",
-        produces = MediaType.IMAGE_PNG_VALUE
-    )
-    public @ResponseBody byte[] getHotelImage(@RequestParam String hotelSlug) throws IOException {
-        S3 s3 = new S3();
-
-        S3ObjectInputStream imageStream = s3.downloadImage("auular-hotels", hotelSlug);
-
-        return IOUtils.toByteArray(imageStream);
-    }
+//    @GetMapping(value = "/image", produces = MediaType.IMAGE_PNG_VALUE)
+//    public @ResponseBody byte[] getHotelImage(@RequestParam String hotelSlug) throws IOException {
+//        S3 s3 = new S3();
+//
+//        S3ObjectInputStream imageStream = s3.downloadImage("auular-hotels", hotelSlug);
+//
+//        byte[] test = IOUtils.toByteArray(imageStream);
+//        String test2 = Base64Utils.encodeToString(test);
+//
+//        return IOUtils.toByteArray(imageStream);
+//    }
 
 }
