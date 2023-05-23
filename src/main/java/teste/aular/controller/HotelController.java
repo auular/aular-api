@@ -110,7 +110,7 @@ public class HotelController {
         S3 s3 = new S3();
 
         for (Hotel hotel : hotels) {
-            URL imageUrl = s3.getTempUrl("auular-hotels", hotel.mapToHotelSlug());
+            URL imageUrl = s3.getTempUrl("auular-hotel", hotel.mapToHotelSlug());
 
             hotel.setImageByteArray(imageUrl);
         }
