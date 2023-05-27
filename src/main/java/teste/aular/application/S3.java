@@ -24,7 +24,7 @@ public class S3 {
 
     public URL getTempUrl(String bucketName, String hotelSlug) {
         String prefix = hotelSlug + "/";
-        ListObjectsV2Result result = this.s3.listObjectsV2(new ListObjectsV2Request().withBucketName("auular-hotels").withPrefix(prefix).withDelimiter("/"));
+        ListObjectsV2Result result = this.s3.listObjectsV2(new ListObjectsV2Request().withBucketName("auular-hotel").withPrefix(prefix).withDelimiter("/"));
 
         Stream<S3ObjectSummary> object = result.getObjectSummaries().stream().filter((S3ObjectSummary o) -> !o.getKey().equals(prefix));
 
