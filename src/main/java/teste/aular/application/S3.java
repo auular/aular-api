@@ -19,7 +19,7 @@ public class S3 {
 
 
     public S3() {
-        this.s3 = AmazonS3ClientBuilder.standard().withRegion(Regions.SA_EAST_1).build();
+        this.s3 = AmazonS3ClientBuilder.standard().withRegion(Regions.US_EAST_1).build();
     }
 
     public URL getTempUrl(String bucketName, String hotelSlug) {
