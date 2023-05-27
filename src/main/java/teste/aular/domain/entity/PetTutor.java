@@ -17,7 +17,7 @@ public class PetTutor {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer petTutorId;
     private String petTutorUuid;
-    @NotBlank
+//    @NotBlank
     @Size(min = 3)
     private String name;
     @Email
@@ -61,6 +61,9 @@ public class PetTutor {
         this.isAuthenticated = false;
     }
 
+    public PetTutor(Integer petTutorId, String name) {
+    }
+
     //GETTERS SETTERS
     public Integer getPetTutorId() {
         return petTutorId;
@@ -98,7 +101,9 @@ public class PetTutor {
         this.password = password;
     }
 
-    public String seePassword(){return password;}
+    public String seePassword() {
+        return password;
+    }
 
     public String getDocumentId() {
         return documentId;

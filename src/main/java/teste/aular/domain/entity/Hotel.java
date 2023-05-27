@@ -18,7 +18,7 @@ import java.util.UUID;
 
 @Entity
 //@Table(name = "tab_hotel")
-public class Hotel  {
+public class Hotel {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -50,7 +50,6 @@ public class Hotel  {
 
     @Column(length=512)
     private String description;
-
 
     @CreationTimestamp
     private LocalDateTime createdAt;

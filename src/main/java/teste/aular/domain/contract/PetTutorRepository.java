@@ -24,4 +24,10 @@ public interface PetTutorRepository extends JpaRepository<PetTutor, Integer> {
             "WHERE pt.petTutorId = ?1 "
     )
     Optional<PetTutorAllFieldsResponse> getPetTutorAllFieldsResponse(int petTutorId) ;
+
+    @Query("SELECT new teste.aular.domain.entity.PetTutor(pt.petTutorId, pt.name) " +
+            "FROM PetTutor pt " +
+            "WHERE pt.petTutorUuid = ?1 "
+    )
+    Optional<PetTutor> findPetTutorByUUID(String petTutorUuid) ;
 }

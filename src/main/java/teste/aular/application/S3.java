@@ -26,9 +26,7 @@ public class S3 {
         String prefix = hotelSlug + "/";
         ListObjectsV2Result result = this.s3.listObjectsV2(new ListObjectsV2Request().withBucketName("auular-hotels").withPrefix(prefix).withDelimiter("/"));
 
-        Stream<S3ObjectSummary> object = result.getObjectSummaries().stream().filter((S3ObjectSummary o) -> {
-            return !o.getKey().equals(prefix);
-        });
+        Stream<S3ObjectSummary> object = result.getObjectSummaries().stream().filter((S3ObjectSummary o) -> !o.getKey().equals(prefix));
 
         Optional<S3ObjectSummary> objectFiltered = object.findFirst();
 
@@ -43,10 +41,7 @@ public class S3 {
         expTimeMillis += 1000 * 60 * 60;
         expiration.setTime(expTimeMillis);
 
-        GeneratePresignedUrlRequest generatePresignedUrlRequest =
-                new GeneratePresignedUrlRequest(bucketName, objectFiltered.get().getKey())
-                        .withMethod(HttpMethod.GET)
-                        .withExpiration(expiration);
+        GeneratePresignedUrlRequest generatePresignedUrlRequest = new GeneratePresignedUrlRequest(bucketName, objectFiltered.get().getKey()).withMethod(HttpMethod.GET).withExpiration(expiration);
 
         return this.s3.generatePresignedUrl(generatePresignedUrlRequest);
     }
