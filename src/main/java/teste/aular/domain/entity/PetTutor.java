@@ -61,8 +61,7 @@ public class PetTutor {
         this.isAuthenticated = false;
     }
 
-    public PetTutor(Integer petTutorId, String name) {
-    }
+    public PetTutor(Integer petTutorId, String petTutorUuid, String name) {}
 
     //GETTERS SETTERS
     public Integer getPetTutorId() {
@@ -164,24 +163,5 @@ public class PetTutor {
     public boolean authenticatePetTutor(String email, String password) {
         isAuthenticated = email.equals(this.email) && password.equals(this.password);
         return isAuthenticated;
-    }
-
-
-    @Override
-    public String toString() {
-        return "PetTutor{" +
-                "petTutorId=" + petTutorId +
-                ", petTutorUuid='" + petTutorUuid + '\'' +
-                ", name='" + name + '\'' +
-                ", email='" + email + '\'' +
-                ", password='" + password + '\'' +
-                ", documentId='" + documentId + '\'' +
-                ", phoneNumber='" + phoneNumber + '\'' +
-                ", createdAt=" + createdAt +
-                ", updatedAt=" + updatedAt +
-                ", deactivatedAt=" + deactivatedAt +
-                ", active=" + active +
-                ", isAuthenticated=" + isAuthenticated +
-                '}';
     }
 }

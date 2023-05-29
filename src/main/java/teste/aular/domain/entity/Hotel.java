@@ -33,7 +33,7 @@ public class Hotel {
     @Email
     private String email;
 
-    @NotBlank
+//    @NotBlank
 //    @Size(min = 8)
     private String password;
 

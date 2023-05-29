@@ -1,5 +1,7 @@
 package teste.aular.domain.vo;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import org.hibernate.validator.constraints.br.CNPJ;
 import teste.aular.domain.entity.Hotel;
 import teste.aular.domain.entity.PetTutor;
 
@@ -19,6 +21,8 @@ public class Comment {
     @JoinColumn(name = "petTutorId")
     private PetTutor author;
     private String comment;
+    @Transient
+    private String hotelUuid;
 
     public Comment() {
     }
@@ -44,7 +48,11 @@ public class Comment {
         this.hotel = hotel;
     }
 
-    public Hotel getHotel() {
-        return hotel;
+    public void setHotelUuid(String hotelUuid) {
+        this.hotelUuid = hotelUuid;
+    }
+
+    public String getHotelUuid() {
+        return this.hotelUuid;
     }
 }
