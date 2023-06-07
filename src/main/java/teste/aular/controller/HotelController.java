@@ -104,15 +104,19 @@ public class HotelController {
     }
 
     @GetMapping
-    public ResponseEntity<List<Hotel>> getHotels() throws IOException {
+    public ResponseEntity<List<Hotel>> getHotels() {
         List<Hotel> hotels = hotelRepository.findAll().subList(0, 4);
 
         S3 s3 = new S3();
 
-        for (Hotel hotel : hotels) {
-            URL imageUrl = s3.getTempUrl("auular-hotel", hotel.mapToHotelSlug());
+        try {
+            for (Hotel hotel : hotels) {
+                URL imageUrl = s3.getTempUrl("auular-hotel", hotel.mapToHotelSlug());
 
-            hotel.setImageByteArray(imageUrl);
+                hotel.setImageByteArray(imageUrl);
+            }
+        } catch (RuntimeException e) {
+            e.printStackTrace();
         }
 
         return hotels.isEmpty() ? ResponseEntity.status(204).build() : ResponseEntity.status(200).body(hotels);
